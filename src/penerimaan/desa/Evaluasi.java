@@ -24,7 +24,7 @@ public class Evaluasi extends javax.swing.JFrame {
         initComponents();
         this.role = role;
         if (role > 0) {
-            jPanel10.setVisible(false);
+            navUser.setVisible(false);
         }
     }
 
@@ -51,8 +51,8 @@ public class Evaluasi extends javax.swing.JFrame {
         lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        lblStruktur1 = new javax.swing.JLabel();
+        navUser = new javax.swing.JPanel();
+        jPnlUser = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,7 +68,6 @@ public class Evaluasi extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridLayout(1, 1));
 
         lblHome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblHome.setForeground(new java.awt.Color(255, 255, 255));
         lblHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHome.setText("Home");
         lblHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,7 +103,7 @@ public class Evaluasi extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.GridLayout(1, 1));
 
         lblEvaluasi.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblEvaluasi.setForeground(new java.awt.Color(52, 17, 9));
+        lblEvaluasi.setForeground(new java.awt.Color(255, 255, 255));
         lblEvaluasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEvaluasi.setText("Evaluasi");
         lblEvaluasi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,23 +165,23 @@ public class Evaluasi extends javax.swing.JFrame {
 
         Psamping.add(jPanel9);
 
-        jPanel10.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel10.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel10.setLayout(new java.awt.GridLayout(1, 1));
+        navUser.setBackground(new java.awt.Color(0, 204, 204));
+        navUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navUser.setPreferredSize(new java.awt.Dimension(72, 31));
+        navUser.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblStruktur1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblStruktur1.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur1.setText("User");
-        lblStruktur1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPnlUser.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPnlUser.setForeground(new java.awt.Color(52, 17, 9));
+        jPnlUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPnlUser.setText("User");
+        jPnlUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStruktur1MouseClicked(evt);
+                jPnlUserMouseClicked(evt);
             }
         });
-        jPanel10.add(lblStruktur1);
+        navUser.add(jPnlUser);
 
-        Psamping.add(jPanel10);
+        Psamping.add(navUser);
 
         jPanel1.add(Psamping);
 
@@ -222,37 +221,41 @@ public class Evaluasi extends javax.swing.JFrame {
 
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormSuplier().setVisible(true);
+        //        this.dispose();
+        //        new Home(this.role).setVisible(true);
     }//GEN-LAST:event_lblHomeMouseClicked
 
     private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormBarang().setVisible(true);
+        this.dispose();
+        new Fuzzy(this.role).setVisible(true);
     }//GEN-LAST:event_lblFuzzyMouseClicked
 
     private void lblEvaluasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEvaluasiMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormJadwal().setVisible(true);
+        this.dispose();
+        new Evaluasi(this.role).setVisible(true);
     }//GEN-LAST:event_lblEvaluasiMouseClicked
 
     private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormLaporan().setVisible(true);
+        this.dispose();
+        new StrukturDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblStrukturMouseClicked
 
     private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormAnggota().setVisible(true);
+        this.dispose();
+        new ProfilDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblProfilDesaMouseClicked
 
-    private void lblStruktur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStruktur1MouseClicked
+    private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblStruktur1MouseClicked
+        if (this.role == 0) {
+            this.dispose();
+            new User(this.role).setVisible(true);
+        }
+    }//GEN-LAST:event_jPnlUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -292,7 +295,6 @@ public class Evaluasi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -300,12 +302,13 @@ public class Evaluasi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel jPnlUser;
     private javax.swing.JLabel lblEvaluasi;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
-    private javax.swing.JLabel lblStruktur1;
+    private javax.swing.JPanel navUser;
     // End of variables declaration//GEN-END:variables
 }

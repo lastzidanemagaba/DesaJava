@@ -5,6 +5,12 @@
  */
 package penerimaan.desa;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Imul
@@ -12,6 +18,7 @@ package penerimaan.desa;
 public class Home extends javax.swing.JFrame {
     
     private int role;
+    DbConnection dc = new DbConnection("penerimaan_desa");
 
     /**
      * Creates new form Home
@@ -25,7 +32,7 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         this.role = role;
         if (role > 0) {
-            jPanel10.setVisible(false);
+            navUser.setVisible(false);
         }
     }
 
@@ -37,7 +44,6 @@ public class Home extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         Psamping = new javax.swing.JPanel();
@@ -53,25 +59,26 @@ public class Home extends javax.swing.JFrame {
         lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        lblStruktur1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        navUser = new javax.swing.JPanel();
+        jPnlUser = new javax.swing.JLabel();
+        pContent = new javax.swing.JPanel();
+        btnSubmit = new javax.swing.JButton();
+        logout = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        cbxRumah = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        cbxJenisDinding = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        txtJumlahTanggunganKeluarga = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        cbxPekerjaan = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        txtPendapatan = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        cbxTabungan = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        cbxKendaraan = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,207 +191,114 @@ public class Home extends javax.swing.JFrame {
 
         Psamping.add(jPanel9);
 
-        jPanel10.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel10.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel10.setLayout(new java.awt.GridLayout(1, 1));
+        navUser.setBackground(new java.awt.Color(0, 204, 204));
+        navUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navUser.setPreferredSize(new java.awt.Dimension(72, 31));
+        navUser.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblStruktur1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblStruktur1.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur1.setText("User");
-        lblStruktur1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPnlUser.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPnlUser.setForeground(new java.awt.Color(52, 17, 9));
+        jPnlUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPnlUser.setText("User");
+        jPnlUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStruktur1MouseClicked(evt);
+                jPnlUserMouseClicked(evt);
             }
         });
-        jPanel10.add(lblStruktur1);
+        navUser.add(jPnlUser);
 
-        Psamping.add(jPanel10);
+        Psamping.add(navUser);
 
         jPanel1.add(Psamping);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel3.setPreferredSize(new java.awt.Dimension(800, 0));
-        jPanel3.setLayout(new java.awt.GridBagLayout());
+        pContent.setBackground(new java.awt.Color(255, 255, 255));
+        pContent.setPreferredSize(new java.awt.Dimension(800, 0));
+        pContent.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("jLabel1");
-        jLabel1.setPreferredSize(new java.awt.Dimension(100, 100));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
-        jPanel3.add(jLabel1, gridBagConstraints);
+        btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
+        pContent.add(btnSubmit);
+        btnSubmit.setBounds(220, 450, 280, 23);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel3.add(jLabel2, gridBagConstraints);
+        logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logout.setText("Logout");
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
+        pContent.add(logout);
+        logout.setBounds(724, 10, 60, 30);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel3.add(jLabel3, gridBagConstraints);
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Rumah");
+        pContent.add(jLabel1);
+        jLabel1.setBounds(130, 160, 60, 20);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel3.add(jLabel4, gridBagConstraints);
+        cbxRumah.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Milik Sendiri", "Kontrak / Sewa" }));
+        pContent.add(cbxRumah);
+        cbxRumah.setBounds(330, 160, 290, 20);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel3.add(jLabel5, gridBagConstraints);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Jenis Dinding");
+        pContent.add(jLabel2);
+        jLabel2.setBounds(130, 200, 90, 20);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel3.add(jLabel6, gridBagConstraints);
+        cbxJenisDinding.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tembok", "Papan / Anyaman Bambu" }));
+        pContent.add(cbxJenisDinding);
+        cbxJenisDinding.setBounds(330, 200, 290, 20);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel3.add(jLabel7, gridBagConstraints);
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Jumlah Tanggungan Keluarga");
+        pContent.add(jLabel3);
+        jLabel3.setBounds(130, 240, 190, 20);
+        pContent.add(txtJumlahTanggunganKeluarga);
+        txtJumlahTanggunganKeluarga.setBounds(330, 240, 290, 20);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel3.add(jLabel8, gridBagConstraints);
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Pekerjaan");
+        pContent.add(jLabel4);
+        jLabel4.setBounds(130, 280, 90, 20);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField1.setText("jTextField1");
-        jTextField1.setPreferredSize(new java.awt.Dimension(300, 35));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        jPanel3.add(jTextField1, gridBagConstraints);
+        cbxPekerjaan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pemulung", "Buruh", "Kuli", "Petani", "Swasta", "Wiraswasta" }));
+        pContent.add(cbxPekerjaan);
+        cbxPekerjaan.setBounds(330, 280, 290, 20);
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField2.setText("jTextField1");
-        jTextField2.setPreferredSize(new java.awt.Dimension(300, 35));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        jPanel3.add(jTextField2, gridBagConstraints);
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Pendapatan");
+        pContent.add(jLabel5);
+        jLabel5.setBounds(130, 320, 190, 20);
+        pContent.add(txtPendapatan);
+        txtPendapatan.setBounds(330, 320, 290, 20);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField3.setText("jTextField1");
-        jTextField3.setPreferredSize(new java.awt.Dimension(300, 35));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        jPanel3.add(jTextField3, gridBagConstraints);
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Tabungan");
+        pContent.add(jLabel6);
+        jLabel6.setBounds(130, 360, 90, 20);
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField5.setText("jTextField1");
-        jTextField5.setPreferredSize(new java.awt.Dimension(300, 35));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        jPanel3.add(jTextField5, gridBagConstraints);
+        cbxTabungan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Punya", "Tidak Punya" }));
+        pContent.add(cbxTabungan);
+        cbxTabungan.setBounds(330, 360, 290, 20);
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField6.setText("jTextField1");
-        jTextField6.setPreferredSize(new java.awt.Dimension(300, 35));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        jPanel3.add(jTextField6, gridBagConstraints);
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Kendaraan");
+        pContent.add(jLabel7);
+        jLabel7.setBounds(130, 400, 90, 20);
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField7.setText("jTextField1");
-        jTextField7.setPreferredSize(new java.awt.Dimension(300, 35));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 16;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        jPanel3.add(jTextField7, gridBagConstraints);
+        cbxKendaraan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Punya", "Tidak Punya" }));
+        pContent.add(cbxKendaraan);
+        cbxKendaraan.setBounds(330, 400, 290, 20);
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField8.setText("jTextField1");
-        jTextField8.setPreferredSize(new java.awt.Dimension(300, 35));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        jPanel3.add(jTextField8, gridBagConstraints);
+        jLabel8.setText("Title");
+        pContent.add(jLabel8);
+        jLabel8.setBounds(300, 40, 120, 70);
 
-        jButton1.setText("jButton1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 18;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel3.add(jButton1, gridBagConstraints);
-
-        jPanel1.add(jPanel3);
+        jPanel1.add(pContent);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -406,37 +320,70 @@ public class Home extends javax.swing.JFrame {
 
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
-//        this.setVisible(false);
-//        new FormSuplier().setVisible(true);
+//        this.dispose();
+//        new Home(this.role).setVisible(true);
     }//GEN-LAST:event_lblHomeMouseClicked
 
     private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
         // TODO add your handling code here:
-//        this.setVisible(false);
-//        new FormBarang().setVisible(true);
+        this.dispose();
+        new Fuzzy(this.role).setVisible(true);
     }//GEN-LAST:event_lblFuzzyMouseClicked
 
     private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
         // TODO add your handling code here:
-//        this.setVisible(false);
-//        new FormAnggota().setVisible(true);
+        this.dispose();
+        new ProfilDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblProfilDesaMouseClicked
 
     private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
         // TODO add your handling code here:
-//        this.setVisible(false);
-//        new FormLaporan().setVisible(true);
+        this.dispose();
+        new StrukturDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblStrukturMouseClicked
 
     private void lblEvaluasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEvaluasiMouseClicked
         // TODO add your handling code here:
-//        this.setVisible(false);
-//        new FormJadwal().setVisible(true);
+        this.dispose();
+        new Evaluasi(this.role).setVisible(true);
     }//GEN-LAST:event_lblEvaluasiMouseClicked
 
-    private void lblStruktur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStruktur1MouseClicked
+    private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblStruktur1MouseClicked
+        if (this.role == 0) {
+            this.dispose();
+            new User(this.role).setVisible(true);
+        }
+    }//GEN-LAST:event_jPnlUserMouseClicked
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        String rumah = cbxRumah.getSelectedItem().toString();
+        String jenisDinding = cbxJenisDinding.getSelectedItem().toString();
+        double jumlahTanggunganKeluarga = Double.parseDouble(txtJumlahTanggunganKeluarga.getText());
+        String pekerjaan = cbxPekerjaan.getSelectedItem().toString();
+        double pendapatan = Double.parseDouble(txtPendapatan.getText());
+        String tabungan = cbxTabungan.getSelectedItem().toString();
+        String kendaraan = cbxKendaraan.getSelectedItem().toString();
+        Fuzzification f = new Fuzzification();
+        double hasil = f.calculation(rumah, jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan, tabungan, kendaraan);
+        String layak = hasil > 50 ? "Layak":"Tidak Layak";
+        Statement st;
+        try {
+            st = dc.con.createStatement();
+            st.executeUpdate("INSERT INTO `history` (`id`, `rumah`, `jenis_dinding`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `tabungan`, `kendaraan`, `kesimpulan`) VALUES (NULL, '"+rumah+"', '"+jenisDinding+"', '"+jumlahTanggunganKeluarga+"', '"+pekerjaan+"', '"+pendapatan+"', '"+tabungan+"', '"+kendaraan+"', '"+layak+"')");
+            new Hasil(this.role, rumah, jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan, tabungan, kendaraan, layak).setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,7 +422,12 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JComboBox<String> cbxJenisDinding;
+    private javax.swing.JComboBox<String> cbxKendaraan;
+    private javax.swing.JComboBox<String> cbxPekerjaan;
+    private javax.swing.JComboBox<String> cbxRumah;
+    private javax.swing.JComboBox<String> cbxTabungan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -485,27 +437,23 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JLabel jPnlUser;
     private javax.swing.JLabel lblEvaluasi;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
-    private javax.swing.JLabel lblStruktur1;
+    private javax.swing.JLabel logout;
+    private javax.swing.JPanel navUser;
+    private javax.swing.JPanel pContent;
+    private javax.swing.JTextField txtJumlahTanggunganKeluarga;
+    private javax.swing.JTextField txtPendapatan;
     // End of variables declaration//GEN-END:variables
 }
