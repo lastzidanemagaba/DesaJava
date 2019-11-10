@@ -51,8 +51,6 @@ public class Home extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        lblEvaluasi = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -123,24 +121,6 @@ public class Home extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel6.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel6.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblEvaluasi.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblEvaluasi.setForeground(new java.awt.Color(52, 17, 9));
-        lblEvaluasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEvaluasi.setText("Evaluasi");
-        lblEvaluasi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEvaluasiMouseClicked(evt);
-            }
-        });
-        jPanel6.add(lblEvaluasi);
-
-        Psamping.add(jPanel6);
-
         jPanel7.setBackground(new java.awt.Color(0, 204, 204));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
@@ -150,6 +130,11 @@ public class Home extends javax.swing.JFrame {
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHistory.setText("History");
+        lblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHistoryMouseClicked(evt);
+            }
+        });
         jPanel7.add(lblHistory);
 
         Psamping.add(jPanel7);
@@ -342,12 +327,6 @@ public class Home extends javax.swing.JFrame {
         new StrukturDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblStrukturMouseClicked
 
-    private void lblEvaluasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEvaluasiMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new Evaluasi(this.role).setVisible(true);
-    }//GEN-LAST:event_lblEvaluasiMouseClicked
-
     private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
         // TODO add your handling code here:
         if (this.role == 0) {
@@ -384,6 +363,12 @@ public class Home extends javax.swing.JFrame {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new History(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHistoryMouseClicked
 
     /**
      * @param args the command line arguments
@@ -439,12 +424,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
-    private javax.swing.JLabel lblEvaluasi;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;

@@ -5,28 +5,109 @@
  */
 package penerimaan.desa;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Imul
  */
 public class User extends javax.swing.JFrame {
 
+    DbConnection dc = new DbConnection("penerimaan_desa");
     private int role;
+    private String[][] allData;
+    private String[] selData;
+    private TableRowSorter<TableModel> rowSorter;
 
     /**
      * Creates new form User
      */
     public User() {
         initComponents();
+        setTable();
+        rowSorter=new TableRowSorter<>(tblUser.getModel());
     }
     
     public User(int role){
         initComponents();
+        setTable();
+        rowSorter=new TableRowSorter<>(tblUser.getModel());
         this.role = role;
         if (role > 0) {
             jPanel10.setVisible(false);
         }
     }
+    public int countRowRs(ResultSet rs) throws SQLException{
+        rs.last();
+        int count=rs.getRow();
+        rs.beforeFirst();
+        return count;
+    }
+    
+    public void getData(){
+        String[][] member;
+        try{
+            Statement st = dc.con.createStatement();
+            ResultSet rs=st.executeQuery("select * from users");
+            allData =new String[countRowRs(rs)][9];
+            for(int i=0;rs.next();i++){
+                allData[i][0]= rs.getString("user_id");
+                allData[i][1]=rs.getString("username");
+                allData[i][2]=rs.getString("password");
+                allData[i][3]=rs.getString("role").equals("0")?"admin":"staff";
+            }            
+        }catch(SQLException e){
+            System.out.println("Error : "+e);
+            allData=new String[0][0];
+        }
+    }
+    
+    public void setColumnTable(DefaultTableModel model){        
+        model.addColumn ("Id");
+        model.addColumn ("Username");
+        model.addColumn ("Password");
+        model.addColumn ("Role");
+    }
+    public void setColumnModel(TableColumnModel columnModel){        
+        columnModel.getColumn(0).setPreferredWidth(20);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(2).setPreferredWidth(100);
+        columnModel.getColumn(3).setPreferredWidth(100);
+    }
+    
+    public void setTable(){
+        getData();
+        String[][] data = allData;
+        DefaultTableModel table= new DefaultTableModel();
+        setColumnTable(table);
+        tblUser.setModel(table);        
+        TableColumnModel columnModel=tblUser.getColumnModel();
+        setColumnModel(columnModel);        
+        tblUser.setColumnModel(columnModel);        
+        for (String[] data1 : data) {            
+            table.addRow(new Object[]{data1[0], data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8]});
+        }        
+    }
+    
+    public String[] getMember(String[][] mData, int id){
+        String[] member= new String[4];
+        for(String[] item:mData){
+            if(Integer.parseInt(item[0])==id){
+                member=item;
+                break;
+            }
+        }        
+        return member;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +134,15 @@ public class User extends javax.swing.JFrame {
         lblProfilDesa = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         lblStruktur1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jPanel12 = new javax.swing.JPanel();
+        txtAddMember = new javax.swing.JLabel();
+        txtEditMember = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblUser = new javax.swing.JTable();
+        txtCari = new javax.swing.JLabel();
+        txtKeyWord = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,21 +275,112 @@ public class User extends javax.swing.JFrame {
 
         jPanel1.add(Psamping);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setPreferredSize(new java.awt.Dimension(800, 0));
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel11.setPreferredSize(new java.awt.Dimension(800, 0));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+        jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jToolBar1.setRollover(true);
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtAddMember.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAddMember.setText("User Baru");
+        txtAddMember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAddMemberMouseClicked(evt);
+            }
+        });
+
+        txtEditMember.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtEditMember.setText("Edit User");
+        txtEditMember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtEditMemberMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(txtAddMember)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtEditMember)
+                .addContainerGap(456, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(txtAddMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtEditMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3);
+        jToolBar1.add(jPanel12);
+
+        tblUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUserMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblUser);
+
+        txtCari.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCari.setText("Cari :");
+        txtCari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCariMouseClicked(evt);
+            }
+        });
+
+        txtKeyWord.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKeyWordKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCari)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCari)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel11);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,6 +434,38 @@ public class User extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblStruktur1MouseClicked
 
+    private void txtAddMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAddMemberMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+//        new FormtambahAnggota(getLastId(allData)).setVisible(true);
+    }//GEN-LAST:event_txtAddMemberMouseClicked
+
+    private void txtEditMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEditMemberMouseClicked
+        if(selData!=null){
+            this.setVisible(false);
+//            new FormeditAnggota(selD).setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(this, "Tidak ada anggota yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
+
+    }//GEN-LAST:event_txtEditMemberMouseClicked
+
+    private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
+        String selId=tblUser.getValueAt(tblUser.getSelectedRow(),0).toString();
+        selData=getMember(allData,Integer.parseInt(selId));
+    }//GEN-LAST:event_tblUserMouseClicked
+
+    private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariMouseClicked
+
+    private void txtKeyWordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyWordKeyReleased
+        if(txtKeyWord.getText().equals("")) tblUser.setRowSorter(null);
+        else{
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtKeyWord.getText()));
+            tblUser.setRowSorter(rowSorter);
+        }
+    }//GEN-LAST:event_txtKeyWordKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -293,13 +505,16 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JPanel Psamping;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblEvaluasi;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
@@ -307,5 +522,10 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
     private javax.swing.JLabel lblStruktur1;
+    private javax.swing.JTable tblUser;
+    private javax.swing.JLabel txtAddMember;
+    private javax.swing.JLabel txtCari;
+    private javax.swing.JLabel txtEditMember;
+    private javax.swing.JTextField txtKeyWord;
     // End of variables declaration//GEN-END:variables
 }

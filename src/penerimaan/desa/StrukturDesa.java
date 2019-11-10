@@ -43,8 +43,6 @@ public class StrukturDesa extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        lblEvaluasi = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -54,8 +52,6 @@ public class StrukturDesa extends javax.swing.JFrame {
         navUser = new javax.swing.JPanel();
         jPnlUser = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        logout = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,24 +96,6 @@ public class StrukturDesa extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel6.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel6.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblEvaluasi.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblEvaluasi.setForeground(new java.awt.Color(52, 17, 9));
-        lblEvaluasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEvaluasi.setText("Evaluasi");
-        lblEvaluasi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEvaluasiMouseClicked(evt);
-            }
-        });
-        jPanel6.add(lblEvaluasi);
-
-        Psamping.add(jPanel6);
-
         jPanel7.setBackground(new java.awt.Color(0, 204, 204));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
@@ -127,6 +105,11 @@ public class StrukturDesa extends javax.swing.JFrame {
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHistory.setText("History");
+        lblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHistoryMouseClicked(evt);
+            }
+        });
         jPanel7.add(lblHistory);
 
         Psamping.add(jPanel7);
@@ -191,22 +174,6 @@ public class StrukturDesa extends javax.swing.JFrame {
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setPreferredSize(new java.awt.Dimension(800, 0));
         jPanel11.setLayout(null);
-
-        jButton2.setText("jButton2");
-        jPanel11.add(jButton2);
-        jButton2.setBounds(330, 520, 73, 23);
-
-        logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logout.setText("Logout");
-        logout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                logoutMouseClicked(evt);
-            }
-        });
-        jPanel11.add(logout);
-        logout.setBounds(724, 10, 60, 30);
-
         jPanel1.add(jPanel11);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,12 +194,6 @@ public class StrukturDesa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new Login().setVisible(true);
-    }//GEN-LAST:event_logoutMouseClicked
-
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
         //        this.dispose();
@@ -245,11 +206,11 @@ public class StrukturDesa extends javax.swing.JFrame {
         new Fuzzy(this.role).setVisible(true);
     }//GEN-LAST:event_lblFuzzyMouseClicked
 
-    private void lblEvaluasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEvaluasiMouseClicked
+    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new Evaluasi(this.role).setVisible(true);
-    }//GEN-LAST:event_lblEvaluasiMouseClicked
+        new History(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHistoryMouseClicked
 
     private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
         // TODO add your handling code here:
@@ -308,23 +269,19 @@ public class StrukturDesa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
-    private javax.swing.JLabel lblEvaluasi;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
-    private javax.swing.JLabel logout;
     private javax.swing.JPanel navUser;
     // End of variables declaration//GEN-END:variables
 }

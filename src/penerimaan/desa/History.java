@@ -5,27 +5,110 @@
  */
 package penerimaan.desa;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Imul
  */
 public class History extends javax.swing.JFrame {
 
+    DbConnection dc = new DbConnection("penerimaan_desa");
     private int role;
+    private String[][] allData;
+    private String[] selData;
+    private TableRowSorter<TableModel> rowSorter;
 
     /**
      * Creates new form History
      */
     public History() {
         initComponents();
+        setTable();
+        rowSorter=new TableRowSorter<>(tblHistory.getModel());
     }
     
     public History(int role){
         initComponents();
+        setTable();
+        rowSorter=new TableRowSorter<>(tblHistory.getModel());
         this.role = role;
         if (role > 0) {
             navUser.setVisible(false);
         }
+        
+    }
+    public int countRowRs(ResultSet rs) throws SQLException{
+        rs.last();
+        int count=rs.getRow();
+        rs.beforeFirst();
+        return count;
+    }
+    
+    public void getData(){
+        String[][] member;
+        try{
+            Statement st = dc.con.createStatement();
+            ResultSet rs=st.executeQuery("select * from history");
+            allData =new String[countRowRs(rs)][9];
+            for(int i=0;rs.next();i++){
+                allData[i][0]= Integer.toString(i+1);
+                allData[i][1]=rs.getString("rumah");
+                allData[i][2]=rs.getString("jenis_dinding");
+                allData[i][3]=rs.getString("jumlah_tanggungan_keluarga");
+                allData[i][4]=rs.getString("pekerjaan");
+                allData[i][5]=rs.getString("pendapatan");       
+                allData[i][6]=rs.getString("tabungan");       
+                allData[i][7]=rs.getString("kendaraan");       
+                allData[i][8]=rs.getString("kesimpulan");
+            }            
+        }catch(SQLException e){
+            System.out.println("Error : "+e);
+            allData=new String[0][0];
+        }
+    }
+    
+    public void setColumnTable(DefaultTableModel model){        
+        model.addColumn ("No");
+        model.addColumn ("Rumah");
+        model.addColumn ("Jenis Dinding");
+        model.addColumn ("Jumlah Tanggungan Keluarga");
+        model.addColumn ("Pekerjaan");
+        model.addColumn ("Pendapatan");
+        model.addColumn ("Tabungan");
+        model.addColumn ("Kendaraan");
+        model.addColumn ("Kesimpulan");
+    }
+    public void setColumnModel(TableColumnModel columnModel){        
+        columnModel.getColumn(0).setPreferredWidth(20);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(2).setPreferredWidth(100);
+        columnModel.getColumn(3).setPreferredWidth(100);
+        columnModel.getColumn(4).setPreferredWidth(100);
+        columnModel.getColumn(5).setPreferredWidth(100);
+        columnModel.getColumn(6).setPreferredWidth(100);
+        columnModel.getColumn(7).setPreferredWidth(100);
+        columnModel.getColumn(8).setPreferredWidth(100);
+    }
+    public void setTable(){
+        getData();
+        String[][] data = allData;
+        DefaultTableModel table= new DefaultTableModel();
+        setColumnTable(table);
+        tblHistory.setModel(table);        
+        TableColumnModel columnModel=tblHistory.getColumnModel();
+        setColumnModel(columnModel);        
+        tblHistory.setColumnModel(columnModel);        
+        for (String[] data1 : data) {            
+            table.addRow(new Object[]{data1[0], data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8]});
+        }        
     }
 
     /**
@@ -43,8 +126,6 @@ public class History extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        lblEvaluasi = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -53,7 +134,14 @@ public class History extends javax.swing.JFrame {
         lblProfilDesa = new javax.swing.JLabel();
         navUser = new javax.swing.JPanel();
         jPnlUser = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        pContent = new javax.swing.JPanel();
+        logout = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblHistory = new javax.swing.JTable();
+        txtCari = new javax.swing.JLabel();
+        txtKeyWord = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,24 +186,6 @@ public class History extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel6.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel6.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblEvaluasi.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblEvaluasi.setForeground(new java.awt.Color(52, 17, 9));
-        lblEvaluasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEvaluasi.setText("Evaluasi");
-        lblEvaluasi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEvaluasiMouseClicked(evt);
-            }
-        });
-        jPanel6.add(lblEvaluasi);
-
-        Psamping.add(jPanel6);
-
         jPanel7.setBackground(new java.awt.Color(0, 204, 204));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
@@ -125,6 +195,11 @@ public class History extends javax.swing.JFrame {
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHistory.setText("History");
+        lblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHistoryMouseClicked(evt);
+            }
+        });
         jPanel7.add(lblHistory);
 
         Psamping.add(jPanel7);
@@ -186,21 +261,81 @@ public class History extends javax.swing.JFrame {
 
         jPanel1.add(Psamping);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setPreferredSize(new java.awt.Dimension(800, 0));
+        pContent.setBackground(new java.awt.Color(255, 255, 255));
+        pContent.setPreferredSize(new java.awt.Dimension(800, 0));
+        pContent.setLayout(null);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logout.setText("Logout");
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
+        pContent.add(logout);
+        logout.setBounds(724, 10, 60, 30);
 
-        jPanel1.add(jPanel3);
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setText("Evaluasi");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pContent.add(jButton1);
+        jButton1.setBounds(670, 140, 110, 60);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setText("Cetak");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        pContent.add(jButton2);
+        jButton2.setBounds(670, 70, 110, 60);
+
+        tblHistory.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        tblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHistoryMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblHistory);
+
+        pContent.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 70, 650, 570);
+
+        txtCari.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCari.setText("Cari :");
+        txtCari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCariMouseClicked(evt);
+            }
+        });
+        pContent.add(txtCari);
+        txtCari.setBounds(460, 40, 27, 15);
+
+        txtKeyWord.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKeyWordKeyReleased(evt);
+            }
+        });
+        pContent.add(txtKeyWord);
+        txtKeyWord.setBounds(500, 40, 160, 20);
+
+        jPanel1.add(pContent);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,6 +355,24 @@ public class History extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblStruktur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStruktur1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblStruktur1MouseClicked
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
         //        this.dispose();
@@ -232,11 +385,11 @@ public class History extends javax.swing.JFrame {
         new Fuzzy(this.role).setVisible(true);
     }//GEN-LAST:event_lblFuzzyMouseClicked
 
-    private void lblEvaluasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEvaluasiMouseClicked
+    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new Evaluasi(this.role).setVisible(true);
-    }//GEN-LAST:event_lblEvaluasiMouseClicked
+        new History(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHistoryMouseClicked
 
     private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
         // TODO add your handling code here:
@@ -250,10 +403,6 @@ public class History extends javax.swing.JFrame {
         new ProfilDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblProfilDesaMouseClicked
 
-    private void lblStruktur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStruktur1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblStruktur1MouseClicked
-
     private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
         // TODO add your handling code here:
         if (this.role == 0) {
@@ -261,6 +410,24 @@ public class History extends javax.swing.JFrame {
             new User(this.role).setVisible(true);
         }
     }//GEN-LAST:event_jPnlUserMouseClicked
+
+    private void tblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistoryMouseClicked
+//        String selId=tblMember.getValueAt(tblMember.getSelectedRow(),0).toString();
+//        selData=mbr.getMember(allData,Integer.parseInt(selId));
+    }//GEN-LAST:event_tblHistoryMouseClicked
+
+    private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariMouseClicked
+
+    private void txtKeyWordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyWordKeyReleased
+        if(txtKeyWord.getText().equals("")) tblHistory.setRowSorter(null);
+        else{
+            System.out.println(txtKeyWord.getText());
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtKeyWord.getText()));
+            tblHistory.setRowSorter(rowSorter);
+        }
+    }//GEN-LAST:event_txtKeyWordKeyReleased
 
     /**
      * @param args the command line arguments
@@ -299,21 +466,26 @@ public class History extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
-    private javax.swing.JLabel lblEvaluasi;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
+    private javax.swing.JLabel logout;
     private javax.swing.JPanel navUser;
+    private javax.swing.JPanel pContent;
+    private javax.swing.JTable tblHistory;
+    private javax.swing.JLabel txtCari;
+    private javax.swing.JTextField txtKeyWord;
     // End of variables declaration//GEN-END:variables
 }
