@@ -305,8 +305,8 @@ public class Home extends javax.swing.JFrame {
 
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
-//        this.dispose();
-//        new Home(this.role).setVisible(true);
+        this.dispose();
+        new Home(this.role).setVisible(true);
     }//GEN-LAST:event_lblHomeMouseClicked
 
     private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked

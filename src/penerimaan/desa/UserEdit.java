@@ -5,17 +5,37 @@
  */
 package penerimaan.desa;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Imul
  */
 public class UserEdit extends javax.swing.JFrame {
+    
+    DbConnection dc = new DbConnection("penerimaan_desa");
+    private int role;
+    private String[] user;
 
     /**
      * Creates new form EditUser
      */
     public UserEdit() {
         initComponents();
+    }
+    
+    public UserEdit(int role, String[] user){
+        initComponents();
+        this.user = user;
+        txtUsername.setText(user[1]);
+        txtPassword.setText(user[2]);
+        cbxRole.setSelectedIndex(Integer.parseInt(user[3]));
+        this.role = role;
+        if (role > 0) {
+            navUser.setVisible(false);
+        }
     }
 
     /**
@@ -33,17 +53,25 @@ public class UserEdit extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        lblEvaluasi = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        lblStruktur1 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
+        navUser = new javax.swing.JPanel();
+        jPnlUser = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        lblTambKaryawan = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JTextField();
+        btnEdit = new javax.swing.JToggleButton();
+        btnreset = new javax.swing.JToggleButton();
+        lblkembali = new javax.swing.JLabel();
+        cbxRole = new javax.swing.JComboBox<>();
+        lblPassword1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,24 +116,6 @@ public class UserEdit extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel6.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel6.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblEvaluasi.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblEvaluasi.setForeground(new java.awt.Color(52, 17, 9));
-        lblEvaluasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEvaluasi.setText("Evaluasi");
-        lblEvaluasi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEvaluasiMouseClicked(evt);
-            }
-        });
-        jPanel6.add(lblEvaluasi);
-
-        Psamping.add(jPanel6);
-
         jPanel7.setBackground(new java.awt.Color(0, 204, 204));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
@@ -115,6 +125,11 @@ public class UserEdit extends javax.swing.JFrame {
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHistory.setText("History");
+        lblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHistoryMouseClicked(evt);
+            }
+        });
         jPanel7.add(lblHistory);
 
         Psamping.add(jPanel7);
@@ -156,41 +171,99 @@ public class UserEdit extends javax.swing.JFrame {
 
         Psamping.add(jPanel9);
 
-        jPanel10.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel10.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel10.setLayout(new java.awt.GridLayout(1, 1));
+        navUser.setBackground(new java.awt.Color(0, 204, 204));
+        navUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navUser.setPreferredSize(new java.awt.Dimension(72, 31));
+        navUser.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblStruktur1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblStruktur1.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur1.setText("User");
-        lblStruktur1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPnlUser.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPnlUser.setForeground(new java.awt.Color(52, 17, 9));
+        jPnlUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPnlUser.setText("User");
+        jPnlUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStruktur1MouseClicked(evt);
+                jPnlUserMouseClicked(evt);
             }
         });
-        jPanel10.add(lblStruktur1);
+        navUser.add(jPnlUser);
 
-        Psamping.add(jPanel10);
+        Psamping.add(navUser);
 
         jPanel1.add(Psamping);
 
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setPreferredSize(new java.awt.Dimension(800, 0));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setPreferredSize(new java.awt.Dimension(800, 0));
+        jPanel3.setLayout(null);
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
-        );
+        lblTambKaryawan.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lblTambKaryawan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTambKaryawan.setText("Edit User");
+        jPanel3.add(lblTambKaryawan);
+        lblTambKaryawan.setBounds(10, 10, 310, 44);
 
-        jPanel1.add(jPanel11);
+        lblUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblUsername.setText("Username");
+        jPanel3.add(lblUsername);
+        lblUsername.setBounds(140, 180, 100, 22);
+
+        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel3.add(txtUsername);
+        txtUsername.setBounds(390, 180, 250, 28);
+
+        lblPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblPassword.setText("Password");
+        jPanel3.add(lblPassword);
+        lblPassword.setBounds(140, 210, 90, 22);
+
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel3.add(txtPassword);
+        txtPassword.setBounds(390, 210, 250, 28);
+
+        btnEdit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditMouseClicked(evt);
+            }
+        });
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnEdit);
+        btnEdit.setBounds(390, 290, 115, 31);
+
+        btnreset.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnreset.setText("Reset");
+        btnreset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnresetMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnreset);
+        btnreset.setBounds(520, 290, 115, 31);
+
+        lblkembali.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblkembali.setText("< Kembali");
+        lblkembali.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblkembaliMouseClicked(evt);
+            }
+        });
+        jPanel3.add(lblkembali);
+        lblkembali.setBounds(710, 20, 60, 17);
+
+        cbxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
+        jPanel3.add(cbxRole);
+        cbxRole.setBounds(390, 240, 250, 30);
+
+        lblPassword1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblPassword1.setText("Role");
+        jPanel3.add(lblPassword1);
+        lblPassword1.setBounds(140, 240, 90, 22);
+
+        jPanel1.add(jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,39 +283,74 @@ public class UserEdit extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) JOptionPane.showMessageDialog(this, "Username dan Passsword Wajib diisi.");
+        else{
+            try{
+                Statement st = dc.con.createStatement();
+                st.executeUpdate("UPDATE `users` SET `username` = '"+txtUsername.getText()+"', `password` = '"+txtPassword.getText()+"', `role` = '"+cbxRole.getSelectedIndex()+"' WHERE `users`.`user_id` = "+this.user[0]);
+                this.dispose();
+                new User(this.role).setVisible(true);
+            }catch(SQLException e){
+                System.out.println("Error : "+e);
+            }
+        }
+    }//GEN-LAST:event_btnEditMouseClicked
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnresetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnresetMouseClicked
+        txtUsername.setText(this.user[1]);
+        txtPassword.setText(this.user[2]);
+        cbxRole.setSelectedIndex(Integer.parseInt(user[3]));
+    }//GEN-LAST:event_btnresetMouseClicked
+
+    private void lblkembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblkembaliMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new User(this.role).setVisible(true);
+    }//GEN-LAST:event_lblkembaliMouseClicked
+
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormSuplier().setVisible(true);
+        this.dispose();
+        new Home(this.role).setVisible(true);
     }//GEN-LAST:event_lblHomeMouseClicked
 
     private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormBarang().setVisible(true);
+        this.dispose();
+        new Fuzzy(this.role).setVisible(true);
     }//GEN-LAST:event_lblFuzzyMouseClicked
 
-    private void lblEvaluasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEvaluasiMouseClicked
+    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormJadwal().setVisible(true);
-    }//GEN-LAST:event_lblEvaluasiMouseClicked
+        this.dispose();
+        new History(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHistoryMouseClicked
 
     private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormLaporan().setVisible(true);
+        this.dispose();
+        new StrukturDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblStrukturMouseClicked
 
     private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
         // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormAnggota().setVisible(true);
+        this.dispose();
+        new ProfilDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblProfilDesaMouseClicked
 
-    private void lblStruktur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStruktur1MouseClicked
+    private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblStruktur1MouseClicked
+        if (this.role == 0) {
+            this.dispose();
+            new User(this.role).setVisible(true);
+        }
+    }//GEN-LAST:event_jPnlUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -282,21 +390,29 @@ public class UserEdit extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
+    private javax.swing.JToggleButton btnEdit;
+    private javax.swing.JToggleButton btnreset;
+    private javax.swing.JComboBox<String> cbxRole;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel lblEvaluasi;
+    private javax.swing.JLabel jPnlUser;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPassword1;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
-    private javax.swing.JLabel lblStruktur1;
+    private javax.swing.JLabel lblTambKaryawan;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lblkembali;
+    private javax.swing.JPanel navUser;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

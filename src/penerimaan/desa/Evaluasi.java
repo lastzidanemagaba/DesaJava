@@ -38,138 +38,138 @@ public class Evaluasi extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Psamping1 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        lblHome1 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        lblFuzzy1 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        lblHistory1 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        lblStruktur1 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        lblProfilDesa1 = new javax.swing.JLabel();
-        navUser1 = new javax.swing.JPanel();
-        jPnlUser1 = new javax.swing.JLabel();
+        Psamping = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        lblHome = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        lblFuzzy = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        lblHistory = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        lblStruktur = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        lblProfilDesa = new javax.swing.JLabel();
+        navUser = new javax.swing.JPanel();
+        jPnlUser = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        Psamping1.setBackground(new java.awt.Color(0, 204, 204));
-        Psamping1.setPreferredSize(new java.awt.Dimension(160, 650));
-        Psamping1.setLayout(new javax.swing.BoxLayout(Psamping1, javax.swing.BoxLayout.Y_AXIS));
+        Psamping.setBackground(new java.awt.Color(0, 204, 204));
+        Psamping.setPreferredSize(new java.awt.Dimension(160, 650));
+        Psamping.setLayout(new javax.swing.BoxLayout(Psamping, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel10.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel10.setLayout(new java.awt.GridLayout(1, 1));
+        jPanel5.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel5.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblHome1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblHome1.setForeground(new java.awt.Color(255, 255, 255));
-        lblHome1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHome1.setText("Home");
-        lblHome1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblHome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblHome.setForeground(new java.awt.Color(255, 255, 255));
+        lblHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHome.setText("Home");
+        lblHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblHome1MouseClicked(evt);
+                lblHomeMouseClicked(evt);
             }
         });
-        jPanel10.add(lblHome1);
+        jPanel5.add(lblHome);
 
-        Psamping1.add(jPanel10);
+        Psamping.add(jPanel5);
 
-        jPanel11.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel11.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel11.setLayout(new java.awt.GridLayout(1, 1));
+        jPanel4.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel4.setPreferredSize(new java.awt.Dimension(72, 31));
+        jPanel4.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblFuzzy1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblFuzzy1.setForeground(new java.awt.Color(52, 17, 9));
-        lblFuzzy1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFuzzy1.setText("Fuzzy");
-        lblFuzzy1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblFuzzy.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblFuzzy.setForeground(new java.awt.Color(52, 17, 9));
+        lblFuzzy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFuzzy.setText("Fuzzy");
+        lblFuzzy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblFuzzy1MouseClicked(evt);
+                lblFuzzyMouseClicked(evt);
             }
         });
-        jPanel11.add(lblFuzzy1);
+        jPanel4.add(lblFuzzy);
 
-        Psamping1.add(jPanel11);
+        Psamping.add(jPanel4);
 
-        jPanel12.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel12.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel12.setLayout(new java.awt.GridLayout(1, 1));
+        jPanel7.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
+        jPanel7.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblHistory1.setBackground(new java.awt.Color(0, 204, 204));
-        lblHistory1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblHistory1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHistory1.setText("History");
-        lblHistory1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblHistory.setBackground(new java.awt.Color(0, 204, 204));
+        lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHistory.setText("History");
+        lblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblHistory1MouseClicked(evt);
+                lblHistoryMouseClicked(evt);
             }
         });
-        jPanel12.add(lblHistory1);
+        jPanel7.add(lblHistory);
 
-        Psamping1.add(jPanel12);
+        Psamping.add(jPanel7);
 
-        jPanel13.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel13.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel13.setLayout(new java.awt.GridLayout(1, 1));
+        jPanel8.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel8.setPreferredSize(new java.awt.Dimension(72, 31));
+        jPanel8.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblStruktur1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblStruktur1.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur1.setText("Struktur Desa");
-        lblStruktur1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblStruktur.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblStruktur.setForeground(new java.awt.Color(52, 17, 9));
+        lblStruktur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStruktur.setText("Struktur Desa");
+        lblStruktur.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStruktur1MouseClicked(evt);
+                lblStrukturMouseClicked(evt);
             }
         });
-        jPanel13.add(lblStruktur1);
+        jPanel8.add(lblStruktur);
 
-        Psamping1.add(jPanel13);
+        Psamping.add(jPanel8);
 
-        jPanel14.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel14.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel14.setLayout(new java.awt.GridLayout(1, 1));
+        jPanel9.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel9.setPreferredSize(new java.awt.Dimension(72, 31));
+        jPanel9.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblProfilDesa1.setBackground(new java.awt.Color(0, 204, 204));
-        lblProfilDesa1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblProfilDesa1.setForeground(new java.awt.Color(52, 17, 9));
-        lblProfilDesa1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblProfilDesa1.setText("Profil Desa");
-        lblProfilDesa1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblProfilDesa.setBackground(new java.awt.Color(0, 204, 204));
+        lblProfilDesa.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblProfilDesa.setForeground(new java.awt.Color(52, 17, 9));
+        lblProfilDesa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblProfilDesa.setText("Profil Desa");
+        lblProfilDesa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblProfilDesa1MouseClicked(evt);
+                lblProfilDesaMouseClicked(evt);
             }
         });
-        jPanel14.add(lblProfilDesa1);
+        jPanel9.add(lblProfilDesa);
 
-        Psamping1.add(jPanel14);
+        Psamping.add(jPanel9);
 
-        navUser1.setBackground(new java.awt.Color(0, 204, 204));
-        navUser1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        navUser1.setPreferredSize(new java.awt.Dimension(72, 31));
-        navUser1.setLayout(new java.awt.GridLayout(1, 1));
+        navUser.setBackground(new java.awt.Color(0, 204, 204));
+        navUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navUser.setPreferredSize(new java.awt.Dimension(72, 31));
+        navUser.setLayout(new java.awt.GridLayout(1, 1));
 
-        jPnlUser1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jPnlUser1.setForeground(new java.awt.Color(52, 17, 9));
-        jPnlUser1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPnlUser1.setText("User");
-        jPnlUser1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPnlUser.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPnlUser.setForeground(new java.awt.Color(52, 17, 9));
+        jPnlUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPnlUser.setText("User");
+        jPnlUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPnlUser1MouseClicked(evt);
+                jPnlUserMouseClicked(evt);
             }
         });
-        navUser1.add(jPnlUser1);
+        navUser.add(jPnlUser);
 
-        Psamping1.add(navUser1);
+        Psamping.add(navUser);
 
-        jPanel1.add(Psamping1);
+        jPanel1.add(Psamping);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(800, 0));
@@ -207,8 +207,8 @@ public class Evaluasi extends javax.swing.JFrame {
 
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
-        //        this.dispose();
-        //        new Home(this.role).setVisible(true);
+        this.dispose();
+        new Home(this.role).setVisible(true);
     }//GEN-LAST:event_lblHomeMouseClicked
 
     private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
@@ -242,44 +242,6 @@ public class Evaluasi extends javax.swing.JFrame {
             new User(this.role).setVisible(true);
         }
     }//GEN-LAST:event_jPnlUserMouseClicked
-
-    private void lblHome1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHome1MouseClicked
-        // TODO add your handling code here:
-        //        this.dispose();
-        //        new Home(this.role).setVisible(true);
-    }//GEN-LAST:event_lblHome1MouseClicked
-
-    private void lblFuzzy1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzy1MouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new Fuzzy(this.role).setVisible(true);
-    }//GEN-LAST:event_lblFuzzy1MouseClicked
-
-    private void lblHistory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistory1MouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new History(this.role).setVisible(true);
-    }//GEN-LAST:event_lblHistory1MouseClicked
-
-    private void lblStruktur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStruktur1MouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new StrukturDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblStruktur1MouseClicked
-
-    private void lblProfilDesa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesa1MouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new ProfilDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblProfilDesa1MouseClicked
-
-    private void jPnlUser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUser1MouseClicked
-        // TODO add your handling code here:
-        if (this.role == 0) {
-            this.dispose();
-            new User(this.role).setVisible(true);
-        }
-    }//GEN-LAST:event_jPnlUser1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -318,13 +280,7 @@ public class Evaluasi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
-    private javax.swing.JPanel Psamping1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -332,18 +288,11 @@ public class Evaluasi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
-    private javax.swing.JLabel jPnlUser1;
     private javax.swing.JLabel lblFuzzy;
-    private javax.swing.JLabel lblFuzzy1;
     private javax.swing.JLabel lblHistory;
-    private javax.swing.JLabel lblHistory1;
     private javax.swing.JLabel lblHome;
-    private javax.swing.JLabel lblHome1;
     private javax.swing.JLabel lblProfilDesa;
-    private javax.swing.JLabel lblProfilDesa1;
     private javax.swing.JLabel lblStruktur;
-    private javax.swing.JLabel lblStruktur1;
     private javax.swing.JPanel navUser;
-    private javax.swing.JPanel navUser1;
     // End of variables declaration//GEN-END:variables
 }

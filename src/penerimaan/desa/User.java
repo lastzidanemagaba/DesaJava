@@ -42,7 +42,7 @@ public class User extends javax.swing.JFrame {
         rowSorter=new TableRowSorter<>(tblUser.getModel());
         this.role = role;
         if (role > 0) {
-            jPanel10.setVisible(false);
+            navUser.setVisible(false);
         }
     }
     public int countRowRs(ResultSet rs) throws SQLException{
@@ -62,7 +62,7 @@ public class User extends javax.swing.JFrame {
                 allData[i][0]= rs.getString("user_id");
                 allData[i][1]=rs.getString("username");
                 allData[i][2]=rs.getString("password");
-                allData[i][3]=rs.getString("role").equals("0")?"admin":"staff";
+                allData[i][3]=rs.getString("role");
             }            
         }catch(SQLException e){
             System.out.println("Error : "+e);
@@ -93,11 +93,11 @@ public class User extends javax.swing.JFrame {
         setColumnModel(columnModel);        
         tblUser.setColumnModel(columnModel);        
         for (String[] data1 : data) {            
-            table.addRow(new Object[]{data1[0], data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8]});
+            table.addRow(new Object[]{data1[0], data1[1], data1[2], data1[3].equals("0")?"admin":"staff"});
         }        
     }
     
-    public String[] getMember(String[][] mData, int id){
+    public String[] getUser(String[][] mData, int id){
         String[] member= new String[4];
         for(String[] item:mData){
             if(Integer.parseInt(item[0])==id){
@@ -124,21 +124,19 @@ public class User extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        lblEvaluasi = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        lblStruktur1 = new javax.swing.JLabel();
+        navUser = new javax.swing.JPanel();
+        jPnlUser = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel12 = new javax.swing.JPanel();
         txtAddMember = new javax.swing.JLabel();
-        txtEditMember = new javax.swing.JLabel();
+        txtEditUser = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUser = new javax.swing.JTable();
         txtCari = new javax.swing.JLabel();
@@ -187,24 +185,6 @@ public class User extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel6.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel6.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblEvaluasi.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblEvaluasi.setForeground(new java.awt.Color(52, 17, 9));
-        lblEvaluasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEvaluasi.setText("Evaluasi");
-        lblEvaluasi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEvaluasiMouseClicked(evt);
-            }
-        });
-        jPanel6.add(lblEvaluasi);
-
-        Psamping.add(jPanel6);
-
         jPanel7.setBackground(new java.awt.Color(0, 204, 204));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
@@ -214,6 +194,11 @@ public class User extends javax.swing.JFrame {
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHistory.setText("History");
+        lblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHistoryMouseClicked(evt);
+            }
+        });
         jPanel7.add(lblHistory);
 
         Psamping.add(jPanel7);
@@ -255,23 +240,23 @@ public class User extends javax.swing.JFrame {
 
         Psamping.add(jPanel9);
 
-        jPanel10.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel10.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel10.setLayout(new java.awt.GridLayout(1, 1));
+        navUser.setBackground(new java.awt.Color(0, 204, 204));
+        navUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navUser.setPreferredSize(new java.awt.Dimension(72, 31));
+        navUser.setLayout(new java.awt.GridLayout(1, 1));
 
-        lblStruktur1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblStruktur1.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur1.setText("User");
-        lblStruktur1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPnlUser.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPnlUser.setForeground(new java.awt.Color(52, 17, 9));
+        jPnlUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPnlUser.setText("User");
+        jPnlUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStruktur1MouseClicked(evt);
+                jPnlUserMouseClicked(evt);
             }
         });
-        jPanel10.add(lblStruktur1);
+        navUser.add(jPnlUser);
 
-        Psamping.add(jPanel10);
+        Psamping.add(navUser);
 
         jPanel1.add(Psamping);
 
@@ -291,11 +276,11 @@ public class User extends javax.swing.JFrame {
             }
         });
 
-        txtEditMember.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtEditMember.setText("Edit User");
-        txtEditMember.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtEditUser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtEditUser.setText("Edit User");
+        txtEditUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtEditMemberMouseClicked(evt);
+                txtEditUserMouseClicked(evt);
             }
         });
 
@@ -306,14 +291,14 @@ public class User extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(txtAddMember)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEditMember)
+                .addComponent(txtEditUser)
                 .addContainerGap(456, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(txtAddMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtEditMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtEditUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jToolBar1.add(jPanel12);
@@ -400,58 +385,24 @@ public class User extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
-        // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormSuplier().setVisible(true);
-    }//GEN-LAST:event_lblHomeMouseClicked
-
-    private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
-        // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormBarang().setVisible(true);
-    }//GEN-LAST:event_lblFuzzyMouseClicked
-
-    private void lblEvaluasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEvaluasiMouseClicked
-        // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormJadwal().setVisible(true);
-    }//GEN-LAST:event_lblEvaluasiMouseClicked
-
-    private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
-        // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormLaporan().setVisible(true);
-    }//GEN-LAST:event_lblStrukturMouseClicked
-
-    private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
-        // TODO add your handling code here:
-        //        this.setVisible(false);
-        //        new FormAnggota().setVisible(true);
-    }//GEN-LAST:event_lblProfilDesaMouseClicked
-
-    private void lblStruktur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStruktur1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblStruktur1MouseClicked
-
     private void txtAddMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAddMemberMouseClicked
         // TODO add your handling code here:
-        this.setVisible(false);
-//        new FormtambahAnggota(getLastId(allData)).setVisible(true);
+        this.dispose();
+        new UserCreate(this.role).setVisible(true);
     }//GEN-LAST:event_txtAddMemberMouseClicked
 
-    private void txtEditMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEditMemberMouseClicked
+    private void txtEditUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEditUserMouseClicked
         if(selData!=null){
             this.setVisible(false);
-//            new FormeditAnggota(selD).setVisible(true);
+            new UserEdit(this.role,selData).setVisible(true);
         }
         else JOptionPane.showMessageDialog(this, "Tidak ada anggota yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
 
-    }//GEN-LAST:event_txtEditMemberMouseClicked
+    }//GEN-LAST:event_txtEditUserMouseClicked
 
     private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
         String selId=tblUser.getValueAt(tblUser.getSelectedRow(),0).toString();
-        selData=getMember(allData,Integer.parseInt(selId));
+        selData=getUser(allData,Integer.parseInt(selId));
     }//GEN-LAST:event_tblUserMouseClicked
 
     private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
@@ -465,6 +416,44 @@ public class User extends javax.swing.JFrame {
             tblUser.setRowSorter(rowSorter);
         }
     }//GEN-LAST:event_txtKeyWordKeyReleased
+
+    private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Home(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHomeMouseClicked
+
+    private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Fuzzy(this.role).setVisible(true);
+    }//GEN-LAST:event_lblFuzzyMouseClicked
+
+    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new History(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHistoryMouseClicked
+
+    private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new StrukturDesa(this.role).setVisible(true);
+    }//GEN-LAST:event_lblStrukturMouseClicked
+
+    private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new ProfilDesa(this.role).setVisible(true);
+    }//GEN-LAST:event_lblProfilDesaMouseClicked
+
+    private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
+        // TODO add your handling code here:
+        if (this.role == 0) {
+            this.dispose();
+            new User(this.role).setVisible(true);
+        }
+    }//GEN-LAST:event_jPnlUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -504,28 +493,26 @@ public class User extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel jPnlUser;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JLabel lblEvaluasi;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
-    private javax.swing.JLabel lblStruktur1;
+    private javax.swing.JPanel navUser;
     private javax.swing.JTable tblUser;
     private javax.swing.JLabel txtAddMember;
     private javax.swing.JLabel txtCari;
-    private javax.swing.JLabel txtEditMember;
+    private javax.swing.JLabel txtEditUser;
     private javax.swing.JTextField txtKeyWord;
     // End of variables declaration//GEN-END:variables
 }

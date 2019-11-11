@@ -373,10 +373,28 @@ public class History extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void tblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistoryMouseClicked
+//        String selId=tblMember.getValueAt(tblMember.getSelectedRow(),0).toString();
+//        selData=mbr.getMember(allData,Integer.parseInt(selId));
+    }//GEN-LAST:event_tblHistoryMouseClicked
+
+    private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariMouseClicked
+
+    private void txtKeyWordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyWordKeyReleased
+        if(txtKeyWord.getText().equals("")) tblHistory.setRowSorter(null);
+        else{
+            System.out.println(txtKeyWord.getText());
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtKeyWord.getText()));
+            tblHistory.setRowSorter(rowSorter);
+        }
+    }//GEN-LAST:event_txtKeyWordKeyReleased
+
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
-        //        this.dispose();
-        //        new Home(this.role).setVisible(true);
+        this.dispose();
+        new Home(this.role).setVisible(true);
     }//GEN-LAST:event_lblHomeMouseClicked
 
     private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
@@ -410,24 +428,6 @@ public class History extends javax.swing.JFrame {
             new User(this.role).setVisible(true);
         }
     }//GEN-LAST:event_jPnlUserMouseClicked
-
-    private void tblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistoryMouseClicked
-//        String selId=tblMember.getValueAt(tblMember.getSelectedRow(),0).toString();
-//        selData=mbr.getMember(allData,Integer.parseInt(selId));
-    }//GEN-LAST:event_tblHistoryMouseClicked
-
-    private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCariMouseClicked
-
-    private void txtKeyWordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyWordKeyReleased
-        if(txtKeyWord.getText().equals("")) tblHistory.setRowSorter(null);
-        else{
-            System.out.println(txtKeyWord.getText());
-            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtKeyWord.getText()));
-            tblHistory.setRowSorter(rowSorter);
-        }
-    }//GEN-LAST:event_txtKeyWordKeyReleased
 
     /**
      * @param args the command line arguments
