@@ -18,7 +18,7 @@ public class Fuzzification {
 //    private FuzzyValue[] fuzzyTabungan;
 //    private FuzzyValue[] fuzzyKendaraan;
     private FuzzyValue[] fuzzyConclusion;
-    private FuzzyRule[] rules;
+    public FuzzyRule[] rules;
     
     private class FuzzyValue{
         private final String label; // label nama
@@ -73,15 +73,15 @@ public class Fuzzification {
         }
     }
     
-    private class FuzzyRule{
-        protected final String rumah;
-        protected final String jenisDinding;
-        protected final String jumlahTanggunganKeluarga;
-        protected final String pekerjaan;
-        protected final String pendapatan;
-        protected final String tabungan;
-        protected final String kendaraan;
-        protected final String conclusion;
+    public class FuzzyRule{
+        public final String rumah;
+        public final String jenisDinding;
+        public final String jumlahTanggunganKeluarga;
+        public final String pekerjaan;
+        public final String pendapatan;
+        public final String tabungan;
+        public final String kendaraan;
+        public final String conclusion;
 
         public FuzzyRule(String rumah, String jenisDinding, String jumlahTanggunganKeluarga, String pekerjaan, String pendapatan, String tabungan, String kendaraan, String conclusion) {
             this.rumah = rumah;
