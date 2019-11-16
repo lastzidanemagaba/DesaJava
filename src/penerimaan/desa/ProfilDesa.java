@@ -51,8 +51,13 @@ public class ProfilDesa extends javax.swing.JFrame {
         lblProfilDesa = new javax.swing.JLabel();
         navUser = new javax.swing.JPanel();
         jPnlUser = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        pnlContent = new javax.swing.JPanel();
+        pContent = new javax.swing.JPanel();
+        logout = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,14 +177,48 @@ public class ProfilDesa extends javax.swing.JFrame {
 
         jPanel1.add(Psamping);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setPreferredSize(new java.awt.Dimension(800, 0));
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
+        pContent.setBackground(new java.awt.Color(255, 255, 255));
+        pContent.setPreferredSize(new java.awt.Dimension(800, 0));
+        pContent.setLayout(null);
 
-        pnlContent.setLayout(new java.awt.BorderLayout());
-        jPanel3.add(pnlContent);
+        logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logout.setText("Logout");
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
+        pContent.add(logout);
+        logout.setBounds(724, 10, 60, 30);
 
-        jPanel1.add(jPanel3);
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+        pContent.add(jLabel9);
+        jLabel9.setBounds(0, 0, 160, 140);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Babat Bumi Kasreman");
+        pContent.add(jLabel10);
+        jLabel10.setBounds(310, 100, 190, 50);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("Sejarah Desa");
+        pContent.add(jLabel11);
+        jLabel11.setBounds(150, 30, 190, 50);
+
+        jTextPane1.setEditable(false);
+        jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextPane1.setText("\tPada zaman dahulu, kurang lebih delapan ratus tahun yang lalu ada seorang wanita pendatang dari Kamboja yang bernama Nio Gambo. Dia bertempat tinggal di Desa Kasreman yang saat itu belum berwujud sebuah desa, melainkan masih berupa hutan. Untuk memperluas wilayahnya Nio Gambo membuka lahan tersebut tanpa menggunakan alat. Nio  Gambo membuka hutan tersebut dengan cara membakarnya. Sehingga didapatkan lahan yang luas dan lebih cepat. Nio Gambo yang sekarang lebih terkenal dengan nama “Mbah Gambir” , kemudia lahan yang telah dibakar tersebut diberi nama Kasreman yang artinya “Mbuka Muser Tanpa Gaman”.\n\n\tSetelah menjadi sebuah desa, Nio Gambo menikah dengan Kitoyo dari Jawa Barat. Menginjak usia senja Kitoyo dan Nio Gambo tidak ada kecocokan dalam berumah tangga. Akhirnya mereka berpisah, Kitoyo bertempat tinggal di Kasreman Lor sedangkan Nio Gambo bertempat tinggal di Kasreman Kidul. Semenjak terjadinya kejadin tersebut desa Kasreman pecah menjadi dua yaitu Kasreman Lor dan Kasreman Kidul. Itulah sebabnya warga Kasreman Lor dan Kasreman Kidul sering terjadi pertengkaran dan keributan.\n\n\tDesa Kasreman Lor pernah dijadikan kademangan dan ini terbukti masih ada petilasan makam Demang dan keturunannya. Pada kurang lebih 1100 th desa Kasreman bergabung menjadi satu lagi yaitu Desa Kasreman yang dipimpin oleh seorang Kepala Desa.\n\n\tMenurut para sumber, desa Kasreman termasuk desa terluas kedua di Kecamatan Rembang setelah desa Waru yaitu dengan luas 604,135 Ha. Dengan jumlah penduduk saat ini 3056 jiwa. Demikian cerita singkat asal-usul desa Kasreman.");
+        jScrollPane2.setViewportView(jTextPane1);
+
+        pContent.add(jScrollPane2);
+        jScrollPane2.setBounds(90, 160, 650, 350);
+
+        jPanel1.add(pContent);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,6 +276,12 @@ public class ProfilDesa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jPnlUserMouseClicked
 
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_logoutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -274,20 +319,25 @@ public class ProfilDesa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
+    private javax.swing.JLabel logout;
     private javax.swing.JPanel navUser;
-    private javax.swing.JPanel pnlContent;
+    private javax.swing.JPanel pContent;
     // End of variables declaration//GEN-END:variables
 }
