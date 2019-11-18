@@ -8,12 +8,10 @@ package penerimaan.desa;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -30,6 +28,7 @@ public class Evaluasi extends javax.swing.JFrame {
 
     DbConnection dc = new DbConnection("penerimaan_desa");
     private int role;
+    private double akurasi;
     private String[][] allData;
     private String[] selData;
     private TableRowSorter<TableModel> rowSorter;
@@ -64,7 +63,7 @@ public class Evaluasi extends javax.swing.JFrame {
             ResultSet rs=st.executeQuery("select * from data_evaluasi");
             allData =new String[countRowRs(rs)][10];
             for(int i=0;rs.next();i++){
-                allData[i][0]= Integer.toString(i+1);
+                allData[i][0]= rs.getString("data_evaluasi_id");
                 allData[i][1]=rs.getString("rumah");
                 allData[i][2]=rs.getString("jenis_dinding");
                 allData[i][3]=rs.getString("jumlah_tanggungan_keluarga");
@@ -81,6 +80,27 @@ public class Evaluasi extends javax.swing.JFrame {
         }
     }
     
+    public void processData(){
+        Fuzzification f = new Fuzzification();
+        Statement st;
+        double right =0 ;
+        for (String[] data : allData) {
+            double hasil = f.calculation(data[1], data[2], Double.parseDouble(data[3]), data[4], Double.parseDouble(data[5]), data[6], data[7]);
+            String layak = hasil > 50 ? "Layak":"Tidak Layak";
+            if(layak.toLowerCase().equals(data[8])) right = right+1;
+            try {
+                String query = "UPDATE `data_evaluasi` SET `prediksi_kesimpulan`='"+layak+"' WHERE data_evaluasi_id="+data[0];
+                System.out.println(query);
+                st = dc.con.createStatement();
+                st.executeUpdate(query);
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        akurasi = right/allData.length;
+        txtAkurasi.setText(String.valueOf(akurasi)+" %");
+    }
+    
     public void setColumnTable(DefaultTableModel model){        
         model.addColumn ("No");
         model.addColumn ("Rumah");
@@ -93,6 +113,7 @@ public class Evaluasi extends javax.swing.JFrame {
         model.addColumn ("Kesimpulan");
         model.addColumn ("Prediksi Kesimpulan");
     }
+    
     public void setColumnModel(TableColumnModel columnModel){        
         columnModel.getColumn(0).setPreferredWidth(20);
         columnModel.getColumn(1).setPreferredWidth(100);
@@ -113,9 +134,11 @@ public class Evaluasi extends javax.swing.JFrame {
         tblHistory.setModel(table);        
         TableColumnModel columnModel=tblHistory.getColumnModel();
         setColumnModel(columnModel);        
-        tblHistory.setColumnModel(columnModel);        
+        tblHistory.setColumnModel(columnModel);  
+        int i =1;
         for (String[] data1 : data) {            
-            table.addRow(new Object[]{data1[0], data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8], data1[9]});
+            table.addRow(new Object[]{i, data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8], data1[9]});
+            i++;
         }        
     }
 
@@ -151,6 +174,8 @@ public class Evaluasi extends javax.swing.JFrame {
         txtCari = new javax.swing.JLabel();
         txtKeyWord = new javax.swing.JTextField();
         btnProcess = new javax.swing.JButton();
+        txtAkurasi = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -293,7 +318,7 @@ public class Evaluasi extends javax.swing.JFrame {
             }
         });
         pContent.add(btnClearAll);
-        btnClearAll.setBounds(670, 210, 110, 60);
+        btnClearAll.setBounds(680, 210, 110, 60);
 
         btnImport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnImport.setText("Import");
@@ -303,7 +328,7 @@ public class Evaluasi extends javax.swing.JFrame {
             }
         });
         pContent.add(btnImport);
-        btnImport.setBounds(670, 70, 110, 60);
+        btnImport.setBounds(680, 70, 110, 60);
 
         tblHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -352,7 +377,18 @@ public class Evaluasi extends javax.swing.JFrame {
             }
         });
         pContent.add(btnProcess);
-        btnProcess.setBounds(670, 140, 110, 60);
+        btnProcess.setBounds(680, 140, 110, 60);
+
+        txtAkurasi.setEditable(false);
+        txtAkurasi.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtAkurasi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pContent.add(txtAkurasi);
+        txtAkurasi.setBounds(680, 330, 110, 70);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setText("Akurasi");
+        pContent.add(jLabel7);
+        jLabel7.setBounds(670, 290, 90, 40);
 
         jPanel1.add(pContent);
 
@@ -497,6 +533,8 @@ public class Evaluasi extends javax.swing.JFrame {
 
     private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
         // TODO add your handling code here:
+        processData();
+        setTable();
     }//GEN-LAST:event_btnProcessActionPerformed
 
     /**
@@ -539,6 +577,7 @@ public class Evaluasi extends javax.swing.JFrame {
     private javax.swing.JButton btnClearAll;
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnProcess;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -556,6 +595,7 @@ public class Evaluasi extends javax.swing.JFrame {
     private javax.swing.JPanel navUser;
     private javax.swing.JPanel pContent;
     private javax.swing.JTable tblHistory;
+    private javax.swing.JTextField txtAkurasi;
     private javax.swing.JLabel txtCari;
     private javax.swing.JTextField txtKeyWord;
     // End of variables declaration//GEN-END:variables
