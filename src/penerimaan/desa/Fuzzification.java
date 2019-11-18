@@ -139,29 +139,29 @@ public class Fuzzification {
     }
     
     public double getFuzzyRumah(String label, String value){
-        return label.equals(value) ? 1:0;
+        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
     }
     
     public double getFuzzyJenisDinding(String label, String value){
-        return label.equals(value) ? 1:0;
+        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
     }
     
     public double getFuzzyPekerjaan(String label, String value){
-        return label.equals(value) ? 1:0;
+        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
     }
     
     public double getFuzzyTabungan(String label, String value){
-        return label.equals(value) ? 1:0;
+        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
     }
     
     public double getFuzzyKendaraan(String label, String value){
-        return label.equals(value) ? 1:0;
+        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
     }
     
     public double getFuzzyJumlahTanggungan(String label, double value){
         FuzzyValue found = new FuzzyValue("", new double[]{0}, new int[]{0});
         for (FuzzyValue fuzzyJumlahTanggunganKeluarga1 : fuzzyJumlahTanggunganKeluarga) {
-            if (fuzzyJumlahTanggunganKeluarga1.label.equals(label)) {
+            if (fuzzyJumlahTanggunganKeluarga1.label.toLowerCase().equals(label.toLowerCase())) {
                 found = fuzzyJumlahTanggunganKeluarga1;
                 break;
             }
@@ -172,7 +172,7 @@ public class Fuzzification {
     public double getFuzzyPendapatan(String label, double value){
         FuzzyValue found = new FuzzyValue("", new double[]{0}, new int[]{0});
         for (FuzzyValue fuzzyPendapatan1 : fuzzyPendapatan) {
-            if (fuzzyPendapatan1.label.equals(label)) {
+            if (fuzzyPendapatan1.label.toLowerCase().equals(label.toLowerCase())) {
                 found = fuzzyPendapatan1;
                 break;
             }
@@ -183,7 +183,7 @@ public class Fuzzification {
     public double getDefuzzyConclusion(String label, double value){
         FuzzyValue found = new FuzzyValue("", new double[]{0}, new int[]{0});
         for (FuzzyValue fuzzyConclusion1 : fuzzyConclusion) {
-            if (fuzzyConclusion1.label.equals(label)) {
+            if (fuzzyConclusion1.label.toLowerCase().equals(label.toLowerCase())) {
                 found = fuzzyConclusion1;
                 break;
             }
