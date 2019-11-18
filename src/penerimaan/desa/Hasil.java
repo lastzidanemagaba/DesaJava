@@ -87,7 +87,6 @@ public class Hasil extends javax.swing.JFrame {
         txtLayak = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         txtPekerjaan = new javax.swing.JTextField();
         txtRumah = new javax.swing.JTextField();
         txtJumlahTanggunganKeluarga3 = new javax.swing.JTextField();
@@ -95,6 +94,7 @@ public class Hasil extends javax.swing.JFrame {
         txtTabungan = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtKendaran = new javax.swing.JTextField();
+        lblLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -274,10 +274,6 @@ public class Hasil extends javax.swing.JFrame {
         pContent.add(jLabel7);
         jLabel7.setBounds(400, 470, 50, 20);
 
-        jLabel8.setText("Title");
-        pContent.add(jLabel8);
-        jLabel8.setBounds(300, 40, 120, 70);
-
         txtPekerjaan.setEditable(false);
         pContent.add(txtPekerjaan);
         txtPekerjaan.setBounds(330, 270, 290, 20);
@@ -306,6 +302,11 @@ public class Hasil extends javax.swing.JFrame {
         txtKendaran.setEditable(false);
         pContent.add(txtKendaran);
         txtKendaran.setBounds(330, 390, 290, 20);
+
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+        pContent.add(lblLogo);
+        lblLogo.setBounds(30, 10, 100, 126);
 
         jPanel1.add(pContent);
 
@@ -415,7 +416,6 @@ public class Hasil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
@@ -427,6 +427,7 @@ public class Hasil extends javax.swing.JFrame {
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblProfilDesa;
     private javax.swing.JLabel lblStruktur;
     private javax.swing.JLabel logout;
