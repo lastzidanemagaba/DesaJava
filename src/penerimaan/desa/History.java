@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,14 +6,25 @@
  */
 package penerimaan.desa;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -137,7 +149,7 @@ public class History extends javax.swing.JFrame {
         pContent = new javax.swing.JPanel();
         logout = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHistory = new javax.swing.JTable();
         txtCari = new javax.swing.JLabel();
@@ -286,15 +298,15 @@ public class History extends javax.swing.JFrame {
         pContent.add(jButton1);
         jButton1.setBounds(670, 140, 110, 60);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Cetak");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCetak.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCetak.setText("Cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCetakActionPerformed(evt);
             }
         });
-        pContent.add(jButton2);
-        jButton2.setBounds(670, 70, 110, 60);
+        pContent.add(btnCetak);
+        btnCetak.setBounds(670, 70, 110, 60);
 
         tblHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -371,9 +383,99 @@ public class History extends javax.swing.JFrame {
         new Evaluasi(this.role).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        
+        XSSFSheet sheet = workbook.createSheet("History");
+        // Create a Font for styling header cells
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+
+        // Create a CellStyle with the font
+        CellStyle headerCellStyle = workbook.createCellStyle();
+        headerCellStyle.setFont(headerFont);
+        headerCellStyle.setBorderBottom(BorderStyle.THIN);
+        headerCellStyle.setBorderTop(BorderStyle.THIN);
+        headerCellStyle.setBorderRight(BorderStyle.THIN);
+        headerCellStyle.setBorderLeft(BorderStyle.THIN);
+
+        Row rowStart = sheet.createRow(0);
+        Cell cellNo = rowStart.createCell(0);
+        cellNo.setCellValue("No");
+        cellNo.setCellStyle(headerCellStyle);
+        
+        Cell cellRumah = rowStart.createCell(1);
+        cellRumah.setCellValue("Rumah");
+        cellRumah.setCellStyle(headerCellStyle);
+        
+        Cell cellJenisDinding = rowStart.createCell(2);
+        cellJenisDinding.setCellValue("Jenis Dinding");
+        cellJenisDinding.setCellStyle(headerCellStyle);
+        
+        Cell cellJumlahTanggunganKeluarga = rowStart.createCell(3);
+        cellJumlahTanggunganKeluarga.setCellValue("Jumlah Tanggungan Keluarga");
+        cellJumlahTanggunganKeluarga.setCellStyle(headerCellStyle);
+        
+        Cell cellPekerjaan = rowStart.createCell(4);
+        cellPekerjaan.setCellValue("Pekerjaan");
+        cellPekerjaan.setCellStyle(headerCellStyle);
+        
+        Cell cellPenapatan = rowStart.createCell(5);
+        cellPenapatan.setCellValue("Pendapatan");
+        cellPenapatan.setCellStyle(headerCellStyle);
+        
+        Cell cellTabungan = rowStart.createCell(6);
+        cellTabungan.setCellValue("Tabungan");
+        cellTabungan.setCellStyle(headerCellStyle);
+        
+        Cell cellKedaraan = rowStart.createCell(7);
+        cellKedaraan.setCellValue("Kendaraan");
+        cellKedaraan.setCellStyle(headerCellStyle);
+        
+        Cell cellKesimpulan = rowStart.createCell(8);
+        cellKesimpulan.setCellValue("Kesimpulan");
+        cellKesimpulan.setCellStyle(headerCellStyle);
+        
+        int rownum = 1;
+        
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        for (String[] data : allData) {
+            Row row = sheet.createRow(rownum);
+            int cellnum = 0;
+            for (String value : data) {
+                Cell cell = row.createCell(cellnum++);
+                cell.setCellValue((String) value);
+                cell.setCellStyle(cellStyle);
+            }
+            rownum++;
+        }
+        
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if(returnVal== JFileChooser.APPROVE_OPTION){
+            try {
+                FileOutputStream fileOut;
+                if(chooser.getSelectedFile().getName().endsWith(".xlsx")){
+                    fileOut = new FileOutputStream(chooser.getSelectedFile());
+                }else{
+                    fileOut = new FileOutputStream(chooser.getSelectedFile()+".xlsx");
+                }
+                workbook.write(fileOut);
+                fileOut.close();
+                // Closing the workbook
+                workbook.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnCetakActionPerformed
 
     private void tblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistoryMouseClicked
 //        String selId=tblMember.getValueAt(tblMember.getSelectedRow(),0).toString();
@@ -468,8 +570,8 @@ public class History extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
