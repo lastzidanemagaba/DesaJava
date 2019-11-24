@@ -5,6 +5,8 @@
  */
 package penerimaan.desa;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -19,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.*;
 
 /**
  *
@@ -44,6 +48,7 @@ public class Evaluasi extends javax.swing.JFrame {
         this.role = role;
         if (role > 0) {
             navUser.setVisible(false);
+            navHistory.setVisible(false);
         }
         setTable();
         rowSorter=new TableRowSorter<>(tblHistory.getModel());   
@@ -64,15 +69,14 @@ public class Evaluasi extends javax.swing.JFrame {
             allData =new String[countRowRs(rs)][10];
             for(int i=0;rs.next();i++){
                 allData[i][0]= rs.getString("data_evaluasi_id");
-                allData[i][1]=rs.getString("rumah");
-                allData[i][2]=rs.getString("jenis_dinding");
-                allData[i][3]=rs.getString("jumlah_tanggungan_keluarga");
-                allData[i][4]=rs.getString("pekerjaan");
-                allData[i][5]=rs.getString("pendapatan");       
-                allData[i][6]=rs.getString("tabungan");       
-                allData[i][7]=rs.getString("kendaraan");       
-                allData[i][8]=rs.getString("kesimpulan");
-                allData[i][9]=rs.getString("prediksi_kesimpulan");
+                allData[i][1]=rs.getString("nama");
+                allData[i][2]=rs.getString("nomor");
+                allData[i][3]=rs.getString("jenis_dinding");
+                allData[i][4]=rs.getString("jumlah_tanggungan_keluarga");
+                allData[i][5]=rs.getString("pekerjaan");
+                allData[i][6]=rs.getString("pendapatan");      
+                allData[i][7]=rs.getString("kesimpulan");
+                allData[i][8]=rs.getString("prediksi_kesimpulan");
             }            
         }catch(SQLException e){
             System.out.println("Error : "+e);
@@ -85,9 +89,9 @@ public class Evaluasi extends javax.swing.JFrame {
         Statement st;
         double right =0 ;
         for (String[] data : allData) {
-            double hasil = f.calculation(data[1], data[2], Double.parseDouble(data[3]), data[4], Double.parseDouble(data[5]), data[6], data[7]);
+            double hasil = f.calculation(data[3], Double.parseDouble(data[4]), data[5], Double.parseDouble(data[6]));
             String layak = hasil > 50 ? "Layak":"Tidak Layak";
-            if(layak.toLowerCase().equals(data[8])) right = right+1;
+            if(layak.toLowerCase().equals(data[7].toLowerCase())) right = right+1;
             try {
                 String query = "UPDATE `data_evaluasi` SET `prediksi_kesimpulan`='"+layak+"' WHERE data_evaluasi_id="+data[0];
                 System.out.println(query);
@@ -97,34 +101,32 @@ public class Evaluasi extends javax.swing.JFrame {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        akurasi = right/allData.length;
+        akurasi = (right/allData.length)*100;
         txtAkurasi.setText(String.valueOf(akurasi)+" %");
     }
     
     public void setColumnTable(DefaultTableModel model){        
         model.addColumn ("No");
-        model.addColumn ("Rumah");
+        model.addColumn ("Nama Kepala Rumah Tangga");
+        model.addColumn ("Nomor Identitas");
         model.addColumn ("Jenis Dinding");
         model.addColumn ("Jumlah Tanggungan Keluarga");
         model.addColumn ("Pekerjaan");
         model.addColumn ("Pendapatan");
-        model.addColumn ("Tabungan");
-        model.addColumn ("Kendaraan");
         model.addColumn ("Kesimpulan");
         model.addColumn ("Prediksi Kesimpulan");
     }
     
-    public void setColumnModel(TableColumnModel columnModel){        
-        columnModel.getColumn(0).setPreferredWidth(20);
-        columnModel.getColumn(1).setPreferredWidth(100);
-        columnModel.getColumn(2).setPreferredWidth(100);
-        columnModel.getColumn(3).setPreferredWidth(100);
-        columnModel.getColumn(4).setPreferredWidth(100);
+    public void setColumnModel(TableColumnModel columnModel){     
+        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
+        columnModel.getColumn(4).setPreferredWidth(200);
         columnModel.getColumn(5).setPreferredWidth(100);
         columnModel.getColumn(6).setPreferredWidth(100);
         columnModel.getColumn(7).setPreferredWidth(100);
         columnModel.getColumn(8).setPreferredWidth(100);
-        columnModel.getColumn(9).setPreferredWidth(100);
     }
     public void setTable(){
         getData();
@@ -137,7 +139,7 @@ public class Evaluasi extends javax.swing.JFrame {
         tblHistory.setColumnModel(columnModel);  
         int i =1;
         for (String[] data1 : data) {            
-            table.addRow(new Object[]{i, data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8], data1[9]});
+            table.addRow(new Object[]{i, data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8]});
             i++;
         }        
     }
@@ -157,10 +159,8 @@ public class Evaluasi extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        navHistory = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
         navUser = new javax.swing.JPanel();
@@ -176,6 +176,7 @@ public class Evaluasi extends javax.swing.JFrame {
         btnProcess = new javax.swing.JButton();
         txtAkurasi = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        btnCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -220,10 +221,10 @@ public class Evaluasi extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel7.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel7.setLayout(new java.awt.GridLayout(1, 1));
+        navHistory.setBackground(new java.awt.Color(0, 204, 204));
+        navHistory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navHistory.setPreferredSize(new java.awt.Dimension(72, 31));
+        navHistory.setLayout(new java.awt.GridLayout(1, 1));
 
         lblHistory.setBackground(new java.awt.Color(0, 204, 204));
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -234,27 +235,9 @@ public class Evaluasi extends javax.swing.JFrame {
                 lblHistoryMouseClicked(evt);
             }
         });
-        jPanel7.add(lblHistory);
+        navHistory.add(lblHistory);
 
-        Psamping.add(jPanel7);
-
-        jPanel8.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel8.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel8.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblStruktur.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblStruktur.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur.setText("Struktur Desa");
-        lblStruktur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStrukturMouseClicked(evt);
-            }
-        });
-        jPanel8.add(lblStruktur);
-
-        Psamping.add(jPanel8);
+        Psamping.add(navHistory);
 
         jPanel9.setBackground(new java.awt.Color(0, 204, 204));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -341,6 +324,7 @@ public class Evaluasi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
+        tblHistory.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHistoryMouseClicked(evt);
@@ -383,12 +367,22 @@ public class Evaluasi extends javax.swing.JFrame {
         txtAkurasi.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtAkurasi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pContent.add(txtAkurasi);
-        txtAkurasi.setBounds(680, 330, 110, 70);
+        txtAkurasi.setBounds(680, 440, 110, 70);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Akurasi");
         pContent.add(jLabel7);
-        jLabel7.setBounds(670, 290, 90, 40);
+        jLabel7.setBounds(670, 400, 90, 40);
+
+        btnCetak.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCetak.setText("Cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCetakActionPerformed(evt);
+            }
+        });
+        pContent.add(btnCetak);
+        btnCetak.setBounds(680, 280, 110, 60);
 
         jPanel1.add(pContent);
 
@@ -409,44 +403,6 @@ public class Evaluasi extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new Home(this.role).setVisible(true);
-    }//GEN-LAST:event_lblHomeMouseClicked
-
-    private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new Fuzzy(this.role).setVisible(true);
-    }//GEN-LAST:event_lblFuzzyMouseClicked
-
-    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new History(this.role).setVisible(true);
-    }//GEN-LAST:event_lblHistoryMouseClicked
-
-    private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new StrukturDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblStrukturMouseClicked
-
-    private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new ProfilDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblProfilDesaMouseClicked
-
-    private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
-        // TODO add your handling code here:
-        if (this.role == 0) {
-            this.dispose();
-            new User(this.role).setVisible(true);
-        }
-    }//GEN-LAST:event_jPnlUserMouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         // TODO add your handling code here:
@@ -473,7 +429,6 @@ public class Evaluasi extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal== JFileChooser.APPROVE_OPTION){
-//            File file = chooser.getSelectedFile();
             try {
                 Workbook workbook = WorkbookFactory.create(chooser.getSelectedFile());
                 System.out.println("Workbook has " + workbook.getNumberOfSheets() + " Sheets : ");
@@ -481,20 +436,19 @@ public class Evaluasi extends javax.swing.JFrame {
                 DataFormatter dataFormatter = new DataFormatter();
                 int i = 0;
                 for (Row row : sheet) {
-                    if(i == 0){
+                    if(i <= 1){
                         i++;
                     }else{
-                        String rumah = dataFormatter.formatCellValue(row.getCell(1));
-                        String jenisDinding = dataFormatter.formatCellValue(row.getCell(2));
-                        String jumlahTanggunganKeluarga = dataFormatter.formatCellValue(row.getCell(3));
-                        String pekerjaan = dataFormatter.formatCellValue(row.getCell(4));
-                        String pendapatan = dataFormatter.formatCellValue(row.getCell(5));
-                        String tabungan = dataFormatter.formatCellValue(row.getCell(6));
-                        String kendaraan = dataFormatter.formatCellValue(row.getCell(7));
-                        String kesimpulan = dataFormatter.formatCellValue(row.getCell(8));
+                        String nama = dataFormatter.formatCellValue(row.getCell(1));
+                        String nomor = dataFormatter.formatCellValue(row.getCell(2));
+                        String jenisDinding = dataFormatter.formatCellValue(row.getCell(3));
+                        String jumlahTanggunganKeluarga = dataFormatter.formatCellValue(row.getCell(4));
+                        String pekerjaan = dataFormatter.formatCellValue(row.getCell(5));
+                        String pendapatan = dataFormatter.formatCellValue(row.getCell(6));
+                        String kesimpulan = dataFormatter.formatCellValue(row.getCell(7));
                         Statement st;
                         try {
-                            String query = "INSERT INTO `data_evaluasi` (`data_evaluasi_id`, `rumah`, `jenis_dinding`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `tabungan`, `kendaraan`, `kesimpulan`) VALUES (NULL, '"+rumah+"', '"+jenisDinding+"', "+jumlahTanggunganKeluarga+", '"+pekerjaan+"', "+pendapatan+", '"+tabungan+"', '"+kendaraan+"', '"+kesimpulan+"')";
+                            String query = "INSERT INTO `data_evaluasi` (`data_evaluasi_id`, `nama`, `nomor`, `jenis_dinding`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`) VALUES (NULL, '"+nama+"', '"+nomor+"', '"+jenisDinding+"', "+jumlahTanggunganKeluarga+", '"+pekerjaan+"', "+pendapatan+", '"+kesimpulan+"')";
                             System.out.println(query);
                             st = dc.con.createStatement();
                             st.executeUpdate(query);
@@ -537,6 +491,149 @@ public class Evaluasi extends javax.swing.JFrame {
         setTable();
     }//GEN-LAST:event_btnProcessActionPerformed
 
+    private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Home(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHomeMouseClicked
+
+    private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Fuzzy(this.role).setVisible(true);
+    }//GEN-LAST:event_lblFuzzyMouseClicked
+
+    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new History(this.role).setVisible(true);
+    }//GEN-LAST:event_lblHistoryMouseClicked
+
+    private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new ProfilDesa(this.role).setVisible(true);
+    }//GEN-LAST:event_lblProfilDesaMouseClicked
+
+    private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
+        // TODO add your handling code here:
+        if (this.role == 0) {
+            this.dispose();
+            new User(this.role).setVisible(true);
+        }
+    }//GEN-LAST:event_jPnlUserMouseClicked
+
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+        // TODO add your handling code here:
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        
+        XSSFSheet sheet = workbook.createSheet("History");
+        // Create a Font for styling header cells
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+
+        // Create a CellStyle with the font
+        CellStyle headerCellStyle = workbook.createCellStyle();
+        headerCellStyle.setFont(headerFont);
+        headerCellStyle.setBorderBottom(BorderStyle.THIN);
+        headerCellStyle.setBorderTop(BorderStyle.THIN);
+        headerCellStyle.setBorderRight(BorderStyle.THIN);
+        headerCellStyle.setBorderLeft(BorderStyle.THIN);
+
+        Row rowTitle = sheet.createRow(0);
+        
+        Cell cellTitle = rowTitle.createCell(0);
+        cellTitle.setCellValue("Kantor Kepala Desa Kasreman");
+        CellStyle styleTitle = workbook.createCellStyle();
+        Font titleFont = workbook.createFont();
+        titleFont.setBold(true);
+        titleFont.setFontHeightInPoints((short) 16);
+        styleTitle.setFont(titleFont);
+        styleTitle.setAlignment(HorizontalAlignment.CENTER);
+        styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellTitle.setCellStyle(styleTitle);
+        sheet.addMergedRegion(new CellRangeAddress(0,1,0,8));
+        
+        Row rowStart = sheet.createRow(2);
+        
+        Cell cellNo = rowStart.createCell(0);
+        cellNo.setCellValue("No");
+        cellNo.setCellStyle(headerCellStyle);
+        
+        Cell cellRumah = rowStart.createCell(1);
+        cellRumah.setCellValue("Nama Kepala Rumah Tangga");
+        cellRumah.setCellStyle(headerCellStyle);
+        
+        Cell cellTabungan = rowStart.createCell(2);
+        cellTabungan.setCellValue("Nomor Identitas");
+        cellTabungan.setCellStyle(headerCellStyle);
+        
+        Cell cellJenisDinding = rowStart.createCell(3);
+        cellJenisDinding.setCellValue("Jenis Dinding");
+        cellJenisDinding.setCellStyle(headerCellStyle);
+        
+        Cell cellJumlahTanggunganKeluarga = rowStart.createCell(4);
+        cellJumlahTanggunganKeluarga.setCellValue("Jumlah Tanggungan Keluarga");
+        cellJumlahTanggunganKeluarga.setCellStyle(headerCellStyle);
+        
+        Cell cellPekerjaan = rowStart.createCell(5);
+        cellPekerjaan.setCellValue("Pekerjaan");
+        cellPekerjaan.setCellStyle(headerCellStyle);
+        
+        Cell cellPenapatan = rowStart.createCell(6);
+        cellPenapatan.setCellValue("Pendapatan");
+        cellPenapatan.setCellStyle(headerCellStyle);
+        
+        Cell cellKesimpulan = rowStart.createCell(7);
+        cellKesimpulan.setCellValue("Kesimpulan");
+        cellKesimpulan.setCellStyle(headerCellStyle);
+        
+        Cell cellPrediksiKesimpulan = rowStart.createCell(8);
+        cellPrediksiKesimpulan.setCellValue("Prediksi Kesimpulan");
+        cellPrediksiKesimpulan.setCellStyle(headerCellStyle);
+        
+        int rownum = 3;
+        
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        for (String[] data : allData) {
+            Row row = sheet.createRow(rownum);
+            int cellnum = 0;
+            for (String value : data) {
+                if(cellnum < 9){
+                    Cell cell = row.createCell(cellnum++);
+                    cell.setCellValue((String) value);
+                    cell.setCellStyle(cellStyle);
+                }
+            }
+            rownum++;
+        }
+        
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if(returnVal== JFileChooser.APPROVE_OPTION){
+            try {
+                FileOutputStream fileOut;
+                if(chooser.getSelectedFile().getName().endsWith(".xlsx")){
+                    fileOut = new FileOutputStream(chooser.getSelectedFile());
+                }else{
+                    fileOut = new FileOutputStream(chooser.getSelectedFile()+".xlsx");
+                }
+                workbook.write(fileOut);
+                fileOut.close();
+                // Closing the workbook
+                workbook.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnCetakActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -574,6 +671,7 @@ public class Evaluasi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnClearAll;
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnProcess;
@@ -581,8 +679,6 @@ public class Evaluasi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
     private javax.swing.JScrollPane jScrollPane1;
@@ -590,8 +686,8 @@ public class Evaluasi extends javax.swing.JFrame {
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblProfilDesa;
-    private javax.swing.JLabel lblStruktur;
     private javax.swing.JLabel logout;
+    private javax.swing.JPanel navHistory;
     private javax.swing.JPanel navUser;
     private javax.swing.JPanel pContent;
     private javax.swing.JTable tblHistory;

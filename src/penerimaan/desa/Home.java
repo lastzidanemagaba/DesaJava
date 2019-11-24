@@ -33,6 +33,7 @@ public class Home extends javax.swing.JFrame {
         this.role = role;
         if (role > 0) {
             navUser.setVisible(false);
+            navHistory.setVisible(false);
         }
     }
 
@@ -51,10 +52,8 @@ public class Home extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        navHistory = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
         navUser = new javax.swing.JPanel();
@@ -63,20 +62,19 @@ public class Home extends javax.swing.JFrame {
         btnSubmit = new javax.swing.JButton();
         logout = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        cbxRumah = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         cbxJenisDinding = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        txtJumlahTanggunganKeluarga = new javax.swing.JTextField();
+        txtNomor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cbxPekerjaan = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtPendapatan = new javax.swing.JTextField();
+        txtJumlahTanggunganKeluarga = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtNama = new javax.swing.JTextField();
+        lblLogo1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cbxTabungan = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        cbxKendaraan = new javax.swing.JComboBox<>();
-        lblLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,10 +119,10 @@ public class Home extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel7.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel7.setLayout(new java.awt.GridLayout(1, 1));
+        navHistory.setBackground(new java.awt.Color(0, 204, 204));
+        navHistory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navHistory.setPreferredSize(new java.awt.Dimension(72, 31));
+        navHistory.setLayout(new java.awt.GridLayout(1, 1));
 
         lblHistory.setBackground(new java.awt.Color(0, 204, 204));
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -135,27 +133,9 @@ public class Home extends javax.swing.JFrame {
                 lblHistoryMouseClicked(evt);
             }
         });
-        jPanel7.add(lblHistory);
+        navHistory.add(lblHistory);
 
-        Psamping.add(jPanel7);
-
-        jPanel8.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel8.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel8.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblStruktur.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblStruktur.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur.setText("Struktur Desa");
-        lblStruktur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStrukturMouseClicked(evt);
-            }
-        });
-        jPanel8.add(lblStruktur);
-
-        Psamping.add(jPanel8);
+        Psamping.add(navHistory);
 
         jPanel9.setBackground(new java.awt.Color(0, 204, 204));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -207,7 +187,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
         pContent.add(btnSubmit);
-        btnSubmit.setBounds(220, 530, 280, 23);
+        btnSubmit.setBounds(210, 430, 280, 23);
 
         logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -221,68 +201,60 @@ public class Home extends javax.swing.JFrame {
         logout.setBounds(724, 10, 60, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Rumah");
+        jLabel1.setText("Nomor Identitas");
         pContent.add(jLabel1);
-        jLabel1.setBounds(130, 240, 60, 20);
-
-        cbxRumah.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Milik Sendiri", "Kontrak / Sewa" }));
-        pContent.add(cbxRumah);
-        cbxRumah.setBounds(330, 240, 290, 20);
+        jLabel1.setBounds(130, 220, 180, 20);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Jenis Dinding");
         pContent.add(jLabel2);
-        jLabel2.setBounds(130, 280, 90, 20);
+        jLabel2.setBounds(130, 260, 90, 20);
 
-        cbxJenisDinding.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tembok", "Papan / Anyaman Bambu" }));
+        cbxJenisDinding.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bambu", "Papan/Kayu", "Tembok" }));
         pContent.add(cbxJenisDinding);
-        cbxJenisDinding.setBounds(330, 280, 290, 20);
+        cbxJenisDinding.setBounds(330, 260, 290, 20);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Jumlah Tanggungan Keluarga");
         pContent.add(jLabel3);
-        jLabel3.setBounds(130, 320, 190, 20);
-        pContent.add(txtJumlahTanggunganKeluarga);
-        txtJumlahTanggunganKeluarga.setBounds(330, 320, 290, 20);
+        jLabel3.setBounds(130, 300, 190, 20);
+        pContent.add(txtNomor);
+        txtNomor.setBounds(330, 220, 290, 20);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Pekerjaan");
         pContent.add(jLabel4);
-        jLabel4.setBounds(130, 360, 90, 20);
+        jLabel4.setBounds(130, 340, 90, 20);
 
-        cbxPekerjaan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pemulung", "Buruh", "Kuli", "Petani", "Swasta", "Wiraswasta" }));
+        cbxPekerjaan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buruh", "Petani", "Wiraswasta" }));
         pContent.add(cbxPekerjaan);
-        cbxPekerjaan.setBounds(330, 360, 290, 20);
+        cbxPekerjaan.setBounds(330, 340, 290, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Pendapatan");
         pContent.add(jLabel5);
-        jLabel5.setBounds(130, 400, 190, 20);
+        jLabel5.setBounds(130, 380, 190, 20);
         pContent.add(txtPendapatan);
-        txtPendapatan.setBounds(330, 400, 290, 20);
+        txtPendapatan.setBounds(330, 380, 290, 20);
+        pContent.add(txtJumlahTanggunganKeluarga);
+        txtJumlahTanggunganKeluarga.setBounds(330, 300, 290, 20);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Tabungan");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Nama Kepala Rumah Tangga");
+        pContent.add(jLabel8);
+        jLabel8.setBounds(130, 180, 180, 20);
+        pContent.add(txtNama);
+        txtNama.setBounds(330, 180, 290, 20);
+
+        lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+        pContent.add(lblLogo1);
+        lblLogo1.setBounds(20, 10, 100, 126);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel6.setText("Kantor Kepala Desa Kasreman");
         pContent.add(jLabel6);
-        jLabel6.setBounds(130, 440, 90, 20);
-
-        cbxTabungan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Punya", "Tidak Punya" }));
-        pContent.add(cbxTabungan);
-        cbxTabungan.setBounds(330, 440, 290, 20);
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Kendaraan");
-        pContent.add(jLabel7);
-        jLabel7.setBounds(130, 480, 90, 20);
-
-        cbxKendaraan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Punya", "Tidak Punya" }));
-        pContent.add(cbxKendaraan);
-        cbxKendaraan.setBounds(330, 480, 290, 20);
-
-        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
-        pContent.add(lblLogo);
-        lblLogo.setBounds(340, 60, 100, 126);
+        jLabel6.setBounds(130, 10, 510, 100);
 
         jPanel1.add(pContent);
 
@@ -322,12 +294,6 @@ public class Home extends javax.swing.JFrame {
         new ProfilDesa(this.role).setVisible(true);
     }//GEN-LAST:event_lblProfilDesaMouseClicked
 
-    private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new StrukturDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblStrukturMouseClicked
-
     private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
         // TODO add your handling code here:
         if (this.role == 0) {
@@ -344,21 +310,20 @@ public class Home extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        String rumah = cbxRumah.getSelectedItem().toString();
+        String nama = txtNama.getText();
+        String nomor = txtNomor.getText();
         String jenisDinding = cbxJenisDinding.getSelectedItem().toString();
         double jumlahTanggunganKeluarga = Double.parseDouble(txtJumlahTanggunganKeluarga.getText());
         String pekerjaan = cbxPekerjaan.getSelectedItem().toString();
         double pendapatan = Double.parseDouble(txtPendapatan.getText());
-        String tabungan = cbxTabungan.getSelectedItem().toString();
-        String kendaraan = cbxKendaraan.getSelectedItem().toString();
         Fuzzification f = new Fuzzification();
-        double hasil = f.calculation(rumah, jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan, tabungan, kendaraan);
+        double hasil = f.calculation(jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan);
         String layak = hasil > 50 ? "Layak":"Tidak Layak";
         Statement st;
         try {
             st = dc.con.createStatement();
-            st.executeUpdate("INSERT INTO `history` (`id`, `rumah`, `jenis_dinding`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `tabungan`, `kendaraan`, `kesimpulan`) VALUES (NULL, '"+rumah+"', '"+jenisDinding+"', '"+jumlahTanggunganKeluarga+"', '"+pekerjaan+"', '"+pendapatan+"', '"+tabungan+"', '"+kendaraan+"', '"+layak+"')");
-            new Hasil(this.role, rumah, jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan, tabungan, kendaraan, layak).setVisible(true);
+            st.executeUpdate("INSERT INTO `history` (`id`, `nama` ,`nomor`, `jenis_dinding`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`) VALUES (NULL, '"+nama+"', '"+nomor+"', '"+jenisDinding+"', '"+jumlahTanggunganKeluarga+"', '"+pekerjaan+"', '"+pendapatan+"', '"+layak+"')");
+            new Hasil(this.role, nama, nomor, jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan, layak).setVisible(true);
             this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -410,34 +375,31 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Psamping;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cbxJenisDinding;
-    private javax.swing.JComboBox<String> cbxKendaraan;
     private javax.swing.JComboBox<String> cbxPekerjaan;
-    private javax.swing.JComboBox<String> cbxRumah;
-    private javax.swing.JComboBox<String> cbxTabungan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
-    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblProfilDesa;
-    private javax.swing.JLabel lblStruktur;
     private javax.swing.JLabel logout;
+    private javax.swing.JPanel navHistory;
     private javax.swing.JPanel navUser;
     private javax.swing.JPanel pContent;
     private javax.swing.JTextField txtJumlahTanggunganKeluarga;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtNomor;
     private javax.swing.JTextField txtPendapatan;
     // End of variables declaration//GEN-END:variables
 }

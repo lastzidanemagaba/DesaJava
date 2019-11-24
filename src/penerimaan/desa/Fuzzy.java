@@ -5,7 +5,6 @@
  */
 package penerimaan.desa;
 
-import java.awt.Point;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -33,17 +32,15 @@ public class Fuzzy extends javax.swing.JFrame {
         this.role = role;
         if (role > 0) {
             navUser.setVisible(false);
+            navHistory.setVisible(false);
         }
     }
     public void setColumnTable(DefaultTableModel model){        
         model.addColumn ("No");
-        model.addColumn ("Rumah");
         model.addColumn ("Jenis Dinding");
         model.addColumn ("Jumlah Tanggungan Keluarga");
         model.addColumn ("Pekerjaan");
         model.addColumn ("Pendapatan");
-        model.addColumn ("Tabungan");
-        model.addColumn ("Kendaraan");
         model.addColumn ("Kesimpulan");
     }
     public void setColumnModel(TableColumnModel columnModel){        
@@ -64,13 +61,10 @@ public class Fuzzy extends javax.swing.JFrame {
         for (Fuzzification.FuzzyRule rule : fuzzy.rules) {            
             table.addRow(new Object[]{
                 i,
-                rule.rumah,
                 rule.jenisDinding,
                 rule.jumlahTanggunganKeluarga,
                 rule.pekerjaan,
                 rule.pendapatan,
-                rule.tabungan,
-                rule.kendaraan,
                 rule.conclusion    
             });
             i++;
@@ -92,10 +86,8 @@ public class Fuzzy extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        navHistory = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
         navUser = new javax.swing.JPanel();
@@ -105,6 +97,8 @@ public class Fuzzy extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRule = new javax.swing.JTable();
+        lblLogo1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,10 +143,10 @@ public class Fuzzy extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel7.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel7.setLayout(new java.awt.GridLayout(1, 1));
+        navHistory.setBackground(new java.awt.Color(0, 204, 204));
+        navHistory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navHistory.setPreferredSize(new java.awt.Dimension(72, 31));
+        navHistory.setLayout(new java.awt.GridLayout(1, 1));
 
         lblHistory.setBackground(new java.awt.Color(0, 204, 204));
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -163,27 +157,9 @@ public class Fuzzy extends javax.swing.JFrame {
                 lblHistoryMouseClicked(evt);
             }
         });
-        jPanel7.add(lblHistory);
+        navHistory.add(lblHistory);
 
-        Psamping.add(jPanel7);
-
-        jPanel8.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel8.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel8.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblStruktur.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblStruktur.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur.setText("Struktur Desa");
-        lblStruktur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStrukturMouseClicked(evt);
-            }
-        });
-        jPanel8.add(lblStruktur);
-
-        Psamping.add(jPanel8);
+        Psamping.add(navHistory);
 
         jPanel9.setBackground(new java.awt.Color(0, 204, 204));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -243,7 +219,7 @@ public class Fuzzy extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Rule");
         jPanel3.add(jLabel1);
-        jLabel1.setBounds(30, 60, 120, 40);
+        jLabel1.setBounds(20, 140, 120, 40);
 
         tblRule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -264,7 +240,17 @@ public class Fuzzy extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblRule);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 100, 680, 402);
+        jScrollPane1.setBounds(20, 180, 680, 402);
+
+        lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+        jPanel3.add(lblLogo1);
+        lblLogo1.setBounds(20, 10, 100, 126);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel6.setText("Kantor Kepala Desa Kasreman");
+        jPanel3.add(jLabel6);
+        jLabel6.setBounds(130, 10, 510, 100);
 
         jPanel1.add(jPanel3);
 
@@ -286,6 +272,17 @@ public class Fuzzy extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void tblRuleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRuleMouseClicked
+//        String selId=tblRule.getValueAt(tblRule.getSelectedRow(),0).toString();
+//        selData=getUser(allData,Integer.parseInt(selId));
+    }//GEN-LAST:event_tblRuleMouseClicked
+
     private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
         // TODO add your handling code here:
         this.dispose();
@@ -304,12 +301,6 @@ public class Fuzzy extends javax.swing.JFrame {
         new History(this.role).setVisible(true);
     }//GEN-LAST:event_lblHistoryMouseClicked
 
-    private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new StrukturDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblStrukturMouseClicked
-
     private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
         // TODO add your handling code here:
         this.dispose();
@@ -323,17 +314,6 @@ public class Fuzzy extends javax.swing.JFrame {
             new User(this.role).setVisible(true);
         }
     }//GEN-LAST:event_jPnlUserMouseClicked
-
-    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new Login().setVisible(true);
-    }//GEN-LAST:event_logoutMouseClicked
-
-    private void tblRuleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRuleMouseClicked
-//        String selId=tblRule.getValueAt(tblRule.getSelectedRow(),0).toString();
-//        selData=getUser(allData,Integer.parseInt(selId));
-    }//GEN-LAST:event_tblRuleMouseClicked
 
     /**
      * @param args the command line arguments
@@ -373,21 +353,21 @@ public class Fuzzy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
+    private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblProfilDesa;
-    private javax.swing.JLabel lblStruktur;
     private javax.swing.JLabel logout;
+    private javax.swing.JPanel navHistory;
     private javax.swing.JPanel navUser;
     private javax.swing.JTable tblRule;
     // End of variables declaration//GEN-END:variables

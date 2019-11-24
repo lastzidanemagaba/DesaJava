@@ -30,6 +30,7 @@ public class UserCreate extends javax.swing.JFrame {
         this.role = role;
         if (role > 0) {
             navUser.setVisible(false);
+            navHistory.setVisible(false);
         }
     }
 
@@ -48,10 +49,8 @@ public class UserCreate extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        navHistory = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
         navUser = new javax.swing.JPanel();
@@ -111,10 +110,10 @@ public class UserCreate extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel7.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel7.setLayout(new java.awt.GridLayout(1, 1));
+        navHistory.setBackground(new java.awt.Color(0, 204, 204));
+        navHistory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navHistory.setPreferredSize(new java.awt.Dimension(72, 31));
+        navHistory.setLayout(new java.awt.GridLayout(1, 1));
 
         lblHistory.setBackground(new java.awt.Color(0, 204, 204));
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -125,27 +124,9 @@ public class UserCreate extends javax.swing.JFrame {
                 lblHistoryMouseClicked(evt);
             }
         });
-        jPanel7.add(lblHistory);
+        navHistory.add(lblHistory);
 
-        Psamping.add(jPanel7);
-
-        jPanel8.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel8.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel8.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblStruktur.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblStruktur.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur.setText("Struktur Desa");
-        lblStruktur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStrukturMouseClicked(evt);
-            }
-        });
-        jPanel8.add(lblStruktur);
-
-        Psamping.add(jPanel8);
+        Psamping.add(navHistory);
 
         jPanel9.setBackground(new java.awt.Color(0, 204, 204));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -325,12 +306,6 @@ public class UserCreate extends javax.swing.JFrame {
         new History(this.role).setVisible(true);
     }//GEN-LAST:event_lblHistoryMouseClicked
 
-    private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new StrukturDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblStrukturMouseClicked
-
     private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
         // TODO add your handling code here:
         this.dispose();
@@ -390,8 +365,6 @@ public class UserCreate extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
     private javax.swing.JLabel lblFuzzy;
@@ -400,10 +373,10 @@ public class UserCreate extends javax.swing.JFrame {
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPassword1;
     private javax.swing.JLabel lblProfilDesa;
-    private javax.swing.JLabel lblStruktur;
     private javax.swing.JLabel lblTambKaryawan;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblkembali;
+    private javax.swing.JPanel navHistory;
     private javax.swing.JPanel navUser;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;

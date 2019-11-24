@@ -12,13 +12,12 @@ package penerimaan.desa;
 public class Hasil extends javax.swing.JFrame {
 
     private int role;
-    String rumah;
+    String nama;
+    String nomor;
     String jenisDinding;
     double jumlahTanggunganKeluarga;
     String pekerjaan;
     double pendapatan;
-    String tabungan;
-    String kendaraan;
     String layak;
      
     /**
@@ -28,28 +27,27 @@ public class Hasil extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Hasil(int role, String rumah, String jenisDinding, double jumlahTanggunganKeluarga, String pekerjaan, double pendapatan, String tabungan, String kendaraan, String layak) {
+    public Hasil(int role, String nama, String nomor, String jenisDinding, double jumlahTanggunganKeluarga, String pekerjaan, double pendapatan, String layak) {
         initComponents();
         this.role = role;
         if(this.role > 0){
             navUser.setVisible(false);
+            navHistory.setVisible(false);
         }
-        this.rumah = rumah;
+        this.nama = nama;
+        this.nomor = nomor;
         this.jenisDinding = jenisDinding;
         this.jumlahTanggunganKeluarga = jumlahTanggunganKeluarga;
         this.pekerjaan = pekerjaan;
         this.pendapatan = pendapatan;
-        this.tabungan = tabungan;
-        this.kendaraan = kendaraan;
         this.layak = layak;
         
-        txtRumah.setText(this.rumah);
+        txtNama.setText(this.nama);
+        txtNomor.setText(this.nomor);
         txtJenisDinding.setText(this.jenisDinding);
-        txtJumlahTanggunganKeluarga3.setText(Double.toString(this.jumlahTanggunganKeluarga));
+        txtJumlahTanggunganKeluarga.setText(Double.toString(this.jumlahTanggunganKeluarga));
         txtPekerjaan.setText(this.pekerjaan);
         txtPendapatan.setText(Double.toString(this.pendapatan));
-        txtTabungan.setText(this.tabungan);
-        txtKendaran.setText(this.kendaraan);
         txtLayak.setText(this.layak);
     }
 
@@ -68,10 +66,8 @@ public class Hasil extends javax.swing.JFrame {
         lblHome = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblFuzzy = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        navHistory = new javax.swing.JPanel();
         lblHistory = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        lblStruktur = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lblProfilDesa = new javax.swing.JLabel();
         navUser = new javax.swing.JPanel();
@@ -85,16 +81,15 @@ public class Hasil extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtLayak = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtPekerjaan = new javax.swing.JTextField();
-        txtRumah = new javax.swing.JTextField();
-        txtJumlahTanggunganKeluarga3 = new javax.swing.JTextField();
+        txtNama = new javax.swing.JTextField();
+        txtJumlahTanggunganKeluarga = new javax.swing.JTextField();
         txtPendapatan = new javax.swing.JTextField();
-        txtTabungan = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtKendaran = new javax.swing.JTextField();
-        lblLogo = new javax.swing.JLabel();
+        txtNomor = new javax.swing.JTextField();
+        lblLogo1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,10 +134,10 @@ public class Hasil extends javax.swing.JFrame {
 
         Psamping.add(jPanel4);
 
-        jPanel7.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel7.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel7.setLayout(new java.awt.GridLayout(1, 1));
+        navHistory.setBackground(new java.awt.Color(0, 204, 204));
+        navHistory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        navHistory.setPreferredSize(new java.awt.Dimension(72, 31));
+        navHistory.setLayout(new java.awt.GridLayout(1, 1));
 
         lblHistory.setBackground(new java.awt.Color(0, 204, 204));
         lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -153,27 +148,9 @@ public class Hasil extends javax.swing.JFrame {
                 lblHistoryMouseClicked(evt);
             }
         });
-        jPanel7.add(lblHistory);
+        navHistory.add(lblHistory);
 
-        Psamping.add(jPanel7);
-
-        jPanel8.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel8.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel8.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblStruktur.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblStruktur.setForeground(new java.awt.Color(52, 17, 9));
-        lblStruktur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStruktur.setText("Struktur Desa");
-        lblStruktur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblStrukturMouseClicked(evt);
-            }
-        });
-        jPanel8.add(lblStruktur);
-
-        Psamping.add(jPanel8);
+        Psamping.add(navHistory);
 
         jPanel9.setBackground(new java.awt.Color(0, 204, 204));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -230,44 +207,39 @@ public class Hasil extends javax.swing.JFrame {
         logout.setBounds(724, 10, 60, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Rumah");
+        jLabel1.setText("Nama Kepala Rumah Tangga");
         pContent.add(jLabel1);
-        jLabel1.setBounds(130, 150, 60, 20);
+        jLabel1.setBounds(130, 150, 190, 20);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Jenis Dinding");
         pContent.add(jLabel2);
-        jLabel2.setBounds(130, 190, 90, 20);
+        jLabel2.setBounds(130, 230, 90, 20);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Jumlah Tanggungan Keluarga");
         pContent.add(jLabel3);
-        jLabel3.setBounds(130, 230, 190, 20);
+        jLabel3.setBounds(130, 270, 190, 20);
 
         txtJenisDinding.setEditable(false);
         pContent.add(txtJenisDinding);
-        txtJenisDinding.setBounds(330, 190, 290, 20);
+        txtJenisDinding.setBounds(330, 230, 290, 20);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Pekerjaan");
         pContent.add(jLabel4);
-        jLabel4.setBounds(130, 270, 90, 20);
+        jLabel4.setBounds(130, 310, 90, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Pendapatan");
         pContent.add(jLabel5);
-        jLabel5.setBounds(130, 310, 190, 20);
+        jLabel5.setBounds(130, 350, 190, 20);
 
         txtLayak.setEditable(false);
         txtLayak.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtLayak.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pContent.add(txtLayak);
         txtLayak.setBounds(480, 440, 140, 70);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Tabungan");
-        pContent.add(jLabel6);
-        jLabel6.setBounds(130, 350, 90, 20);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Hasil");
@@ -276,37 +248,38 @@ public class Hasil extends javax.swing.JFrame {
 
         txtPekerjaan.setEditable(false);
         pContent.add(txtPekerjaan);
-        txtPekerjaan.setBounds(330, 270, 290, 20);
+        txtPekerjaan.setBounds(330, 310, 290, 20);
 
-        txtRumah.setEditable(false);
-        pContent.add(txtRumah);
-        txtRumah.setBounds(330, 150, 290, 20);
+        txtNama.setEditable(false);
+        pContent.add(txtNama);
+        txtNama.setBounds(330, 150, 290, 20);
 
-        txtJumlahTanggunganKeluarga3.setEditable(false);
-        pContent.add(txtJumlahTanggunganKeluarga3);
-        txtJumlahTanggunganKeluarga3.setBounds(330, 230, 290, 20);
+        txtJumlahTanggunganKeluarga.setEditable(false);
+        pContent.add(txtJumlahTanggunganKeluarga);
+        txtJumlahTanggunganKeluarga.setBounds(330, 270, 290, 20);
 
         txtPendapatan.setEditable(false);
         pContent.add(txtPendapatan);
-        txtPendapatan.setBounds(330, 310, 290, 20);
-
-        txtTabungan.setEditable(false);
-        pContent.add(txtTabungan);
-        txtTabungan.setBounds(330, 350, 290, 20);
+        txtPendapatan.setBounds(330, 350, 290, 20);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Kendaraan");
+        jLabel9.setText("Nomor Identitas");
         pContent.add(jLabel9);
-        jLabel9.setBounds(130, 390, 90, 20);
+        jLabel9.setBounds(130, 190, 140, 20);
 
-        txtKendaran.setEditable(false);
-        pContent.add(txtKendaran);
-        txtKendaran.setBounds(330, 390, 290, 20);
+        txtNomor.setEditable(false);
+        pContent.add(txtNomor);
+        txtNomor.setBounds(330, 190, 290, 20);
 
-        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
-        pContent.add(lblLogo);
-        lblLogo.setBounds(30, 10, 100, 126);
+        lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+        pContent.add(lblLogo1);
+        lblLogo1.setBounds(20, 10, 100, 126);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel6.setText("Kantor Kepala Desa Kasreman");
+        pContent.add(jLabel6);
+        jLabel6.setBounds(130, 10, 510, 100);
 
         jPanel1.add(pContent);
 
@@ -351,12 +324,6 @@ public class Hasil extends javax.swing.JFrame {
         this.dispose();
         new History(this.role).setVisible(true);
     }//GEN-LAST:event_lblHistoryMouseClicked
-
-    private void lblStrukturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStrukturMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new StrukturDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblStrukturMouseClicked
 
     private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
         // TODO add your handling code here:
@@ -420,26 +387,23 @@ public class Hasil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jPnlUser;
     private javax.swing.JLabel lblFuzzy;
     private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblHome;
-    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblProfilDesa;
-    private javax.swing.JLabel lblStruktur;
     private javax.swing.JLabel logout;
+    private javax.swing.JPanel navHistory;
     private javax.swing.JPanel navUser;
     private javax.swing.JPanel pContent;
     private javax.swing.JTextField txtJenisDinding;
-    private javax.swing.JTextField txtJumlahTanggunganKeluarga3;
-    private javax.swing.JTextField txtKendaran;
+    private javax.swing.JTextField txtJumlahTanggunganKeluarga;
     private javax.swing.JTextField txtLayak;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtNomor;
     private javax.swing.JTextField txtPekerjaan;
     private javax.swing.JTextField txtPendapatan;
-    private javax.swing.JTextField txtRumah;
-    private javax.swing.JTextField txtTabungan;
     // End of variables declaration//GEN-END:variables
 }

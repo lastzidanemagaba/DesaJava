@@ -74,23 +74,21 @@ public class Fuzzification {
     }
     
     public class FuzzyRule{
-        public final String rumah;
+//        public final String rumah;
         public final String jenisDinding;
         public final String jumlahTanggunganKeluarga;
         public final String pekerjaan;
         public final String pendapatan;
-        public final String tabungan;
-        public final String kendaraan;
+//        public final String tabungan;
+//        public final String kendaraan;
         public final String conclusion;
 
-        public FuzzyRule(String rumah, String jenisDinding, String jumlahTanggunganKeluarga, String pekerjaan, String pendapatan, String tabungan, String kendaraan, String conclusion) {
-            this.rumah = rumah;
+        public FuzzyRule(String jenisDinding, String jumlahTanggunganKeluarga, String pekerjaan, String pendapatan, String conclusion) {
+            
             this.jenisDinding = jenisDinding;
             this.jumlahTanggunganKeluarga = jumlahTanggunganKeluarga;
             this.pekerjaan = pekerjaan;
             this.pendapatan = pendapatan;
-            this.tabungan = tabungan;
-            this.kendaraan = kendaraan;
             this.conclusion = conclusion;
         }        
     }
@@ -111,16 +109,16 @@ public class Fuzzification {
 //        fuzzyJenisDinding = new FuzzyValue[3];
         
         fuzzyJumlahTanggunganKeluarga = new FuzzyValue[3];
-        fuzzyJumlahTanggunganKeluarga[0] = new FuzzyValue("sedikit", new double[]{2,3}, new int[]{1,0});
-        fuzzyJumlahTanggunganKeluarga[1] = new FuzzyValue("sedang", new double[]{2,3,4,7}, new int[]{0,1,1,0});
-        fuzzyJumlahTanggunganKeluarga[2] = new FuzzyValue("banyak", new double[]{4,7}, new int[]{0,1});
+        fuzzyJumlahTanggunganKeluarga[0] = new FuzzyValue("rendah", new double[]{2,3}, new int[]{1,0});
+        fuzzyJumlahTanggunganKeluarga[1] = new FuzzyValue("sedang", new double[]{2,3,4}, new int[]{0,1,0});
+        fuzzyJumlahTanggunganKeluarga[2] = new FuzzyValue("tinggi", new double[]{3,4}, new int[]{0,1});
         
 //        fuzzyPekerjaan = new FuzzyValue[3];
         
         fuzzyPendapatan = new FuzzyValue[3];
-        fuzzyPendapatan[0] = new FuzzyValue("sedikit", new double[]{450000,500000}, new int[]{1,0});
-        fuzzyPendapatan[1] = new FuzzyValue("sedang", new double[]{450000,500000,950000,1000000}, new int[]{0,1,1,0});
-        fuzzyPendapatan[2] = new FuzzyValue("banyak", new double[]{950000,1000000}, new int[]{0,1});
+        fuzzyPendapatan[0] = new FuzzyValue("rendah", new double[]{2000000,2500000}, new int[]{1,0});
+        fuzzyPendapatan[1] = new FuzzyValue("sedang", new double[]{2000000,2500000,3000000}, new int[]{0,1,0});
+        fuzzyPendapatan[2] = new FuzzyValue("tinggi", new double[]{2500000,3000000}, new int[]{0,1});
         
 //        fuzzyTabungan = new FuzzyValue()[3];
 
@@ -132,10 +130,9 @@ public class Fuzzification {
     }
     
     private void initRule(){
-        rules = new FuzzyRule[3];
-        rules[0] = new FuzzyRule("Milik Sendiri", "Tembok", "sedikit", "Buruh", "sedikit", "Punya", "Tidak Punya", "Layak");
-        rules[1] = new FuzzyRule("Kontrak / Sewa", "Tembok", "banyak", "Wiraswasta", "banyak", "Punya", "Punya", "Tidak Layak");
-        rules[2] = new FuzzyRule("Milik Sendiri", "Tembok", "sedikit", "Pemulung", "sedikit", "Punya", "Punya", "Layak");
+        rules = new FuzzyRule[2];
+        rules[0] = new FuzzyRule("Bambu", "tinggi", "Buruh", "rendah", "Layak");
+        rules[1] = new FuzzyRule("Tembok", "rendah", "Wiraswasta", "tinggi", "Tidak Layak");
     }
     
     public double getFuzzyRumah(String label, String value){
@@ -191,22 +188,19 @@ public class Fuzzification {
         return found.conclusionValue(value);
     }
     
-    public double calculation(String rumah, String jenisDinding, double jumlahTanggunganKeluarga, String pekerjaan, double pendapatan, String tabungan, String kendaraan){
-        double alfa = 0;
+    public double calculation(String jenisDinding, double jumlahTanggunganKeluarga, String pekerjaan, double pendapatan){
         double alfaxz = 0;
+        double alfa = 0;
         for(FuzzyRule rule : this.rules){
-            double alfaRule = Math.min(getFuzzyRumah(rule.rumah, rumah), getFuzzyJenisDinding(rule.jenisDinding, jenisDinding));
-            alfaRule = Math.min(alfaRule, getFuzzyJumlahTanggungan(rule.jumlahTanggunganKeluarga, jumlahTanggunganKeluarga));
+            double alfaRule = Math.min(getFuzzyJenisDinding(rule.jenisDinding, jenisDinding), getFuzzyJumlahTanggungan(rule.jumlahTanggunganKeluarga, jumlahTanggunganKeluarga));
             alfaRule = Math.min(alfaRule, getFuzzyPekerjaan(rule.pekerjaan, pekerjaan));
             alfaRule = Math.min(alfaRule, getFuzzyPendapatan(rule.pendapatan, pendapatan));
-            alfaRule = Math.min(alfaRule, getFuzzyTabungan(rule.tabungan, tabungan));
-            alfaRule = Math.min(alfaRule, getFuzzyKendaraan(rule.kendaraan, kendaraan));
             
             double z = getDefuzzyConclusion(rule.conclusion, alfaRule);
             System.out.println(alfaRule);
             System.out.println(z);
-            alfa = alfa + alfaRule;
             alfaxz = alfaxz + (alfaRule * z);
+            alfa = alfa + alfaRule;
         }
         System.out.println(alfaxz);
         System.out.println(alfa);
