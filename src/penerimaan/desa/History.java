@@ -170,6 +170,7 @@ public class History extends javax.swing.JFrame {
         txtCari = new javax.swing.JLabel();
         txtKeyWord = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -357,6 +358,16 @@ public class History extends javax.swing.JFrame {
         });
         pContent.add(jButton2);
         jButton2.setBounds(670, 140, 110, 60);
+
+        btnEdit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        pContent.add(btnEdit);
+        btnEdit.setBounds(670, 280, 110, 60);
 
         jPanel1.add(pContent);
 
@@ -568,6 +579,16 @@ public class History extends javax.swing.JFrame {
         new Evaluasi(this.role).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        if(this.selData == null){
+            JOptionPane.showMessageDialog(this, "Tidak ada history yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
+        }else{
+            new HistoryEdit(this.role, this.selData).setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -606,6 +627,7 @@ public class History extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
     private javax.swing.JButton btnCetak;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
