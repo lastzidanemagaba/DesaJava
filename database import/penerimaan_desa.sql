@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2019 pada 15.56
+-- Waktu pembuatan: 01 Des 2019 pada 12.32
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 CREATE DATABASE `penerimaan_desa`;
-
 --
 -- Database: `penerimaan_desa`
 --
@@ -34,7 +33,7 @@ CREATE TABLE `data_evaluasi` (
   `data_evaluasi_id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `nomor` varchar(255) NOT NULL,
-  `jenis_dinding` varchar(255) NOT NULL,
+  `luas_lahan` double NOT NULL,
   `jumlah_tanggungan_keluarga` double NOT NULL,
   `pekerjaan` varchar(255) NOT NULL,
   `pendapatan` double NOT NULL,
@@ -52,7 +51,7 @@ CREATE TABLE `history` (
   `id` int(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `nomor` varchar(255) NOT NULL,
-  `jenis_dinding` varchar(255) NOT NULL,
+  `luas_lahan` double NOT NULL,
   `jumlah_tanggungan_keluarga` double NOT NULL,
   `pekerjaan` varchar(255) NOT NULL,
   `pendapatan` double NOT NULL,
@@ -115,7 +114,7 @@ ALTER TABLE `data_evaluasi`
 -- AUTO_INCREMENT untuk tabel `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

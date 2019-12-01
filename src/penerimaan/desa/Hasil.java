@@ -14,7 +14,7 @@ public class Hasil extends javax.swing.JFrame {
     private int role;
     String nama;
     String nomor;
-    String jenisDinding;
+    double luasLahan;
     double jumlahTanggunganKeluarga;
     String pekerjaan;
     double pendapatan;
@@ -27,7 +27,7 @@ public class Hasil extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Hasil(int role, String nama, String nomor, String jenisDinding, double jumlahTanggunganKeluarga, String pekerjaan, double pendapatan, String layak) {
+    public Hasil(int role, String nama, String nomor, double luasLahan, double jumlahTanggunganKeluarga, String pekerjaan, double pendapatan, String layak) {
         initComponents();
         this.role = role;
         if(this.role > 0){
@@ -36,7 +36,7 @@ public class Hasil extends javax.swing.JFrame {
         }
         this.nama = nama;
         this.nomor = nomor;
-        this.jenisDinding = jenisDinding;
+        this.luasLahan = luasLahan;
         this.jumlahTanggunganKeluarga = jumlahTanggunganKeluarga;
         this.pekerjaan = pekerjaan;
         this.pendapatan = pendapatan;
@@ -44,7 +44,7 @@ public class Hasil extends javax.swing.JFrame {
         
         txtNama.setText(this.nama);
         txtNomor.setText(this.nomor);
-        txtJenisDinding.setText(this.jenisDinding);
+        txtLuasLahan.setText(Double.toString(this.luasLahan));
         txtJumlahTanggunganKeluarga.setText(Double.toString(this.jumlahTanggunganKeluarga));
         txtPekerjaan.setText(this.pekerjaan);
         txtPendapatan.setText(Double.toString(this.pendapatan));
@@ -77,7 +77,7 @@ public class Hasil extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtJenisDinding = new javax.swing.JTextField();
+        txtLuasLahan = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtLayak = new javax.swing.JTextField();
@@ -212,7 +212,7 @@ public class Hasil extends javax.swing.JFrame {
         jLabel1.setBounds(130, 150, 190, 20);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Jenis Dinding");
+        jLabel2.setText("Luas Lahan");
         pContent.add(jLabel2);
         jLabel2.setBounds(130, 230, 90, 20);
 
@@ -221,9 +221,9 @@ public class Hasil extends javax.swing.JFrame {
         pContent.add(jLabel3);
         jLabel3.setBounds(130, 270, 190, 20);
 
-        txtJenisDinding.setEditable(false);
-        pContent.add(txtJenisDinding);
-        txtJenisDinding.setBounds(330, 230, 290, 20);
+        txtLuasLahan.setEditable(false);
+        pContent.add(txtLuasLahan);
+        txtLuasLahan.setBounds(330, 230, 290, 20);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Pekerjaan");
@@ -398,9 +398,9 @@ public class Hasil extends javax.swing.JFrame {
     private javax.swing.JPanel navHistory;
     private javax.swing.JPanel navUser;
     private javax.swing.JPanel pContent;
-    private javax.swing.JTextField txtJenisDinding;
     private javax.swing.JTextField txtJumlahTanggunganKeluarga;
     private javax.swing.JTextField txtLayak;
+    private javax.swing.JTextField txtLuasLahan;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtNomor;
     private javax.swing.JTextField txtPekerjaan;

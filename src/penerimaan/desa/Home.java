@@ -63,7 +63,6 @@ public class Home extends javax.swing.JFrame {
         logout = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cbxJenisDinding = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txtNomor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -75,6 +74,7 @@ public class Home extends javax.swing.JFrame {
         txtNama = new javax.swing.JTextField();
         lblLogo1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        txtLuasLahan = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -206,13 +206,9 @@ public class Home extends javax.swing.JFrame {
         jLabel1.setBounds(130, 220, 180, 20);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Jenis Dinding");
+        jLabel2.setText("Luas Lahan");
         pContent.add(jLabel2);
         jLabel2.setBounds(130, 260, 90, 20);
-
-        cbxJenisDinding.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bambu", "Papan/Kayu", "Tembok" }));
-        pContent.add(cbxJenisDinding);
-        cbxJenisDinding.setBounds(330, 260, 290, 20);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Jumlah Tanggungan Keluarga");
@@ -255,6 +251,8 @@ public class Home extends javax.swing.JFrame {
         jLabel6.setText("Kantor Kepala Desa Kasreman");
         pContent.add(jLabel6);
         jLabel6.setBounds(130, 10, 510, 100);
+        pContent.add(txtLuasLahan);
+        txtLuasLahan.setBounds(330, 260, 290, 20);
 
         jPanel1.add(pContent);
 
@@ -312,18 +310,18 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nama = txtNama.getText();
         String nomor = txtNomor.getText();
-        String jenisDinding = cbxJenisDinding.getSelectedItem().toString();
+        double luasLahan = Double.parseDouble(txtLuasLahan.getText());
         double jumlahTanggunganKeluarga = Double.parseDouble(txtJumlahTanggunganKeluarga.getText());
         String pekerjaan = cbxPekerjaan.getSelectedItem().toString();
         double pendapatan = Double.parseDouble(txtPendapatan.getText());
         Fuzzification f = new Fuzzification();
-        double hasil = f.calculation(jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan);
+        double hasil = f.calculation(luasLahan, jumlahTanggunganKeluarga, pekerjaan, pendapatan);
         String layak = hasil > 50 ? "Layak":"Tidak Layak";
         Statement st;
         try {
             st = dc.con.createStatement();
-            st.executeUpdate("INSERT INTO `history` (`id`, `nama` ,`nomor`, `jenis_dinding`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`) VALUES (NULL, '"+nama+"', '"+nomor+"', '"+jenisDinding+"', '"+jumlahTanggunganKeluarga+"', '"+pekerjaan+"', '"+pendapatan+"', '"+layak+"')");
-            new Hasil(this.role, nama, nomor, jenisDinding, jumlahTanggunganKeluarga, pekerjaan, pendapatan, layak).setVisible(true);
+            st.executeUpdate("INSERT INTO `history` (`id`, `nama` ,`nomor`, `luas_lahan`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`) VALUES (NULL, '"+nama+"', '"+nomor+"', '"+luasLahan+"', '"+jumlahTanggunganKeluarga+"', '"+pekerjaan+"', '"+pendapatan+"', '"+layak+"')");
+            new Hasil(this.role, nama, nomor, luasLahan, jumlahTanggunganKeluarga, pekerjaan, pendapatan, layak).setVisible(true);
             this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -374,7 +372,6 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Psamping;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JComboBox<String> cbxJenisDinding;
     private javax.swing.JComboBox<String> cbxPekerjaan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -398,6 +395,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel navUser;
     private javax.swing.JPanel pContent;
     private javax.swing.JTextField txtJumlahTanggunganKeluarga;
+    private javax.swing.JTextField txtLuasLahan;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtNomor;
     private javax.swing.JTextField txtPendapatan;

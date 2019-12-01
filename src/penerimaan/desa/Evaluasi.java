@@ -71,7 +71,7 @@ public class Evaluasi extends javax.swing.JFrame {
                 allData[i][0]= rs.getString("data_evaluasi_id");
                 allData[i][1]=rs.getString("nama");
                 allData[i][2]=rs.getString("nomor");
-                allData[i][3]=rs.getString("jenis_dinding");
+                allData[i][3]=rs.getString("luas_lahan");
                 allData[i][4]=rs.getString("jumlah_tanggungan_keluarga");
                 allData[i][5]=rs.getString("pekerjaan");
                 allData[i][6]=rs.getString("pendapatan");      
@@ -89,7 +89,7 @@ public class Evaluasi extends javax.swing.JFrame {
         Statement st;
         double right =0 ;
         for (String[] data : allData) {
-            double hasil = f.calculation(data[3], Double.parseDouble(data[4]), data[5], Double.parseDouble(data[6]));
+            double hasil = f.calculation(Double.parseDouble(data[3]), Double.parseDouble(data[4]), data[5], Double.parseDouble(data[6]));
             String layak = hasil > 50 ? "Layak":"Tidak Layak";
             if(layak.toLowerCase().equals(data[7].toLowerCase())) right = right+1;
             try {
@@ -109,7 +109,7 @@ public class Evaluasi extends javax.swing.JFrame {
         model.addColumn ("No");
         model.addColumn ("Nama Kepala Rumah Tangga");
         model.addColumn ("Nomor Identitas");
-        model.addColumn ("Jenis Dinding");
+        model.addColumn ("Luas Lahan");
         model.addColumn ("Jumlah Tanggungan Keluarga");
         model.addColumn ("Pekerjaan");
         model.addColumn ("Pendapatan");
@@ -441,14 +441,14 @@ public class Evaluasi extends javax.swing.JFrame {
                     }else{
                         String nama = dataFormatter.formatCellValue(row.getCell(1));
                         String nomor = dataFormatter.formatCellValue(row.getCell(2));
-                        String jenisDinding = dataFormatter.formatCellValue(row.getCell(3));
+                        String luasLahan = dataFormatter.formatCellValue(row.getCell(3));
                         String jumlahTanggunganKeluarga = dataFormatter.formatCellValue(row.getCell(4));
                         String pekerjaan = dataFormatter.formatCellValue(row.getCell(5));
                         String pendapatan = dataFormatter.formatCellValue(row.getCell(6));
                         String kesimpulan = dataFormatter.formatCellValue(row.getCell(7));
                         Statement st;
                         try {
-                            String query = "INSERT INTO `data_evaluasi` (`data_evaluasi_id`, `nama`, `nomor`, `jenis_dinding`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`) VALUES (NULL, '"+nama+"', '"+nomor+"', '"+jenisDinding+"', "+jumlahTanggunganKeluarga+", '"+pekerjaan+"', "+pendapatan+", '"+kesimpulan+"')";
+                            String query = "INSERT INTO `data_evaluasi` (`data_evaluasi_id`, `nama`, `nomor`, `luas_lahan`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`) VALUES (NULL, '"+nama+"', '"+nomor+"', '"+luasLahan+"', "+jumlahTanggunganKeluarga+", '"+pekerjaan+"', "+pendapatan+", '"+kesimpulan+"')";
                             System.out.println(query);
                             st = dc.con.createStatement();
                             st.executeUpdate(query);
@@ -568,9 +568,9 @@ public class Evaluasi extends javax.swing.JFrame {
         cellTabungan.setCellValue("Nomor Identitas");
         cellTabungan.setCellStyle(headerCellStyle);
         
-        Cell cellJenisDinding = rowStart.createCell(3);
-        cellJenisDinding.setCellValue("Jenis Dinding");
-        cellJenisDinding.setCellStyle(headerCellStyle);
+        Cell cellLuasLahan = rowStart.createCell(3);
+        cellLuasLahan.setCellValue("Luas Lahan");
+        cellLuasLahan.setCellStyle(headerCellStyle);
         
         Cell cellJumlahTanggunganKeluarga = rowStart.createCell(4);
         cellJumlahTanggunganKeluarga.setCellValue("Jumlah Tanggungan Keluarga");

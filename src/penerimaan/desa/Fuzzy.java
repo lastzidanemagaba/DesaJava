@@ -37,7 +37,7 @@ public class Fuzzy extends javax.swing.JFrame {
     }
     public void setColumnTable(DefaultTableModel model){        
         model.addColumn ("No");
-        model.addColumn ("Jenis Dinding");
+        model.addColumn ("Luas Lahan");
         model.addColumn ("Jumlah Tanggungan Keluarga");
         model.addColumn ("Pekerjaan");
         model.addColumn ("Pendapatan");
@@ -61,7 +61,7 @@ public class Fuzzy extends javax.swing.JFrame {
         for (Fuzzification.FuzzyRule rule : fuzzy.rules) {            
             table.addRow(new Object[]{
                 i,
-                rule.jenisDinding,
+                rule.luasLahan,
                 rule.jumlahTanggunganKeluarga,
                 rule.pekerjaan,
                 rule.pendapatan,

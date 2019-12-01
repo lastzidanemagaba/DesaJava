@@ -6,12 +6,9 @@
  */
 package penerimaan.desa;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import org.apache.commons.compress.utils.IOUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -60,7 +56,6 @@ public class History extends javax.swing.JFrame {
             navUser.setVisible(false);
             navHistory.setVisible(false);
         }
-        
     }
     public int countRowRs(ResultSet rs) throws SQLException{
         rs.last();
@@ -79,7 +74,7 @@ public class History extends javax.swing.JFrame {
                 allData[i][0]= Integer.toString(i+1);
                 allData[i][1]=rs.getString("nama");
                 allData[i][2]=rs.getString("nomor");
-                allData[i][3]=rs.getString("jenis_dinding");
+                allData[i][3]=rs.getString("luas_lahan");
                 allData[i][4]=rs.getString("jumlah_tanggungan_keluarga");
                 allData[i][5]=rs.getString("pekerjaan");
                 allData[i][6]=rs.getString("pendapatan");      
@@ -106,7 +101,7 @@ public class History extends javax.swing.JFrame {
         model.addColumn ("No");
         model.addColumn ("Nama Kepala Rumah Tangga");
         model.addColumn ("Nomor Identitas");
-        model.addColumn ("Jenis Dinding");
+        model.addColumn ("Luas Lahan");
         model.addColumn ("Jumlah Tanggungan Keluarga");
         model.addColumn ("Pekerjaan");
         model.addColumn ("Pendapatan");
@@ -171,6 +166,7 @@ public class History extends javax.swing.JFrame {
         txtKeyWord = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        btnSimulate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -369,6 +365,16 @@ public class History extends javax.swing.JFrame {
         pContent.add(btnEdit);
         btnEdit.setBounds(670, 280, 110, 60);
 
+        btnSimulate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSimulate.setText("Simulasi");
+        btnSimulate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimulateActionPerformed(evt);
+            }
+        });
+        pContent.add(btnSimulate);
+        btnSimulate.setBounds(670, 350, 110, 60);
+
         jPanel1.add(pContent);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -461,9 +467,9 @@ public class History extends javax.swing.JFrame {
         cellTabungan.setCellValue("Nomor Identitas");
         cellTabungan.setCellStyle(headerCellStyle);
         
-        Cell cellJenisDinding = rowStart.createCell(3);
-        cellJenisDinding.setCellValue("Jenis Dinding");
-        cellJenisDinding.setCellStyle(headerCellStyle);
+        Cell cellLuasLahan = rowStart.createCell(3);
+        cellLuasLahan.setCellValue("Luas Lahan");
+        cellLuasLahan.setCellStyle(headerCellStyle);
         
         Cell cellJumlahTanggunganKeluarga = rowStart.createCell(4);
         cellJumlahTanggunganKeluarga.setCellValue("Jumlah Tanggungan Keluarga");
@@ -499,6 +505,18 @@ public class History extends javax.swing.JFrame {
                 }
             }
             rownum++;
+        }
+        
+        Row footerRow = sheet.createRow(rownum+1);
+        Cell footerCell = footerRow.createCell(7);
+        footerCell.setCellValue("Kepala Desa Kasreman");
+        footerCell.setCellStyle(cellStyle);
+        sheet.addMergedRegion(new CellRangeAddress(rownum+2, rownum+4, 7, 7));
+        for(int i=2; i<=4; i++){
+            Row ttdRow = sheet.createRow(rownum+i);
+            Cell ttdCell = ttdRow.createCell(7);
+            ttdCell.setCellValue(" ");
+            ttdCell.setCellStyle(cellStyle);
         }
         
         JFileChooser chooser = new JFileChooser();
@@ -589,6 +607,16 @@ public class History extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void btnSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimulateActionPerformed
+        // TODO add your handling code here:
+        if(this.selData == null){
+            JOptionPane.showMessageDialog(this, "Tidak ada history yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
+        }else{
+            new HistorySimulation(this.role, this.selData[8]).setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSimulateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -629,6 +657,7 @@ public class History extends javax.swing.JFrame {
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnSimulate;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
