@@ -18,9 +18,6 @@ public class PenerimaanDesa {
         // TODO code application logic here
         Login login = new Login();
         login.setVisible(true);
-//        Fuzzification f = new Fuzzification();
-//        f.calculation("milik sendiri", "tembok", 1, "buruh", 400000, "punya", "tidak punya", "layak");
-//        System.out.println(f.calculation("milik sendiri", "tembok", 1, "buruh", 400000, "punya", "tidak punya", "layak"));
     }
     
 }

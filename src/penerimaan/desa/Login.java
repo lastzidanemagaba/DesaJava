@@ -21,6 +21,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.setVisible(true);
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**
@@ -42,6 +44,7 @@ public class Login extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1370, 770));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -145,7 +148,7 @@ public class Login extends javax.swing.JFrame {
                 if(rs.next()){
                     if(password.equals(rs.getString("password"))){
                         this.dispose();
-                        new Home(rs.getInt("role")).setVisible(true);
+                        new MainFrame(rs.getInt("role"));
                     }else {
                         JOptionPane.showMessageDialog(null, "Password salah!");
                     }

@@ -23,15 +23,7 @@ public class UserCreate extends javax.swing.JFrame {
      */
     public UserCreate() {
         initComponents();
-    }
-    
-    public UserCreate(int role){
-        initComponents();
-        this.role = role;
-        if (role > 0) {
-            navUser.setVisible(false);
-            navHistory.setVisible(false);
-        }
+        this.setVisible(true);
     }
 
     /**
@@ -44,155 +36,44 @@ public class UserCreate extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Psamping = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        lblHome = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        lblFuzzy = new javax.swing.JLabel();
-        navHistory = new javax.swing.JPanel();
-        lblHistory = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        lblProfilDesa = new javax.swing.JLabel();
-        navUser = new javax.swing.JPanel();
-        jPnlUser = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        lblTambKaryawan = new javax.swing.JLabel();
-        lblUsername = new javax.swing.JLabel();
+        lblTambKaryawan2 = new javax.swing.JLabel();
+        lblUsername2 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
         btntambah = new javax.swing.JToggleButton();
         btnreset = new javax.swing.JToggleButton();
-        lblkembali = new javax.swing.JLabel();
-        lblPassword1 = new javax.swing.JLabel();
+        lblPassword5 = new javax.swing.JLabel();
         cbxRole = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
 
-        Psamping.setBackground(new java.awt.Color(0, 204, 204));
-        Psamping.setPreferredSize(new java.awt.Dimension(160, 650));
-        Psamping.setLayout(new javax.swing.BoxLayout(Psamping, javax.swing.BoxLayout.Y_AXIS));
+        lblTambKaryawan2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lblTambKaryawan2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTambKaryawan2.setText("Tambah User");
+        jPanel1.add(lblTambKaryawan2);
+        lblTambKaryawan2.setBounds(10, 10, 310, 44);
 
-        jPanel5.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel5.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblHome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblHome.setForeground(new java.awt.Color(255, 255, 255));
-        lblHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHome.setText("Home");
-        lblHome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblHomeMouseClicked(evt);
-            }
-        });
-        jPanel5.add(lblHome);
-
-        Psamping.add(jPanel5);
-
-        jPanel4.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel4.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel4.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblFuzzy.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblFuzzy.setForeground(new java.awt.Color(52, 17, 9));
-        lblFuzzy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFuzzy.setText("Fuzzy");
-        lblFuzzy.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblFuzzyMouseClicked(evt);
-            }
-        });
-        jPanel4.add(lblFuzzy);
-
-        Psamping.add(jPanel4);
-
-        navHistory.setBackground(new java.awt.Color(0, 204, 204));
-        navHistory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        navHistory.setPreferredSize(new java.awt.Dimension(72, 31));
-        navHistory.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblHistory.setBackground(new java.awt.Color(0, 204, 204));
-        lblHistory.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHistory.setText("History");
-        lblHistory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblHistoryMouseClicked(evt);
-            }
-        });
-        navHistory.add(lblHistory);
-
-        Psamping.add(navHistory);
-
-        jPanel9.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel9.setPreferredSize(new java.awt.Dimension(72, 31));
-        jPanel9.setLayout(new java.awt.GridLayout(1, 1));
-
-        lblProfilDesa.setBackground(new java.awt.Color(0, 204, 204));
-        lblProfilDesa.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblProfilDesa.setForeground(new java.awt.Color(52, 17, 9));
-        lblProfilDesa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblProfilDesa.setText("Profil Desa");
-        lblProfilDesa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblProfilDesaMouseClicked(evt);
-            }
-        });
-        jPanel9.add(lblProfilDesa);
-
-        Psamping.add(jPanel9);
-
-        navUser.setBackground(new java.awt.Color(0, 204, 204));
-        navUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        navUser.setPreferredSize(new java.awt.Dimension(72, 31));
-        navUser.setLayout(new java.awt.GridLayout(1, 1));
-
-        jPnlUser.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jPnlUser.setForeground(new java.awt.Color(52, 17, 9));
-        jPnlUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPnlUser.setText("User");
-        jPnlUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPnlUserMouseClicked(evt);
-            }
-        });
-        navUser.add(jPnlUser);
-
-        Psamping.add(navUser);
-
-        jPanel1.add(Psamping);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setPreferredSize(new java.awt.Dimension(800, 0));
-        jPanel3.setLayout(null);
-
-        lblTambKaryawan.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        lblTambKaryawan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblTambKaryawan.setText("User Baru");
-        jPanel3.add(lblTambKaryawan);
-        lblTambKaryawan.setBounds(10, 10, 310, 44);
-
-        lblUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblUsername.setText("Username");
-        jPanel3.add(lblUsername);
-        lblUsername.setBounds(140, 180, 100, 22);
+        lblUsername2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblUsername2.setText("Username");
+        jPanel1.add(lblUsername2);
+        lblUsername2.setBounds(140, 180, 100, 22);
 
         txtUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel3.add(txtUsername);
+        jPanel1.add(txtUsername);
         txtUsername.setBounds(390, 180, 250, 28);
 
         lblPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblPassword.setText("Password");
-        jPanel3.add(lblPassword);
+        jPanel1.add(lblPassword);
         lblPassword.setBounds(140, 210, 90, 22);
 
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel3.add(txtPassword);
+        jPanel1.add(txtPassword);
         txtPassword.setBounds(390, 210, 250, 28);
 
         btntambah.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -207,7 +88,7 @@ public class UserCreate extends javax.swing.JFrame {
                 btntambahActionPerformed(evt);
             }
         });
-        jPanel3.add(btntambah);
+        jPanel1.add(btntambah);
         btntambah.setBounds(390, 290, 115, 31);
 
         btnreset.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -217,42 +98,28 @@ public class UserCreate extends javax.swing.JFrame {
                 btnresetMouseClicked(evt);
             }
         });
-        jPanel3.add(btnreset);
+        jPanel1.add(btnreset);
         btnreset.setBounds(520, 290, 115, 31);
 
-        lblkembali.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblkembali.setText("< Kembali");
-        lblkembali.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblkembaliMouseClicked(evt);
-            }
-        });
-        jPanel3.add(lblkembali);
-        lblkembali.setBounds(710, 20, 60, 17);
-
-        lblPassword1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblPassword1.setText("Role");
-        jPanel3.add(lblPassword1);
-        lblPassword1.setBounds(140, 240, 90, 22);
+        lblPassword5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblPassword5.setText("Role");
+        jPanel1.add(lblPassword5);
+        lblPassword5.setBounds(140, 240, 90, 22);
 
         cbxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
-        jPanel3.add(cbxRole);
+        jPanel1.add(cbxRole);
         cbxRole.setBounds(390, 240, 250, 30);
-
-        jPanel1.add(jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -260,65 +127,27 @@ public class UserCreate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btntambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntambahMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btntambahMouseClicked
+
+    private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
+        // TODO add your handling code here:
+                                             
         if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) JOptionPane.showMessageDialog(this, "Username dan Passsword Wajib diisi.");
         else{
             try{
                 Statement st = dc.con.createStatement();
-                st.executeUpdate("INSERT INTO `users` (`user_id`, `username`, `password`, `role`) VALUES (NULL, '"+txtPassword.getText()+"', '"+txtPassword.getText()+"', '"+cbxRole.getSelectedIndex()+"');");
+                st.executeUpdate("INSERT INTO `users` (`user_id`, `username`, `password`, `role`) VALUES (NULL, '"+txtUsername.getText()+"', '"+txtPassword.getText()+"', '"+cbxRole.getSelectedIndex()+"')");
                 this.dispose();
-                new User(this.role).setVisible(true);
             }catch(SQLException e){
                 System.out.println("Error : "+e);
-            }   
+            }
         }
-    }//GEN-LAST:event_btntambahMouseClicked
-
-    private void btnresetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnresetMouseClicked
-        txtUsername.setText("");
-        txtPassword.setText("");
-    }//GEN-LAST:event_btnresetMouseClicked
-
-    private void lblkembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblkembaliMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new User(this.role).setVisible(true);
-    }//GEN-LAST:event_lblkembaliMouseClicked
-
-    private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btntambahActionPerformed
 
-    private void lblHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHomeMouseClicked
+    private void btnresetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnresetMouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        new Home(this.role).setVisible(true);
-    }//GEN-LAST:event_lblHomeMouseClicked
-
-    private void lblFuzzyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFuzzyMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new Fuzzy(this.role).setVisible(true);
-    }//GEN-LAST:event_lblFuzzyMouseClicked
-
-    private void lblHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoryMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new History(this.role).setVisible(true);
-    }//GEN-LAST:event_lblHistoryMouseClicked
-
-    private void lblProfilDesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilDesaMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        new ProfilDesa(this.role).setVisible(true);
-    }//GEN-LAST:event_lblProfilDesaMouseClicked
-
-    private void jPnlUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPnlUserMouseClicked
-        // TODO add your handling code here:
-        if (this.role == 0) {
-            this.dispose();
-            new User(this.role).setVisible(true);
-        }
-    }//GEN-LAST:event_jPnlUserMouseClicked
+    }//GEN-LAST:event_btnresetMouseClicked
 
     /**
      * @param args the command line arguments
@@ -357,27 +186,14 @@ public class UserCreate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Psamping;
     private javax.swing.JToggleButton btnreset;
     private javax.swing.JToggleButton btntambah;
     private javax.swing.JComboBox<String> cbxRole;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel jPnlUser;
-    private javax.swing.JLabel lblFuzzy;
-    private javax.swing.JLabel lblHistory;
-    private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblPassword;
-    private javax.swing.JLabel lblPassword1;
-    private javax.swing.JLabel lblProfilDesa;
-    private javax.swing.JLabel lblTambKaryawan;
-    private javax.swing.JLabel lblUsername;
-    private javax.swing.JLabel lblkembali;
-    private javax.swing.JPanel navHistory;
-    private javax.swing.JPanel navUser;
+    private javax.swing.JLabel lblPassword5;
+    private javax.swing.JLabel lblTambKaryawan2;
+    private javax.swing.JLabel lblUsername2;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

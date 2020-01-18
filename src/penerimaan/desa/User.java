@@ -369,13 +369,13 @@ public class User extends javax.swing.JFrame {
     private void txtAddMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAddMemberMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new UserCreate(this.role).setVisible(true);
+//        new UserCreate(this.role).setVisible(true);
     }//GEN-LAST:event_txtAddMemberMouseClicked
 
     private void txtEditUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEditUserMouseClicked
         if(selData!=null){
             this.setVisible(false);
-            new UserEdit(this.role,selData).setVisible(true);
+//            new UserEdit(this.role,selData).setVisible(true);
         }
         else JOptionPane.showMessageDialog(this, "Tidak ada anggota yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
 
