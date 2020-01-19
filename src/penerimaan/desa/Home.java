@@ -315,7 +315,7 @@ public class Home extends javax.swing.JFrame {
         String pekerjaan = cbxPekerjaan.getSelectedItem().toString();
         double pendapatan = Double.parseDouble(txtPendapatan.getText());
         Fuzzification f = new Fuzzification();
-        double hasil = f.calculation(luasLahan, jumlahTanggunganKeluarga, pekerjaan, pendapatan);
+        double hasil = f.calculation(luasLahan, jumlahTanggunganKeluarga, pendapatan);
         String layak = hasil > 50 ? "Layak":"Tidak Layak";
         Statement st;
         try {

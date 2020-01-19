@@ -5,18 +5,21 @@
  */
 package penerimaan.desa;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author Imul
  */
 public class Fuzzification {
-//    private FuzzyValue[] fuzzyRumah;
+    
+    DbConnection dc = new DbConnection("penerimaan_desa");
+    
     private FuzzyValue[] fuzzyLuasLahan;
     private FuzzyValue[] fuzzyJumlahTanggunganKeluarga;
-//    private FuzzyValue[] fuzzyPekerjaan;
     private FuzzyValue[] fuzzyPendapatan;
-//    private FuzzyValue[] fuzzyTabungan;
-//    private FuzzyValue[] fuzzyKendaraan;
     private FuzzyValue[] fuzzyConclusion;
     public FuzzyRule[] rules;
     
@@ -74,20 +77,15 @@ public class Fuzzification {
     }
     
     public class FuzzyRule{
-//        public final String rumah;
         public final String luasLahan;
         public final String jumlahTanggunganKeluarga;
-        public final String pekerjaan;
         public final String pendapatan;
-//        public final String tabungan;
-//        public final String kendaraan;
         public final String conclusion;
 
-        public FuzzyRule(String luasLahan, String jumlahTanggunganKeluarga, String pekerjaan, String pendapatan, String conclusion) {
+        public FuzzyRule(String luasLahan, String jumlahTanggunganKeluarga, String pendapatan, String conclusion) {
             
             this.luasLahan = luasLahan;
             this.jumlahTanggunganKeluarga = jumlahTanggunganKeluarga;
-            this.pekerjaan = pekerjaan;
             this.pendapatan = pendapatan;
             this.conclusion = conclusion;
         }        
@@ -103,39 +101,47 @@ public class Fuzzification {
     }
     
     private void initFuzzyValue(){
-        
-//        fuzzyRumah = new FuzzyValue[3];
 
         fuzzyLuasLahan = new FuzzyValue[3];
-        fuzzyLuasLahan[0] = new FuzzyValue("rendah", new double[]{100,200}, new int[]{1,0});
-        fuzzyLuasLahan[1] = new FuzzyValue("sedang", new double[]{180,250,350}, new int[]{0,1,0});
-        fuzzyLuasLahan[2] = new FuzzyValue("tinggi", new double[]{300,500}, new int[]{0,1});
+        fuzzyLuasLahan[0] = new FuzzyValue("rendah", new double[]{200,250}, new int[]{1,0});
+        fuzzyLuasLahan[1] = new FuzzyValue("sedang", new double[]{200,250,450,500}, new int[]{0,1,1,0});
+        fuzzyLuasLahan[2] = new FuzzyValue("tinggi", new double[]{450,500}, new int[]{0,1});
         
         fuzzyJumlahTanggunganKeluarga = new FuzzyValue[3];
         fuzzyJumlahTanggunganKeluarga[0] = new FuzzyValue("rendah", new double[]{2,3}, new int[]{1,0});
         fuzzyJumlahTanggunganKeluarga[1] = new FuzzyValue("sedang", new double[]{2,3,4}, new int[]{0,1,0});
         fuzzyJumlahTanggunganKeluarga[2] = new FuzzyValue("tinggi", new double[]{3,4}, new int[]{0,1});
         
-//        fuzzyPekerjaan = new FuzzyValue[3];
-        
         fuzzyPendapatan = new FuzzyValue[3];
-        fuzzyPendapatan[0] = new FuzzyValue("rendah", new double[]{2000000,2500000}, new int[]{1,0});
-        fuzzyPendapatan[1] = new FuzzyValue("sedang", new double[]{2000000,2500000,3000000}, new int[]{0,1,0});
-        fuzzyPendapatan[2] = new FuzzyValue("tinggi", new double[]{2500000,3000000}, new int[]{0,1});
-        
-//        fuzzyTabungan = new FuzzyValue()[3];
-
-//        fuzzyKendaraan = new FuzzyValue()[3];
+        fuzzyPendapatan[0] = new FuzzyValue("rendah", new double[]{2000000,2250000}, new int[]{1,0});
+        fuzzyPendapatan[1] = new FuzzyValue("sedang", new double[]{2000000,2250000,2750000,3000000}, new int[]{0,1,1,0});
+        fuzzyPendapatan[2] = new FuzzyValue("tinggi", new double[]{2750000,3000000}, new int[]{0,1});
         
         fuzzyConclusion = new FuzzyValue[2];
         fuzzyConclusion[0] = new FuzzyValue("Tidak Layak", new double[]{0,100}, new int[]{1,0});
         fuzzyConclusion[1] = new FuzzyValue("Layak", new double[]{0,100}, new int[]{0,1});
     }
     
-    private void initRule(){
-        rules = new FuzzyRule[2];
-        rules[0] = new FuzzyRule("rendah", "tinggi", "Buruh", "rendah", "Layak");
-        rules[1] = new FuzzyRule("tinggi", "rendah", "Wiraswasta", "tinggi", "Tidak Layak");
+    
+    public int countRowRs(ResultSet rs) throws SQLException{
+        rs.last();
+        int count=rs.getRow();
+        rs.beforeFirst();
+        return count;
+    }
+    
+    public void initRule(){
+        try{
+            Statement st = dc.con.createStatement();
+            ResultSet rs=st.executeQuery("select * from rule");
+            rules = new FuzzyRule[countRowRs(rs)];
+            for(int i=0;rs.next();i++){
+                rules[i]= new FuzzyRule(rs.getString("luas_lahan"), rs.getString("tanggungan"), rs.getString("pendapatan"), rs.getString("keputusan"));
+            }            
+        }catch(SQLException e){
+            System.out.println("Error : "+e);
+            rules=new FuzzyRule[0];
+        }
     }
     
     public double getFuzzyRumah(String label, String value){
@@ -150,6 +156,7 @@ public class Fuzzification {
                 break;
             }
         }
+        System.out.println(label.toLowerCase()+" "+found.label);
         return found.convertValue(value);
     }
     
@@ -198,22 +205,17 @@ public class Fuzzification {
         return found.conclusionValue(value);
     }
     
-    public double calculation(double luasLahan, double jumlahTanggunganKeluarga, String pekerjaan, double pendapatan){
+    public double calculation(double luasLahan, double jumlahTanggunganKeluarga, double pendapatan){
         double alfaxz = 0;
         double alfa = 0;
         for(FuzzyRule rule : this.rules){
             double alfaRule = Math.min(getFuzzyLuasLahan(rule.luasLahan, luasLahan), getFuzzyJumlahTanggungan(rule.jumlahTanggunganKeluarga, jumlahTanggunganKeluarga));
-            alfaRule = Math.min(alfaRule, getFuzzyPekerjaan(rule.pekerjaan, pekerjaan));
             alfaRule = Math.min(alfaRule, getFuzzyPendapatan(rule.pendapatan, pendapatan));
             
             double z = getDefuzzyConclusion(rule.conclusion, alfaRule);
-            System.out.println(alfaRule);
-            System.out.println(z);
             alfaxz = alfaxz + (alfaRule * z);
             alfa = alfa + alfaRule;
         }
-        System.out.println(alfaxz);
-        System.out.println(alfa);
         if(alfa == 0){
             return 0;
         }else{

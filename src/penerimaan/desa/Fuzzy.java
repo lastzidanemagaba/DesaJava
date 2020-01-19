@@ -63,7 +63,7 @@ public class Fuzzy extends javax.swing.JFrame {
                 i,
                 rule.luasLahan,
                 rule.jumlahTanggunganKeluarga,
-                rule.pekerjaan,
+//                rule.pekerjaan,
                 rule.pendapatan,
                 rule.conclusion    
             });

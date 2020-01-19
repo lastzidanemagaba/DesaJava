@@ -8,7 +8,6 @@ package penerimaan.desa;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -99,6 +98,13 @@ public class UserPanel extends javax.swing.JPanel {
         }        
         return member;
     }
+    
+    public void cleanAction(){
+        this.txtUsername.setText("");
+        this.txtPassword.setText("");
+        this.cbxRole.setSelectedIndex(0);
+        this.selData = null;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,31 +117,53 @@ public class UserPanel extends javax.swing.JPanel {
 
         jToolBar1 = new javax.swing.JToolBar();
         jPanel12 = new javax.swing.JPanel();
-        txtAddUser = new javax.swing.JLabel();
-        txtEditUser = new javax.swing.JLabel();
+        btnsimpan = new javax.swing.JButton();
+        btnubah = new javax.swing.JButton();
+        btnhapus = new javax.swing.JButton();
+        btnbatal = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUser = new javax.swing.JTable();
         txtCari = new javax.swing.JLabel();
         txtKeyWord = new javax.swing.JTextField();
+        lblUsername2 = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        lblPassword5 = new javax.swing.JLabel();
+        cbxRole = new javax.swing.JComboBox<>();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
         jToolBar1.setRollover(true);
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtAddUser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtAddUser.setText("Tambah User");
-        txtAddUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtAddUserMouseClicked(evt);
+        btnsimpan.setText("Tambah");
+        btnsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsimpanActionPerformed(evt);
             }
         });
 
-        txtEditUser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtEditUser.setText("Edit User");
-        txtEditUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtEditUserMouseClicked(evt);
+        btnubah.setText("Ubah");
+        btnubah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnubahActionPerformed(evt);
+            }
+        });
+
+        btnhapus.setText("Hapus");
+        btnhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhapusActionPerformed(evt);
+            }
+        });
+
+        btnbatal.setText("Batal");
+        btnbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbatalActionPerformed(evt);
             }
         });
 
@@ -144,16 +172,24 @@ public class UserPanel extends javax.swing.JPanel {
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addComponent(txtAddUser)
+                .addComponent(btnsimpan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEditUser)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addComponent(btnubah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnhapus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnbatal)
+                .addGap(0, 317, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(txtAddUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtEditUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnsimpan)
+                    .addComponent(btnubah)
+                    .addComponent(btnhapus)
+                    .addComponent(btnbatal)))
         );
 
         jToolBar1.add(jPanel12);
@@ -190,6 +226,21 @@ public class UserPanel extends javax.swing.JPanel {
             }
         });
 
+        lblUsername2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblUsername2.setText("Username");
+
+        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        lblPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblPassword.setText("Password");
+
+        lblPassword5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblPassword5.setText("Role");
+
+        cbxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,45 +249,58 @@ public class UserPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPassword5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUsername2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtUsername)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblUsername2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPassword5)
+                    .addComponent(cbxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCari)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                        .addComponent(txtCari))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAddUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAddUserMouseClicked
-        // TODO add your handling code here:
-        new JDialog(new UserCreate(), "This is a modal!", true).setLocationRelativeTo(null);
-    }//GEN-LAST:event_txtAddUserMouseClicked
-
-    private void txtEditUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEditUserMouseClicked
-        if(selData!=null){
-            System.out.println(selData[3]);
-            new JDialog(new UserEdit(selData), "This is a modal!", true).setLocationRelativeTo(null);
-        }
-        else JOptionPane.showMessageDialog(this, "Tidak ada anggota yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
-    }//GEN-LAST:event_txtEditUserMouseClicked
-
     private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
         String selId=tblUser.getValueAt(tblUser.getSelectedRow(),0).toString();
         selData=getUser(allData,Integer.parseInt(selId));
+        this.txtUsername.setText(selData[1]);
+        this.txtPassword.setText(selData[2]);
+        this.cbxRole.setSelectedIndex(Integer.parseInt(selData[3]));
     }//GEN-LAST:event_tblUserMouseClicked
 
     private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
@@ -251,15 +315,76 @@ public class UserPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtKeyWordKeyReleased
 
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
+        // TODO add your handling code here:             
+        if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) JOptionPane.showMessageDialog(this, "Username dan Passsword Wajib diisi.");
+        else{
+            try{
+                Statement st = dc.con.createStatement();
+                st.executeUpdate("INSERT INTO `users` (`user_id`, `username`, `password`, `role`) VALUES (NULL, '"+txtUsername.getText()+"', '"+txtPassword.getText()+"', '"+cbxRole.getSelectedIndex()+"')");
+                this.setTable();
+                this.cleanAction();
+            }catch(SQLException e){
+                System.out.println("Error : "+e);
+            }
+        }
+    }//GEN-LAST:event_btnsimpanActionPerformed
+
+    private void btnubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnubahActionPerformed
+        // TODO add your handling code here:
+        if(selData!=null){
+            if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) JOptionPane.showMessageDialog(this, "Username dan Passsword Wajib diisi.");
+            else{
+                try{
+                    Statement st = dc.con.createStatement();
+                    st.executeUpdate("UPDATE `users` SET `username` = '"+txtUsername.getText()+"', `password` = '"+txtPassword.getText()+"', `role` = '"+cbxRole.getSelectedIndex()+"' WHERE `users`.`user_id` = "+selData[0]);
+                    this.setTable();
+                    this.cleanAction();
+                }catch(SQLException e){
+                    System.out.println("Error : "+e);
+                }
+            }
+        }
+        else JOptionPane.showMessageDialog(this, "Tidak ada data yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_btnubahActionPerformed
+
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
+        // TODO add your handling code here:
+         if(selData!=null){
+            try{
+                Statement st = dc.con.createStatement();
+                st.executeUpdate("DELETE FROM `users` WHERE `user_id` = '"+selData[0]+"'");
+                this.setTable();
+                this.cleanAction();
+            }catch(SQLException e){
+                System.out.println("Error : "+e);
+            }
+        }
+        else JOptionPane.showMessageDialog(this, "Tidak ada data yang dipilih.", "Alert", JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_btnhapusActionPerformed
+
+    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
+        // TODO add your handling code here:
+        this.cleanAction();
+    }//GEN-LAST:event_btnbatalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbatal;
+    private javax.swing.JButton btnhapus;
+    private javax.swing.JButton btnsimpan;
+    private javax.swing.JButton btnubah;
+    private javax.swing.JComboBox<String> cbxRole;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPassword5;
+    private javax.swing.JLabel lblUsername2;
     private javax.swing.JTable tblUser;
-    private javax.swing.JLabel txtAddUser;
     private javax.swing.JLabel txtCari;
-    private javax.swing.JLabel txtEditUser;
     private javax.swing.JTextField txtKeyWord;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

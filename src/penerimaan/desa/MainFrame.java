@@ -13,6 +13,11 @@ package penerimaan.desa;
 public class MainFrame extends javax.swing.JFrame {
     
     private int role;
+    private UserPanel userPanel = new UserPanel();
+    private WargaPanel wargaPanel = new WargaPanel();
+    private RulePanel rulePanel = new RulePanel();
+    private CalculationPanel calculationPanel = new CalculationPanel();
+    private ProfilPanel profilPanel = new ProfilPanel();
 
     /**
      * Creates new form MainFrame
@@ -25,6 +30,22 @@ public class MainFrame extends javax.swing.JFrame {
         }
         this.setVisible(true);
         this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.add(userPanel);
+        this.add(wargaPanel);
+        this.add(rulePanel);
+        this.add(calculationPanel);
+        this.add(profilPanel);
+    }
+    
+    private void clearAllContent(){
+        pContent.setVisible(false);
+        userPanel.cleanAction();
+        userPanel.setVisible(false);
+        wargaPanel.cleanAction();
+        wargaPanel.setVisible(false);
+        rulePanel.setVisible(false);
+        calculationPanel.setVisible(false);
+        profilPanel.setVisible(false);
     }
 
     /**
@@ -35,18 +56,24 @@ public class MainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         pContent = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MnFile = new javax.swing.JMenu();
         MnLogout = new javax.swing.JMenuItem();
         MnMaster = new javax.swing.JMenu();
         MnAdmin = new javax.swing.JMenuItem();
         MnWarga = new javax.swing.JMenuItem();
-        MnTransaksi = new javax.swing.JMenu();
         MnAturan = new javax.swing.JMenuItem();
-        MnNilai = new javax.swing.JMenuItem();
-        MnHitung = new javax.swing.JMenuItem();
+        MnTransaksi = new javax.swing.JMenu();
+        MnKeputusan = new javax.swing.JMenuItem();
+        MnKeputusan1 = new javax.swing.JMenuItem();
+        MnPengujian = new javax.swing.JMenuItem();
+        MnProfil = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1370, 770));
@@ -54,15 +81,40 @@ public class MainFrame extends javax.swing.JFrame {
 
         pContent.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Sistem Pendukung Keputusan");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Penerimaan Bantuan Warga Desa Kasreman");
+
         javax.swing.GroupLayout pContentLayout = new javax.swing.GroupLayout(pContent);
         pContent.setLayout(pContentLayout);
         pContentLayout.setHorizontalGroup(
             pContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pContentLayout.createSequentialGroup()
+                .addContainerGap(185, Short.MAX_VALUE)
+                .addGroup(pContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel1))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
         pContentLayout.setVerticalGroup(
             pContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGroup(pContentLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addContainerGap(285, Short.MAX_VALUE))
         );
 
         getContentPane().add(pContent, "card2");
@@ -102,35 +154,56 @@ public class MainFrame extends javax.swing.JFrame {
         });
         MnMaster.add(MnWarga);
 
-        jMenuBar1.add(MnMaster);
-
-        MnTransaksi.setText("Transaksi");
-
-        MnAturan.setText("Aturan");
+        MnAturan.setText("Data Aturan");
         MnAturan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnAturanActionPerformed(evt);
             }
         });
-        MnTransaksi.add(MnAturan);
+        MnMaster.add(MnAturan);
 
-        MnNilai.setText("Nilai Mahasiswa");
-        MnNilai.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar1.add(MnMaster);
+
+        MnTransaksi.setText("Dana Bantuan");
+
+        MnKeputusan.setText("Hasil Keputusan");
+        MnKeputusan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnNilaiActionPerformed(evt);
+                MnKeputusanActionPerformed(evt);
             }
         });
-        MnTransaksi.add(MnNilai);
+        MnTransaksi.add(MnKeputusan);
 
-        MnHitung.setText("Perhitungan");
-        MnHitung.addActionListener(new java.awt.event.ActionListener() {
+        MnKeputusan1.setText("Hasil Perhitungan");
+        MnKeputusan1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnHitungActionPerformed(evt);
+                MnKeputusan1ActionPerformed(evt);
             }
         });
-        MnTransaksi.add(MnHitung);
+        MnTransaksi.add(MnKeputusan1);
+
+        MnPengujian.setText("Pengujian");
+        MnPengujian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnPengujianActionPerformed(evt);
+            }
+        });
+        MnTransaksi.add(MnPengujian);
 
         jMenuBar1.add(MnTransaksi);
+
+        MnProfil.setText("Profil Desa");
+        MnProfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MnProfilMouseClicked(evt);
+            }
+        });
+        MnProfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnProfilActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MnProfil);
 
         setJMenuBar(jMenuBar1);
 
@@ -145,33 +218,63 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void MnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnAdminActionPerformed
         // TODO add your handling code here:
-        this.add(new UserPanel());
-        this.remove(pContent);
+        this.clearAllContent();
+        this.userPanel.setTable();
+        this.userPanel.setVisible(true);
         this.revalidate();
+        this.repaint();
     }//GEN-LAST:event_MnAdminActionPerformed
 
     private void MnWargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnWargaActionPerformed
         // TODO add your handling code here:
-        this.add(pContent);
+        this.clearAllContent();
+        this.wargaPanel.setTable();
+        this.wargaPanel.setVisible(true);
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_MnWargaActionPerformed
 
     private void MnAturanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnAturanActionPerformed
         // TODO add your handling code here:
+        this.clearAllContent();
+        this.rulePanel.setTable();
+        this.rulePanel.setVisible(true);
+        this.revalidate();
+        this.repaint();
     }//GEN-LAST:event_MnAturanActionPerformed
 
-    private void MnNilaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnNilaiActionPerformed
+    private void MnKeputusanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKeputusanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MnNilaiActionPerformed
-
-    private void MnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnHitungActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MnHitungActionPerformed
+        this.clearAllContent();
+        this.calculationPanel.setTable();
+        this.calculationPanel.setVisible(true);
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_MnKeputusanActionPerformed
 
     private void MnMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnMasterActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MnMasterActionPerformed
+
+    private void MnKeputusan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKeputusan1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnKeputusan1ActionPerformed
+
+    private void MnPengujianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPengujianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnPengujianActionPerformed
+
+    private void MnProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnProfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnProfilActionPerformed
+
+    private void MnProfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnProfilMouseClicked
+        // TODO add your handling code here:
+        this.clearAllContent();
+        this.profilPanel.setVisible(true);
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_MnProfilMouseClicked
 
     public void setRole(int role){
         this.role = role;
@@ -219,12 +322,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnAdmin;
     private javax.swing.JMenuItem MnAturan;
     private javax.swing.JMenu MnFile;
-    private javax.swing.JMenuItem MnHitung;
+    private javax.swing.JMenuItem MnKeputusan;
+    private javax.swing.JMenuItem MnKeputusan1;
     private javax.swing.JMenuItem MnLogout;
     private javax.swing.JMenu MnMaster;
-    private javax.swing.JMenuItem MnNilai;
+    private javax.swing.JMenuItem MnPengujian;
+    private javax.swing.JMenu MnProfil;
     private javax.swing.JMenu MnTransaksi;
     private javax.swing.JMenuItem MnWarga;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel pContent;
     // End of variables declaration//GEN-END:variables

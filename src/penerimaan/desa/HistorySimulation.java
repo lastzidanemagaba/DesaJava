@@ -104,12 +104,12 @@ public class HistorySimulation extends javax.swing.JFrame {
         for (Fuzzification.FuzzyRule rule : fuzzification.rules) {  
             double luasLahan = fuzzification.getFuzzyLuasLahan(rule.luasLahan, Double.parseDouble(this.dataHistory[2]));
             double jumlahTanggunganKeluarga = fuzzification.getFuzzyJumlahTanggungan(rule.jumlahTanggunganKeluarga, Double.parseDouble(this.dataHistory[3]));
-            double pekerjaan = fuzzification.getFuzzyPekerjaan(rule.pekerjaan, this.dataHistory[4]);
+//            double pekerjaan = fuzzification.getFuzzyPekerjaan(rule.pekerjaan, this.dataHistory[4]);
             double pendapatan = fuzzification.getFuzzyPendapatan(rule.pendapatan, Double.parseDouble(this.dataHistory[5]));
             double min = Math.min(luasLahan, jumlahTanggunganKeluarga);
-            min = Math.min(min, pekerjaan);
+//            min = Math.min(min, pekerjaan);
             min = Math.min(min, pendapatan);
-            table.addRow(new Object[]{i,luasLahan, jumlahTanggunganKeluarga, pekerjaan, pendapatan, min});
+            table.addRow(new Object[]{i,luasLahan, jumlahTanggunganKeluarga, pendapatan, min});
             i++;
         }
     }

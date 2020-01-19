@@ -89,7 +89,7 @@ public class Evaluasi extends javax.swing.JFrame {
         Statement st;
         double right =0 ;
         for (String[] data : allData) {
-            double hasil = f.calculation(Double.parseDouble(data[3]), Double.parseDouble(data[4]), data[5], Double.parseDouble(data[6]));
+            double hasil = f.calculation(Double.parseDouble(data[3]), Double.parseDouble(data[4]), Double.parseDouble(data[6]));
             String layak = hasil > 50 ? "Layak":"Tidak Layak";
             if(layak.toLowerCase().equals(data[7].toLowerCase())) right = right+1;
             try {
