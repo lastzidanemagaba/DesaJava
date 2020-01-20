@@ -18,6 +18,8 @@ public class MainFrame extends javax.swing.JFrame {
     private RulePanel rulePanel = new RulePanel();
     private CalculationPanel calculationPanel = new CalculationPanel();
     private ProfilPanel profilPanel = new ProfilPanel();
+    private SimulationPanel simulationPanel = new SimulationPanel();
+    private EvaluationPanel evaluationPanel = new EvaluationPanel();
 
     /**
      * Creates new form MainFrame
@@ -35,6 +37,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.add(rulePanel);
         this.add(calculationPanel);
         this.add(profilPanel);
+        this.add(simulationPanel);
+        this.add(evaluationPanel);
     }
     
     private void clearAllContent(){
@@ -46,6 +50,8 @@ public class MainFrame extends javax.swing.JFrame {
         rulePanel.setVisible(false);
         calculationPanel.setVisible(false);
         profilPanel.setVisible(false);
+        simulationPanel.setVisible(false);
+        evaluationPanel.setVisible(false);
     }
 
     /**
@@ -56,7 +62,6 @@ public class MainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         pContent = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -71,7 +76,7 @@ public class MainFrame extends javax.swing.JFrame {
         MnAturan = new javax.swing.JMenuItem();
         MnTransaksi = new javax.swing.JMenu();
         MnKeputusan = new javax.swing.JMenuItem();
-        MnKeputusan1 = new javax.swing.JMenuItem();
+        MnPerhitungan = new javax.swing.JMenuItem();
         MnPengujian = new javax.swing.JMenuItem();
         MnProfil = new javax.swing.JMenu();
 
@@ -174,13 +179,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
         MnTransaksi.add(MnKeputusan);
 
-        MnKeputusan1.setText("Hasil Perhitungan");
-        MnKeputusan1.addActionListener(new java.awt.event.ActionListener() {
+        MnPerhitungan.setText("Hasil Perhitungan");
+        MnPerhitungan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnKeputusan1ActionPerformed(evt);
+                MnPerhitunganActionPerformed(evt);
             }
         });
-        MnTransaksi.add(MnKeputusan1);
+        MnTransaksi.add(MnPerhitungan);
 
         MnPengujian.setText("Pengujian");
         MnPengujian.addActionListener(new java.awt.event.ActionListener() {
@@ -256,12 +261,22 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_MnMasterActionPerformed
 
-    private void MnKeputusan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKeputusan1ActionPerformed
+    private void MnPerhitunganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPerhitunganActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MnKeputusan1ActionPerformed
+        this.clearAllContent();
+        this.simulationPanel.getData();
+        this.simulationPanel.setVisible(true);
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_MnPerhitunganActionPerformed
 
     private void MnPengujianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPengujianActionPerformed
         // TODO add your handling code here:
+        this.clearAllContent();
+        this.evaluationPanel.setTable();
+        this.evaluationPanel.setVisible(true);
+        this.revalidate();
+        this.repaint();
     }//GEN-LAST:event_MnPengujianActionPerformed
 
     private void MnProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnProfilActionPerformed
@@ -323,10 +338,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnAturan;
     private javax.swing.JMenu MnFile;
     private javax.swing.JMenuItem MnKeputusan;
-    private javax.swing.JMenuItem MnKeputusan1;
     private javax.swing.JMenuItem MnLogout;
     private javax.swing.JMenu MnMaster;
     private javax.swing.JMenuItem MnPengujian;
+    private javax.swing.JMenuItem MnPerhitungan;
     private javax.swing.JMenu MnProfil;
     private javax.swing.JMenu MnTransaksi;
     private javax.swing.JMenuItem MnWarga;

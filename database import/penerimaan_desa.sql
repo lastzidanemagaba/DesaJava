@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Des 2019 pada 12.32
+-- Waktu pembuatan: 20 Jan 2020 pada 16.59
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 CREATE DATABASE `penerimaan_desa`;
+
 --
 -- Database: `penerimaan_desa`
 --
@@ -33,6 +34,9 @@ CREATE TABLE `data_evaluasi` (
   `data_evaluasi_id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `nomor` varchar(255) NOT NULL,
+  `rt_rw` varchar(255) NOT NULL,
+  `desa` varchar(255) NOT NULL,
+  `kecamatan` varchar(255) NOT NULL,
   `luas_lahan` double NOT NULL,
   `jumlah_tanggungan_keluarga` double NOT NULL,
   `pekerjaan` varchar(255) NOT NULL,
@@ -40,6 +44,13 @@ CREATE TABLE `data_evaluasi` (
   `kesimpulan` varchar(255) NOT NULL,
   `prediksi_kesimpulan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `data_evaluasi`
+--
+
+INSERT INTO `data_evaluasi` (`data_evaluasi_id`, `nama`, `nomor`, `rt_rw`, `desa`, `kecamatan`, `luas_lahan`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`, `prediksi_kesimpulan`) VALUES
+(2, 'test', '89787987', '1', 'kasss', 'kas', 100, 9, 'Buruh', 1, 'Layak', NULL);
 
 -- --------------------------------------------------------
 
@@ -51,11 +62,28 @@ CREATE TABLE `history` (
   `id` int(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `nomor` varchar(255) NOT NULL,
+  `kecamatan` varchar(255) NOT NULL,
+  `desa` varchar(255) NOT NULL,
+  `rt_rw` varchar(255) NOT NULL,
   `luas_lahan` double NOT NULL,
   `jumlah_tanggungan_keluarga` double NOT NULL,
   `pekerjaan` varchar(255) NOT NULL,
   `pendapatan` double NOT NULL,
-  `kesimpulan` varchar(255) NOT NULL
+  `kesimpulan` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `rule`
+--
+
+CREATE TABLE `rule` (
+  `id` int(11) NOT NULL,
+  `luas_lahan` varchar(255) NOT NULL,
+  `pendapatan` varchar(255) NOT NULL,
+  `tanggungan` varchar(255) NOT NULL,
+  `keputusan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -95,6 +123,12 @@ ALTER TABLE `history`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `rule`
+--
+ALTER TABLE `rule`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -108,19 +142,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `data_evaluasi`
 --
 ALTER TABLE `data_evaluasi`
-  MODIFY `data_evaluasi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `data_evaluasi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT untuk tabel `rule`
+--
+ALTER TABLE `rule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -19,29 +19,31 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 
 /**
  *
  * @author Imul
  */
-public class CalculationPanel extends javax.swing.JPanel {
+public class EvaluationPanel extends javax.swing.JPanel {
 
     DbConnection dc = new DbConnection("penerimaan_desa");
+    private int role;
+    private double akurasi;
     private String[][] allData;
     private String[] selData;
     private TableRowSorter<TableModel> rowSorter;
 
     /**
-     * Creates new form CalculationPanel
+     * Creates new form EvaluationPanel
      */
-    public CalculationPanel() {
+    public EvaluationPanel() {
         initComponents();
         setTable();
-        rowSorter=new TableRowSorter<>(tblWarga.getModel());
+        rowSorter=new TableRowSorter<>(tblEvaluation.getModel());   
     }
     
     public int countRowRs(ResultSet rs) throws SQLException{
@@ -55,65 +57,93 @@ public class CalculationPanel extends javax.swing.JPanel {
         String[][] member;
         try{
             Statement st = dc.con.createStatement();
-            ResultSet rs=st.executeQuery("select * from history");
-            allData =new String[countRowRs(rs)][8];
+            ResultSet rs=st.executeQuery("select * from data_evaluasi");
+            allData =new String[countRowRs(rs)][12];
             for(int i=0;rs.next();i++){
-                allData[i][0]=rs.getString("id");
-                allData[i][1]= Integer.toString(i+1);
-                allData[i][2]=rs.getString("nama");
-                allData[i][3]=rs.getString("luas_lahan");
-                allData[i][4]=rs.getString("jumlah_tanggungan_keluarga");
-                allData[i][5]=rs.getString("pendapatan");
-                allData[i][6]=rs.getString("kesimpulan");
+                allData[i][0]= rs.getString("data_evaluasi_id");
+                allData[i][1]=rs.getString("nama");
+                allData[i][2]=rs.getString("nomor");
+                allData[i][3]=rs.getString("rt_rw");
+                allData[i][4]=rs.getString("desa");
+                allData[i][5]=rs.getString("kecamatan");
+                allData[i][6]=rs.getString("luas_lahan");
+                allData[i][7]=rs.getString("jumlah_tanggungan_keluarga");
+                allData[i][8]=rs.getString("pekerjaan");
+                allData[i][9]=rs.getString("pendapatan");      
+                allData[i][10]=rs.getString("kesimpulan");
+                allData[i][11]=rs.getString("prediksi_kesimpulan");
             }            
         }catch(SQLException e){
             System.out.println("Error : "+e);
             allData=new String[0][0];
         }
     }
-    public String[] getHistory(String[][] mData, int id){
-        String[] member= new String[4];
-        for(String[] item:mData){
-            if(Integer.parseInt(item[0])==id){
-                member=item;
-                break;
+    
+    public void processData(){
+        Fuzzification f = new Fuzzification();
+        Statement st;
+        double right =0 ;
+        for (String[] data : allData) {
+            double hasil = f.calculation(Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[9]));
+            String layak = hasil > 50 ? "Layak":"Tidak Layak";
+            if(layak.toLowerCase().equals(data[10].toLowerCase())) right = right+1;
+            try {
+                String query = "UPDATE `data_evaluasi` SET `prediksi_kesimpulan`='"+layak+"' WHERE data_evaluasi_id="+data[0];
+                System.out.println(query);
+                st = dc.con.createStatement();
+                st.executeUpdate(query);
+            } catch (SQLException ex) {
+                Logger.getLogger(EvaluationPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return member;
+        akurasi = (right/allData.length)*100;
+        txtAkurasi.setText(String.valueOf(akurasi)+" %");
+        this.setTable();
     }
     
-    public void setColumnTable(DefaultTableModel model){ 
-        model.addColumn("id");       
-        model.addColumn("No");
-        model.addColumn("Nama Kepala Rumah Tangga");
-        model.addColumn("Luas Lahan");
-        model.addColumn("Jumlah Tanggungan Keluarga");
-        model.addColumn("Pendapatan");
-        model.addColumn("Keputusan");
+    public void setColumnTable(DefaultTableModel model){        
+        model.addColumn ("No");
+        model.addColumn ("Nama Kepala Rumah Tangga");
+        model.addColumn ("Nomor Identitas");
+        model.addColumn ("RT/RW");
+        model.addColumn ("Desa");
+        model.addColumn ("Kecamatan");
+        model.addColumn ("Luas Lahan");
+        model.addColumn ("Jumlah Tanggungan Keluarga");
+        model.addColumn ("Pekerjaan");
+        model.addColumn ("Pendapatan");
+        model.addColumn ("Kesimpulan");
+        model.addColumn ("Prediksi Kesimpulan");
     }
-    public void setColumnModel(TableColumnModel columnModel){  
-        columnModel.getColumn(0).setPreferredWidth(0);
-        columnModel.getColumn(0).setMinWidth(0);
-        columnModel.getColumn(0).setMaxWidth(0);      
-        columnModel.getColumn(1).setPreferredWidth(30);
-        columnModel.getColumn(2).setPreferredWidth(200);
+    
+    public void setColumnModel(TableColumnModel columnModel){     
+        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(150);
         columnModel.getColumn(3).setPreferredWidth(150);
         columnModel.getColumn(4).setPreferredWidth(150);
         columnModel.getColumn(5).setPreferredWidth(150);
         columnModel.getColumn(6).setPreferredWidth(150);
+        columnModel.getColumn(7).setPreferredWidth(200);
+        columnModel.getColumn(8).setPreferredWidth(100);
+        columnModel.getColumn(9).setPreferredWidth(100);
+        columnModel.getColumn(10).setPreferredWidth(100);
+        columnModel.getColumn(11).setPreferredWidth(100);
     }
     public void setTable(){
         getData();
         String[][] data = allData;
         DefaultTableModel table= new DefaultTableModel();
         setColumnTable(table);
-        tblWarga.setModel(table);        
-        TableColumnModel columnModel=tblWarga.getColumnModel();
+        tblEvaluation.setModel(table);        
+        TableColumnModel columnModel=tblEvaluation.getColumnModel();
         setColumnModel(columnModel);        
-        tblWarga.setColumnModel(columnModel);  
+        tblEvaluation.setColumnModel(columnModel);  
+        int i =1;
         for (String[] data1 : data) {            
-            table.addRow(new Object[]{data1[0], data1[1], data1[2], data1[3], data1[4], data1[5], data1[6], data1[7]});
-        }
+            table.addRow(new Object[]{i, data1[1], data1[2], data1[3], data1[4],data1[5], data1[6], data1[7], data1[8], data1[9], data1[10], data1[11]});
+            i++;
+        }        
     }
 
     /**
@@ -127,11 +157,14 @@ public class CalculationPanel extends javax.swing.JPanel {
 
         jToolBar1 = new javax.swing.JToolBar();
         jPanel12 = new javax.swing.JPanel();
+        btnImport = new javax.swing.JButton();
         btnProses = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
+        txtCari1 = new javax.swing.JLabel();
+        txtAkurasi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblWarga = new javax.swing.JTable();
+        tblEvaluation = new javax.swing.JTable();
         txtCari = new javax.swing.JLabel();
         txtKeyWord = new javax.swing.JTextField();
 
@@ -142,6 +175,13 @@ public class CalculationPanel extends javax.swing.JPanel {
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnImport.setText("Import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
+
         btnProses.setText("Proses");
         btnProses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,10 +189,10 @@ public class CalculationPanel extends javax.swing.JPanel {
             }
         });
 
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
+        btnHapus.setText("Hapus Semua");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
+                btnHapusActionPerformed(evt);
             }
         });
 
@@ -163,31 +203,57 @@ public class CalculationPanel extends javax.swing.JPanel {
             }
         });
 
+        txtCari1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCari1.setText("Akurasi");
+        txtCari1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCari1MouseClicked(evt);
+            }
+        });
+
+        txtAkurasi.setEditable(false);
+        txtAkurasi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAkurasiKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(btnImport)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProses)
-                .addGap(2, 2, 2)
-                .addComponent(btnReset)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHapus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCetak)
-                .addGap(0, 420, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(txtCari1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAkurasi, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProses)
-                    .addComponent(btnReset)
-                    .addComponent(btnCetak))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtAkurasi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCari1))
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnProses)
+                        .addComponent(btnImport)
+                        .addComponent(btnHapus)
+                        .addComponent(btnCetak)))
                 .addGap(0, 7, Short.MAX_VALUE))
         );
 
         jToolBar1.add(jPanel12);
 
-        tblWarga.setModel(new javax.swing.table.DefaultTableModel(
+        tblEvaluation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -198,12 +264,12 @@ public class CalculationPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
-        tblWarga.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblEvaluation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblWargaMouseClicked(evt);
+                tblEvaluationMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblWarga);
+        jScrollPane1.setViewportView(tblEvaluation);
 
         txtCari.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtCari.setText("Cari :");
@@ -232,74 +298,87 @@ public class CalculationPanel extends javax.swing.JPanel {
                         .addComponent(txtCari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtCari))
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal== JFileChooser.APPROVE_OPTION){
+            try {
+                Workbook workbook = WorkbookFactory.create(chooser.getSelectedFile());
+                System.out.println("Workbook has " + workbook.getNumberOfSheets() + " Sheets : ");
+                Sheet sheet = workbook.getSheetAt(0);
+                DataFormatter dataFormatter = new DataFormatter();
+                int i = 0;
+                for (Row row : sheet) {
+                    if(i <= 2){
+                        i++;
+                    }else{
+                        String nama = dataFormatter.formatCellValue(row.getCell(1));
+                        String nomor = dataFormatter.formatCellValue(row.getCell(2));
+                        String rtrw = dataFormatter.formatCellValue(row.getCell(3));
+                        String desa = dataFormatter.formatCellValue(row.getCell(4));
+                        String kecamatan = dataFormatter.formatCellValue(row.getCell(5));
+                        String luasLahan = dataFormatter.formatCellValue(row.getCell(6));
+                        String jumlahTanggunganKeluarga = dataFormatter.formatCellValue(row.getCell(7));
+                        String pekerjaan = dataFormatter.formatCellValue(row.getCell(8));
+                        String pendapatan = dataFormatter.formatCellValue(row.getCell(9));
+                        String kesimpulan = dataFormatter.formatCellValue(row.getCell(10));
+                        Statement st;
+                        try {
+                            String query = "INSERT INTO `data_evaluasi` (`data_evaluasi_id`, `nama`, `nomor`, `rt_rw`, `desa`, `kecamatan`, `luas_lahan`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `kesimpulan`) VALUES (NULL, '"+nama+"', '"+nomor+"', '"+rtrw+"', '"+desa+"', '"+kecamatan+"', "+luasLahan+", "+jumlahTanggunganKeluarga+", '"+pekerjaan+"', "+pendapatan+", '"+kesimpulan+"')";
+                            System.out.println(query);
+                            st = dc.con.createStatement();
+                            st.executeUpdate(query);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(EvaluationPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                setTable();
+            } catch (IOException ex) {
+                Logger.getLogger(EvaluationPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (EncryptedDocumentException ex) {
+                Logger.getLogger(EvaluationPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnImportActionPerformed
+
     private void btnProsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProsesActionPerformed
         // TODO add your handling code here:
-        for (String[] data : allData) {
-            String idData = data[0];
-            double luasLahan = Double.parseDouble(data[3]);
-            double tanggungan = Double.parseDouble(data[4]);
-            double pendapatan = Double.parseDouble(data[5]);
-            Fuzzification f = new Fuzzification();
-            double hasil = f.calculation(luasLahan, tanggungan, pendapatan);
-            String layak = hasil > 50 ? "Layak":"Tidak Layak";
-            System.out.println(f.rules[0].luasLahan);
-            try{
-                Statement st = dc.con.createStatement();
-                st.executeUpdate("UPDATE `history` SET `kesimpulan` = '"+layak+"' WHERE `history`.`id` = "+idData);
-                this.setTable();
-            }catch(SQLException e){
-                System.out.println("Error : "+e);
-            }
-        }
+        processData();
+        setTable();
     }//GEN-LAST:event_btnProsesActionPerformed
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        for (String[] data : allData) {
-            String idData = data[0];
-            try{
-                Statement st = dc.con.createStatement();
-                st.executeUpdate("UPDATE `history` SET `kesimpulan` = NULL WHERE `history`.`id` = "+idData);
-                this.setTable();
-            }catch(SQLException e){
-                System.out.println("Error : "+e);
-            }
+        Statement st;
+        try {
+            String query = "truncate data_evaluasi";
+            System.out.println(query);
+            st = dc.con.createStatement();
+            st.executeUpdate(query);
+            setTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(EvaluationPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnResetActionPerformed
-
-    private void tblWargaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblWargaMouseClicked
-        String selId=tblWarga.getValueAt(tblWarga.getSelectedRow(),0).toString();
-        selData=getHistory(allData,Integer.parseInt(selId));
-    }//GEN-LAST:event_tblWargaMouseClicked
-
-    private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCariMouseClicked
-
-    private void txtKeyWordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyWordKeyReleased
-        if(txtKeyWord.getText().equals("")) tblWarga.setRowSorter(null);
-        else{
-            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtKeyWord.getText()));
-            tblWarga.setRowSorter(rowSorter);
-        }
-    }//GEN-LAST:event_txtKeyWordKeyReleased
+    }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
@@ -330,7 +409,7 @@ public class CalculationPanel extends javax.swing.JPanel {
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
         cellTitle.setCellStyle(styleTitle);
-        sheet.addMergedRegion(new CellRangeAddress(0,1,0,10));
+        sheet.addMergedRegion(new CellRangeAddress(0,1,0,11));
         
         Row rowStart = sheet.createRow(2);
         
@@ -375,8 +454,12 @@ public class CalculationPanel extends javax.swing.JPanel {
         cellPenapatan.setCellStyle(headerCellStyle);
         
         Cell cellKesimpulan = rowStart.createCell(10);
-        cellKesimpulan.setCellValue("Keputusan");
+        cellKesimpulan.setCellValue("Kesimpulan");
         cellKesimpulan.setCellStyle(headerCellStyle);
+        
+        Cell cellPrediksiKesimpulan = rowStart.createCell(11);
+        cellPrediksiKesimpulan.setCellValue("Prediksi Kesimpulan");
+        cellPrediksiKesimpulan.setCellStyle(headerCellStyle);
         
         int rownum = 3;
         
@@ -385,48 +468,17 @@ public class CalculationPanel extends javax.swing.JPanel {
         cellStyle.setBorderTop(BorderStyle.THIN);
         cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setBorderLeft(BorderStyle.THIN);
-        Statement st;
-        try {
-            st = dc.con.createStatement();
-        ResultSet rs= st.executeQuery("select * from history");
-        for(int i=0;rs.next();i++){
-            String[] data = new String[11];
-            data[0] = Integer.toString(rownum);
-            data[1] = rs.getString("nama");
-            data[2] = rs.getString("nomor");
-            data[3] = rs.getString("rt_rw");
-            data[4] = rs.getString("desa");
-            data[5] = rs.getString("kecamatan");
-            data[6] = rs.getString("luas_lahan");
-            data[7] = rs.getString("jumlah_tanggungan_keluarga");
-            data[8] = rs.getString("pekerjaan");
-            data[9] = rs.getString("pendapatan");      
-            data[10] = rs.getString("kesimpulan");
+        for (String[] data : allData) {
             Row row = sheet.createRow(rownum);
             int cellnum = 0;
             for (String value : data) {
-                if(cellnum < 11){
+                if(cellnum < 12){
                     Cell cell = row.createCell(cellnum++);
                     cell.setCellValue((String) value);
                     cell.setCellStyle(cellStyle);
                 }
             }
             rownum++;
-        }    
-        } catch (SQLException ex) {
-            Logger.getLogger(CalculationPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        Row footerRow = sheet.createRow(rownum+1);
-        Cell footerCell = footerRow.createCell(10);
-        footerCell.setCellValue("Kepala Desa Kasreman");
-        footerCell.setCellStyle(cellStyle);
-        sheet.addMergedRegion(new CellRangeAddress(rownum+2, rownum+4, 10, 10));
-        for(int i=2; i<=4; i++){
-            Row ttdRow = sheet.createRow(rownum+i);
-            Cell ttdCell = ttdRow.createCell(10);
-            ttdCell.setCellValue(" ");
-            ttdCell.setCellStyle(cellStyle);
         }
         
         JFileChooser chooser = new JFileChooser();
@@ -444,23 +496,50 @@ public class CalculationPanel extends javax.swing.JPanel {
                 // Closing the workbook
                 workbook.close();
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(CalculationPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EvaluationPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(CalculationPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EvaluationPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnCetakActionPerformed
 
+    private void tblEvaluationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEvaluationMouseClicked
+        
+    }//GEN-LAST:event_tblEvaluationMouseClicked
+
+    private void txtCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCariMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariMouseClicked
+
+    private void txtKeyWordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyWordKeyReleased
+        if(txtKeyWord.getText().equals("")) tblEvaluation.setRowSorter(null);
+        else{
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtKeyWord.getText()));
+            tblEvaluation.setRowSorter(rowSorter);
+        }
+    }//GEN-LAST:event_txtKeyWordKeyReleased
+
+    private void txtCari1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCari1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCari1MouseClicked
+
+    private void txtAkurasiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAkurasiKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAkurasiKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCetak;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnProses;
-    private javax.swing.JButton btnReset;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTable tblWarga;
+    private javax.swing.JTable tblEvaluation;
+    private javax.swing.JTextField txtAkurasi;
     private javax.swing.JLabel txtCari;
+    private javax.swing.JLabel txtCari1;
     private javax.swing.JTextField txtKeyWord;
     // End of variables declaration//GEN-END:variables
 }
