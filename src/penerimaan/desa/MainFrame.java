@@ -64,8 +64,9 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         pContent = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MnFile = new javax.swing.JMenu();
@@ -85,44 +86,36 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.CardLayout());
 
         pContent.setBackground(new java.awt.Color(255, 255, 255));
+        pContent.setLayout(null);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
+        pContent.add(jLabel10);
+        jLabel10.setBounds(635, 110, 100, 126);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Sistem Pendukung Keputusan");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Sistem Pendukung Keputusan");
+        pContent.add(jLabel12);
+        jLabel12.setBounds(507, 260, 356, 29);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Penerimaan Bantuan Warga Desa Kasreman");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Penerimaan Bantuan Warga Desa Kasreman");
+        pContent.add(jLabel3);
+        jLabel3.setBounds(423, 300, 524, 29);
 
-        javax.swing.GroupLayout pContentLayout = new javax.swing.GroupLayout(pContent);
-        pContent.setLayout(pContentLayout);
-        pContentLayout.setHorizontalGroup(
-            pContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pContentLayout.createSequentialGroup()
-                .addContainerGap(185, Short.MAX_VALUE)
-                .addGroup(pContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel1))
-                .addContainerGap(200, Short.MAX_VALUE))
-        );
-        pContentLayout.setVerticalGroup(
-            pContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pContentLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(285, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/bg-1.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMinimumSize(new java.awt.Dimension(1370, 750));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1370, 750));
+        pContent.add(jLabel1);
+        jLabel1.setBounds(0, 0, 1370, 750);
 
         getContentPane().add(pContent, "card2");
+
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(246, 20));
 
         MnFile.setText("File");
 
@@ -346,8 +339,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu MnTransaksi;
     private javax.swing.JMenuItem MnWarga;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel pContent;
     // End of variables declaration//GEN-END:variables

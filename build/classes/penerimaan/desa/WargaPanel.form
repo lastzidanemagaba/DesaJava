@@ -344,10 +344,28 @@
     <Component class="javax.swing.JComboBox" name="cbxPekerjaan">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Buruh"/>
-            <StringItem index="1" value="Petani"/>
-            <StringItem index="2" value="Wiraswasta"/>
+          <StringArray count="21">
+            <StringItem index="0" value="Pertanian Tanaman Padi dan Palawija"/>
+            <StringItem index="1" value="Hortikultural"/>
+            <StringItem index="2" value="Perkebunan"/>
+            <StringItem index="3" value="Perikanan Tangkap"/>
+            <StringItem index="4" value="Perikanan Budi Daya"/>
+            <StringItem index="5" value="Pertenakan"/>
+            <StringItem index="6" value="Kehutanan dan Pertanian lainnya"/>
+            <StringItem index="7" value="Pertambangan atau Penggalian"/>
+            <StringItem index="8" value="Industri Pengolahan"/>
+            <StringItem index="9" value="Listrik dan Gas"/>
+            <StringItem index="10" value="Bangunan/Konstruksi"/>
+            <StringItem index="11" value="Perdagangan"/>
+            <StringItem index="12" value="Hotel dan Rumah Makan"/>
+            <StringItem index="13" value="Transportasi dan Pergudangan"/>
+            <StringItem index="14" value="Informasi dan Komunikasi"/>
+            <StringItem index="15" value="Keuangan dan Asuransi"/>
+            <StringItem index="16" value="Jasa Pendidikan"/>
+            <StringItem index="17" value="Jasa Kesehatan"/>
+            <StringItem index="18" value="Jasa Kemasyarakatan, Pemerintah, dan Perorangan"/>
+            <StringItem index="19" value="Pemulung"/>
+            <StringItem index="20" value="Lainnya"/>
           </StringArray>
         </Property>
       </Properties>

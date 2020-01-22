@@ -81,7 +81,7 @@ public class SimulationPanel extends javax.swing.JPanel {
         model.addColumn ("Rule");
         model.addColumn ("Luas Lahan");
         model.addColumn ("Jumlah Tanggungan Keluarga");
-        model.addColumn ("Pekerjaan");
+        model.addColumn ("Pendapatan");
         model.addColumn ("Nilai Min");
     }
     public void setColumnModel(TableColumnModel columnModel){        

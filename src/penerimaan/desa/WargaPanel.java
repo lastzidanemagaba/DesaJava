@@ -303,7 +303,7 @@ public class WargaPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Pekerjaan");
 
-        cbxPekerjaan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buruh", "Petani", "Wiraswasta" }));
+        cbxPekerjaan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pertanian Tanaman Padi dan Palawija", "Hortikultural", "Perkebunan", "Perikanan Tangkap", "Perikanan Budi Daya", "Pertenakan", "Kehutanan dan Pertanian lainnya", "Pertambangan atau Penggalian", "Industri Pengolahan", "Listrik dan Gas", "Bangunan/Konstruksi", "Perdagangan", "Hotel dan Rumah Makan", "Transportasi dan Pergudangan", "Informasi dan Komunikasi", "Keuangan dan Asuransi", "Jasa Pendidikan", "Jasa Kesehatan", "Jasa Kemasyarakatan, Pemerintah, dan Perorangan", "Pemulung", "Lainnya" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Pendapatan");
