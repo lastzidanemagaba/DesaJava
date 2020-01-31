@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 CREATE DATABASE `penerimaan_desa`;
-
 --
 -- Database: `penerimaan_desa`
 --
@@ -69,8 +68,17 @@ CREATE TABLE `history` (
   `jumlah_tanggungan_keluarga` double NOT NULL,
   `pekerjaan` varchar(255) NOT NULL,
   `pendapatan` double NOT NULL,
+  `bobot_kesimpulan` double NOT NULL DEFAULT 0,
   `kesimpulan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `history`
+--
+
+INSERT INTO `history` (`id`, `nama`, `nomor`, `kecamatan`, `desa`, `rt_rw`, `luas_lahan`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `bobot_kesimpulan`, `kesimpulan`) VALUES
+(23, 'huhu', 'dddd', 'asdsa', '1', '1', 200, 2, 'Pertanian Tanaman Padi dan Palawija', 1, 100, 'Layak'),
+(24, 'huhua', 'dddd', 'asdsa', '1', '1', 200, 1, 'Pertanian Tanaman Padi dan Palawija', 3000000, 0, 'Tidak Layak');
 
 -- --------------------------------------------------------
 
@@ -85,6 +93,15 @@ CREATE TABLE `rule` (
   `tanggungan` varchar(255) NOT NULL,
   `keputusan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `rule`
+--
+
+INSERT INTO `rule` (`id`, `luas_lahan`, `pendapatan`, `tanggungan`, `keputusan`) VALUES
+(4, 'Rendah', 'Rendah', 'Rendah', 'Layak'),
+(5, 'Tinggi', 'Tinggi', 'Tinggi', 'Layak'),
+(6, 'Rendah', 'Tinggi', 'Sedang', 'Tidak Layak');
 
 -- --------------------------------------------------------
 
@@ -148,13 +165,13 @@ ALTER TABLE `data_evaluasi`
 -- AUTO_INCREMENT untuk tabel `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `rule`
 --
 ALTER TABLE `rule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

@@ -144,9 +144,6 @@ public class Fuzzification {
         }
     }
     
-    public double getFuzzyRumah(String label, String value){
-        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
-    }
     
     public double getFuzzyLuasLahan(String label, double value){
         FuzzyValue found = new FuzzyValue("", new double[]{0}, new int[]{0});
@@ -160,17 +157,6 @@ public class Fuzzification {
         return found.convertValue(value);
     }
     
-    public double getFuzzyPekerjaan(String label, String value){
-        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
-    }
-    
-    public double getFuzzyTabungan(String label, String value){
-        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
-    }
-    
-    public double getFuzzyKendaraan(String label, String value){
-        return label.toLowerCase().equals(value.toLowerCase()) ? 1:0;
-    }
     
     public double getFuzzyJumlahTanggungan(String label, double value){
         FuzzyValue found = new FuzzyValue("", new double[]{0}, new int[]{0});

@@ -16,10 +16,10 @@ public class MainFrame extends javax.swing.JFrame {
     private UserPanel userPanel = new UserPanel();
     private WargaPanel wargaPanel = new WargaPanel();
     private RulePanel rulePanel = new RulePanel();
-    private CalculationPanel calculationPanel = new CalculationPanel();
+    private KeputusanPanel keputusanPanel = new KeputusanPanel();
     private ProfilPanel profilPanel = new ProfilPanel();
-    private SimulationPanel simulationPanel = new SimulationPanel();
-    private EvaluationPanel evaluationPanel = new EvaluationPanel();
+    private PerhitunganPanel perhitunganPanel = new PerhitunganPanel();
+    private PengujianPanel pengujianPanel = new PengujianPanel();
 
     /**
      * Creates new form MainFrame
@@ -35,10 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
         this.add(userPanel);
         this.add(wargaPanel);
         this.add(rulePanel);
-        this.add(calculationPanel);
+        this.add(keputusanPanel);
         this.add(profilPanel);
-        this.add(simulationPanel);
-        this.add(evaluationPanel);
+        this.add(perhitunganPanel);
+        this.add(pengujianPanel);
     }
     
     private void clearAllContent(){
@@ -48,10 +48,10 @@ public class MainFrame extends javax.swing.JFrame {
         wargaPanel.cleanAction();
         wargaPanel.setVisible(false);
         rulePanel.setVisible(false);
-        calculationPanel.setVisible(false);
+        keputusanPanel.setVisible(false);
         profilPanel.setVisible(false);
-        simulationPanel.setVisible(false);
-        evaluationPanel.setVisible(false);
+        perhitunganPanel.setVisible(false);
+        pengujianPanel.setVisible(false);
     }
 
     /**
@@ -244,8 +244,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void MnKeputusanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKeputusanActionPerformed
         // TODO add your handling code here:
         this.clearAllContent();
-        this.calculationPanel.setTable();
-        this.calculationPanel.setVisible(true);
+        this.keputusanPanel.setTable();
+        this.keputusanPanel.setVisible(true);
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_MnKeputusanActionPerformed
@@ -257,8 +257,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void MnPerhitunganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPerhitunganActionPerformed
         // TODO add your handling code here:
         this.clearAllContent();
-        this.simulationPanel.getData();
-        this.simulationPanel.setVisible(true);
+        this.perhitunganPanel.getData();
+        this.perhitunganPanel.setVisible(true);
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_MnPerhitunganActionPerformed
@@ -266,8 +266,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void MnPengujianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPengujianActionPerformed
         // TODO add your handling code here:
         this.clearAllContent();
-        this.evaluationPanel.setTable();
-        this.evaluationPanel.setVisible(true);
+        this.pengujianPanel.setTable();
+        this.pengujianPanel.setVisible(true);
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_MnPengujianActionPerformed
