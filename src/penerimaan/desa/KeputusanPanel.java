@@ -55,7 +55,7 @@ public class KeputusanPanel extends javax.swing.JPanel {
         String[][] member;
         try{
             Statement st = dc.con.createStatement();
-            ResultSet rs=st.executeQuery("SELECT * FROM `history` ORDER BY bobot_kesimpulan");
+            ResultSet rs=st.executeQuery("SELECT * FROM `history` ORDER BY bobot_kesimpulan DESC");
             allData =new String[countRowRs(rs)][8];
             for(int i=0;rs.next();i++){
                 allData[i][0]=rs.getString("id");
