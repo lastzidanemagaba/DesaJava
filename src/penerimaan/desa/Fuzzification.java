@@ -118,8 +118,8 @@ public class Fuzzification {
         fuzzyPendapatan[2] = new FuzzyValue("tinggi", new double[]{2750000,3000000}, new int[]{0,1});
         
         fuzzyConclusion = new FuzzyValue[2];
-        fuzzyConclusion[0] = new FuzzyValue("Tidak Layak", new double[]{0,100}, new int[]{1,0});
-        fuzzyConclusion[1] = new FuzzyValue("Layak", new double[]{0,100}, new int[]{0,1});
+        fuzzyConclusion[0] = new FuzzyValue("Tidak Layak", new double[]{50,60}, new int[]{1,0});
+        fuzzyConclusion[1] = new FuzzyValue("Layak", new double[]{50,60}, new int[]{0,1});
     }
     
     
@@ -174,6 +174,17 @@ public class Fuzzification {
         for (FuzzyValue fuzzyPendapatan1 : fuzzyPendapatan) {
             if (fuzzyPendapatan1.label.toLowerCase().equals(label.toLowerCase())) {
                 found = fuzzyPendapatan1;
+                break;
+            }
+        }
+        return found.convertValue(value);
+    }
+    
+    public double getFuzzyConclusion(String label, double value){
+        FuzzyValue found = new FuzzyValue("", new double[]{0}, new int[]{0});
+        for (FuzzyValue fuzzyConclusion1 : fuzzyConclusion) {
+            if (fuzzyConclusion1.label.toLowerCase().equals(label.toLowerCase())) {
+                found = fuzzyConclusion1;
                 break;
             }
         }

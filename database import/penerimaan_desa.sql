@@ -72,14 +72,6 @@ CREATE TABLE `history` (
   `kesimpulan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `history`
---
-
-INSERT INTO `history` (`id`, `nama`, `nomor`, `kecamatan`, `desa`, `rt_rw`, `luas_lahan`, `jumlah_tanggungan_keluarga`, `pekerjaan`, `pendapatan`, `bobot_kesimpulan`, `kesimpulan`) VALUES
-(23, 'huhu', 'dddd', 'asdsa', '1', '1', 200, 2, 'Pertanian Tanaman Padi dan Palawija', 1, 100, 'Layak'),
-(24, 'huhua', 'dddd', 'asdsa', '1', '1', 200, 1, 'Pertanian Tanaman Padi dan Palawija', 3000000, 0, 'Tidak Layak');
-
 -- --------------------------------------------------------
 
 --
@@ -93,15 +85,6 @@ CREATE TABLE `rule` (
   `tanggungan` varchar(255) NOT NULL,
   `keputusan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `rule`
---
-
-INSERT INTO `rule` (`id`, `luas_lahan`, `pendapatan`, `tanggungan`, `keputusan`) VALUES
-(4, 'Rendah', 'Rendah', 'Rendah', 'Layak'),
-(5, 'Tinggi', 'Tinggi', 'Tinggi', 'Layak'),
-(6, 'Rendah', 'Tinggi', 'Sedang', 'Tidak Layak');
 
 -- --------------------------------------------------------
 

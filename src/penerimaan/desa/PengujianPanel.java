@@ -85,10 +85,17 @@ public class PengujianPanel extends javax.swing.JPanel {
         double right =0 ;
         for (String[] data : allData) {
             double hasil = f.calculation(Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[9]));
-            String layak = hasil > 50 ? "Layak":"Tidak Layak";
-            if(layak.toLowerCase().equals(data[10].toLowerCase())) right = right+1;
+            double fuzzyTidakLayak = f.getFuzzyConclusion("Tidak Layak", hasil);
+            double fuzzyLayak = f.getFuzzyConclusion("Layak", hasil);
+            String kesimpulan = "";
+            if(fuzzyLayak >= fuzzyTidakLayak){
+                kesimpulan = "Layak";
+            }else{
+                kesimpulan = "Tidak Layak";
+            }
+            if(kesimpulan.toLowerCase().equals(data[10].toLowerCase())) right = right+1;
             try {
-                String query = "UPDATE `data_evaluasi` SET `prediksi_kesimpulan`='"+layak+"' WHERE data_evaluasi_id="+data[0];
+                String query = "UPDATE `data_evaluasi` SET `prediksi_kesimpulan`='"+kesimpulan+"' WHERE data_evaluasi_id="+data[0];
                 System.out.println(query);
                 st = dc.con.createStatement();
                 st.executeUpdate(query);

@@ -258,10 +258,17 @@ public class KeputusanPanel extends javax.swing.JPanel {
             double pendapatan = Double.parseDouble(data[5]);
             Fuzzification f = new Fuzzification();
             double hasil = f.calculation(luasLahan, tanggungan, pendapatan);
-            String layak = hasil > 50 ? "Layak":"Tidak Layak";
+            double fuzzyTidakLayak = f.getFuzzyConclusion("Tidak Layak", hasil);
+            double fuzzyLayak = f.getFuzzyConclusion("Layak", hasil);
+            String kesimpulan = "";
+            if(fuzzyLayak >= fuzzyTidakLayak){
+                kesimpulan = "Layak";
+            }else{
+                kesimpulan = "Tidak Layak";
+            }
             try{
                 Statement st = dc.con.createStatement();
-                st.executeUpdate("UPDATE `history` SET `bobot_kesimpulan` = "+hasil+", `kesimpulan` = '"+layak+"' WHERE `history`.`id` = "+idData);
+                st.executeUpdate("UPDATE `history` SET `bobot_kesimpulan` = "+hasil+", `kesimpulan` = '"+kesimpulan+"' WHERE `history`.`id` = "+idData);
                 this.setTable();
             }catch(SQLException e){
                 System.out.println("Error : "+e);
