@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="library">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/library/jfreechart-1.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jgraphx.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/mysql-connector-java-8.0.18.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

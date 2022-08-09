@@ -124,10 +124,10 @@ public class HomePanel extends javax.swing.JPanel {
         lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
         add(lblLogo1);
-        lblLogo1.setBounds(20, 10, 100, 126);
+        lblLogo1.setBounds(20, 10, 127, 163);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel6.setText("Kantor Kepala Desa Kasreman");
+        jLabel6.setText("Kantor Kepala Desa Sukorejo");
         add(jLabel6);
         jLabel6.setBounds(130, 10, 510, 100);
         add(txtLuasLahan);

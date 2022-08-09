@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Penerimaan_Desa">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/Penerimaan_Desa.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

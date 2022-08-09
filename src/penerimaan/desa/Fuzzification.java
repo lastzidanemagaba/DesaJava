@@ -114,7 +114,7 @@ public class Fuzzification {
         
         fuzzyPendapatan = new FuzzyValue[3];
         fuzzyPendapatan[0] = new FuzzyValue("rendah", new double[]{2000000,2250000}, new int[]{1,0});
-        fuzzyPendapatan[1] = new FuzzyValue("sedang", new double[]{2000000,2250000,2750000,3000000}, new int[]{0,1,1,0});
+        fuzzyPendapatan[1] = new FuzzyValue("sedang", new double[]{2000000, 2250000,2750000,3000000}, new int[]{1,0,1});
         fuzzyPendapatan[2] = new FuzzyValue("tinggi", new double[]{2750000,3000000}, new int[]{0,1});
         
         fuzzyConclusion = new FuzzyValue[2];

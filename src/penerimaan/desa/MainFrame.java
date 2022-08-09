@@ -64,10 +64,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         pContent = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MnFile = new javax.swing.JMenu();
         MnLogout = new javax.swing.JMenuItem();
@@ -88,12 +88,6 @@ public class MainFrame extends javax.swing.JFrame {
         pContent.setBackground(new java.awt.Color(255, 255, 255));
         pContent.setLayout(null);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
-        pContent.add(jLabel10);
-        jLabel10.setBounds(635, 110, 100, 126);
-
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Sistem Pendukung Keputusan");
@@ -102,16 +96,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Penerimaan Bantuan Warga Desa Kasreman");
+        jLabel3.setText("Penerimaan Bantuan Pangan Non Tunai Warga Desa Sukorejo");
         pContent.add(jLabel3);
-        jLabel3.setBounds(423, 300, 524, 29);
+        jLabel3.setBounds(210, 299, 950, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/bg-1.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setMinimumSize(new java.awt.Dimension(1370, 750));
         jLabel1.setPreferredSize(new java.awt.Dimension(1370, 750));
         pContent.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1370, 750);
+        jLabel1.setBounds(0, -220, 1370, 1010);
+
+        jLabel2.setText("jLabel2");
+        pContent.add(jLabel2);
+        jLabel2.setBounds(510, 350, 34, 14);
 
         getContentPane().add(pContent, "card2");
 
@@ -339,8 +337,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu MnTransaksi;
     private javax.swing.JMenuItem MnWarga;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel pContent;

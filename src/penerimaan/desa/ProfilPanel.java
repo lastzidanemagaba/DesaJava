@@ -41,23 +41,25 @@ public class ProfilPanel extends javax.swing.JPanel {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/LogoDesa.jpg"))); // NOI18N
         add(jLabel9);
-        jLabel9.setBounds(340, 30, 160, 140);
+        jLabel9.setBounds(300, 10, 160, 170);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Babat Bumi Kasreman");
+        jLabel10.setText("Babat Bumi Sukorejo");
         add(jLabel10);
-        jLabel10.setBounds(590, 130, 190, 50);
+        jLabel10.setBounds(630, 130, 170, 50);
+        jLabel10.getAccessibleContext().setAccessibleName("Babat Bumi Sukorejo, Gunung Pati");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("Sejarah Desa");
+        jLabel11.setText("Sejarah Desa Sukorejo, Gunung Pati");
         add(jLabel11);
-        jLabel11.setBounds(500, 60, 190, 50);
+        jLabel11.setBounds(500, 60, 440, 50);
+        jLabel11.getAccessibleContext().setAccessibleName("Sejarah Desa Sukorejo Gunung Pati");
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextPane1.setText("\tPada zaman dahulu, kurang lebih delapan ratus tahun yang lalu ada seorang wanita pendatang dari Kamboja yang bernama Nio Gambo. Dia bertempat tinggal di Desa Kasreman yang saat itu belum berwujud sebuah desa, melainkan masih berupa hutan. Untuk memperluas wilayahnya Nio Gambo membuka lahan tersebut tanpa menggunakan alat. Nio  Gambo membuka hutan tersebut dengan cara membakarnya. Sehingga didapatkan lahan yang luas dan lebih cepat. Nio Gambo yang sekarang lebih terkenal dengan nama “Mbah Gambir” , kemudia lahan yang telah dibakar tersebut diberi nama Kasreman yang artinya “Mbuka Muser Tanpa Gaman”.\n\n\tSetelah menjadi sebuah desa, Nio Gambo menikah dengan Kitoyo dari Jawa Barat. Menginjak usia senja Kitoyo dan Nio Gambo tidak ada kecocokan dalam berumah tangga. Akhirnya mereka berpisah, Kitoyo bertempat tinggal di Kasreman Lor sedangkan Nio Gambo bertempat tinggal di Kasreman Kidul. Semenjak terjadinya kejadin tersebut desa Kasreman pecah menjadi dua yaitu Kasreman Lor dan Kasreman Kidul. Itulah sebabnya warga Kasreman Lor dan Kasreman Kidul sering terjadi pertengkaran dan keributan.\n\n\tDesa Kasreman Lor pernah dijadikan kademangan dan ini terbukti masih ada petilasan makam Demang dan keturunannya. Pada kurang lebih 1100 th desa Kasreman bergabung menjadi satu lagi yaitu Desa Kasreman yang dipimpin oleh seorang Kepala Desa.\n\n\tMenurut para sumber, desa Kasreman termasuk desa terluas kedua di Kecamatan Rembang setelah desa Waru yaitu dengan luas 604,135 Ha. Dengan jumlah penduduk saat ini 3056 jiwa. Demikian cerita singkat asal-usul desa Kasreman.");
+        jTextPane1.setText("             Konon menurut cerita, asal usul nama Desa Sukorejo berasal dari dua kata, yaitu Sukodan dan Rejo. Kata Sukodan memiliki makna senang, gembira atau bahagia sedangkan kata Rejo berarti Rejeh atau melimpah rejekinya. Berdasarkan dua makna tersebut, nama Sukorejo berusaha untuk menggambarkan bahwa masyarakat desa itu merupakan manusia yang senang, gembira dengan rejeki yang melimpah (rejeh), tetapi tidak melalaikan kewajiban kepada Allah SWT dalam melaksanakan perintah agama (ibadah) dan menjauhi larangan yang telah digariskan oleh agama.\n             \n             Desa Sukorejo sebagai satu-satunya desa yang terletak paling selatan merupakan desa yang kharismatik dan unik. Sejarah berdirinya Desa Sukorejo hingga kini masih misterius; tidak seorang pun mengetahuinya secara lengkap. Sejarah nama Desa Sukorejo hanya terdengar sepintas dari mulut ke mulut, yaitu kemungkinan ada sangkut pautnya dengan nama “Sukorejo” yang menggambarkan masyarakat makmur, gemah ripah loh jinawi toto tenterem kerto raharjo.              \n            \n             Masyarakat desa setempat atau tetangga desa bahkan lebih mengenal Desa Sukorejo dengan nama Arjosari. Nama Arjosari jauh lebih melekat dalam sanubari masyarakat setempat. Oleh karena itu gambaran yang ada di dalam masyarakat merupakan cerminan yang muncul bahwa masyarakat Sukorejo adalah masyarakat yang periang gembira, senang, ramah, rejo, dan rejeki dalam kehidupannya.");
         jScrollPane2.setViewportView(jTextPane1);
 
         add(jScrollPane2);
@@ -66,7 +68,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penerimaan/desa/image/bg-1.jpg"))); // NOI18N
         add(jLabel1);
-        jLabel1.setBounds(0, 0, 1366, 768);
+        jLabel1.setBounds(0, -90, 1369, 950);
     }// </editor-fold>//GEN-END:initComponents
 
 
